@@ -5,25 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cris Deguste - Confeitaria</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Header (Fundo Rosa) -->
-    <header class="header section-pink">
+    <!-- Header Fixo (Marrom) -->
+    <header class="header">
         <div class="logo">Cris Deguste</div>
-        <div class="menu-icon">&#9776;</div>
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#sobre">Sobre Nós</a></li>
+                <li><a href="#cardapio">Cardápio</a></li>
+                <li><a href="#encomendas">Encomendas</a></li>
+                <li><a href="#avaliacoes">Avaliações</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+        <div class="menu-icon" id="menu-icon">&#9776;</div>
     </header>
 
-    <!-- Hero Section (Fundo Rosa) -->
-    <section class="hero section-pink">
+    <!-- Hero Section -->
+    <section class="hero section-pink" id="inicio">
         <div class="hero-text">
             <h2>Bem-vindo à</h2>
             <h1>Cris Deguste</h1>
             <p>Confeitaria Tradicional e Inclusiva. O sabor perfeito para o seu momento especial.</p>
             <div class="buttons">
-                <button class="btn-primary">Faça seu Pedido</button>
-                <button class="btn-outline">Ver Cardápio</button>
+                <a href="#cardapio" class="btn-primary">Ver Cardápio</a>
+                <a href="#contato" class="btn-outline">Faça seu Pedido</a>
             </div>
         </div>
         <div class="hero-image">
@@ -31,34 +42,34 @@
         </div>
     </section>
 
-    <!-- Categories (Fundo Rosa) -->
-    <section class="categories section-pink">
+    <!-- Categories -->
+    <section class="categories section-pink" id="cardapio">
         <div class="cat-card cream">
             <h3>Tradicionais</h3>
-            <button class="btn-primary btn-small">Pedir</button>
+            <a href="#encomendas" class="btn-primary btn-small">Pedir</a>
             <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&q=80" alt="Bolo Tradicional">
         </div>
         <div class="cat-card brown">
             <h3>Inclusivos</h3>
-            <button class="btn-outline-light btn-small">Pedir</button>
+            <a href="#encomendas" class="btn-outline-light btn-small">Pedir</a>
             <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?w=300&q=80" alt="Doces Zero">
         </div>
         <div class="cat-card cream">
             <h3>Sobremesas</h3>
-            <button class="btn-primary btn-small">Pedir</button>
+            <a href="#encomendas" class="btn-primary btn-small">Pedir</a>
             <img src="https://images.unsplash.com/photo-1495147466023-af5c19cb3738?w=300&q=80" alt="Sobremesas">
         </div>
     </section>
 
     <!-- ONDA 1: Rosa para Creme -->
-    <div class="wave" style="background-color: #ffb6c1;">
+    <div class="wave" style="background-color: var(--color-pink);">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
-            <path fill="#fffaf0" d="M0,64 C480,150 960,-20 1440,64 L1440,120 L0,120 Z"></path>
+            <path fill="var(--color-cream)" d="M0,64 C480,150 960,-20 1440,64 L1440,120 L0,120 Z"></path>
         </svg>
     </div>
 
-    <!-- Favorites Carousel (Fundo Creme) -->
-    <section class="favorites section-cream text-center">
+    <!-- Favorites Carousel -->
+    <section class="favorites section-cream text-center" id="encomendas">
         <p class="subtitle">Nossos Destaques</p>
         <h2>Escolha seus Favoritos</h2>
         <div class="carousel-wrapper">
@@ -82,109 +93,137 @@
             </div>
             <button class="nav-btn next">&#10095;</button>
         </div>
-        <button class="btn-primary mt-2">Fazer Encomenda</button>
+        <a href="#contato" class="btn-primary mt-2">Fazer Encomenda</a>
     </section>
 
     <!-- ONDA 2: Creme para Rosa -->
-    <div class="wave" style="background-color: #fffaf0;">
+    <div class="wave" style="background-color: var(--color-cream);">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
-            <path fill="#ffb6c1" d="M0,64 C480,-20 960,150 1440,64 L1440,120 L0,120 Z"></path>
+            <path fill="var(--color-pink)" d="M0,64 C480,-20 960,150 1440,64 L1440,120 L0,120 Z"></path>
         </svg>
     </div>
 
-    <!-- Organic Feature (Fundo Rosa) -->
-    <section class="organic feature-split section-pink">
+    <!-- Organic Feature -->
+    <section class="organic feature-split section-pink" id="sobre">
         <div class="img-container">
             <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=500&q=80" alt="Preparo de massas">
         </div>
         <div class="text-container">
-            <p class="subtitle">Feito com Amor</p>
-            <h2>Ingredientes Selecionados</h2>
+            <p class="subtitle">Nossa História</p>
+            <h2>Feito com Amor pela Cris</h2>
+            <p style="margin-bottom: 20px; color: var(--color-brown-dark);">A Cris Deguste nasceu da paixão por transformar momentos especiais em memórias inesquecíveis através do sabor. Nossa missão é oferecer doces que abraçam a todos.</p>
             <ul>
                 <li>Opções Zero Açúcar e Sem Glúten</li>
                 <li>Ingredientes frescos e de qualidade</li>
-                <li>Preparo artesanal e cuidadoso</li>
-                <li>Receitas exclusivas de família</li>
+                <li>Preparo 100% artesanal e cuidadoso</li>
             </ul>
         </div>
     </section>
 
-    <!-- Promo Banners (Fundo Rosa) -->
-    <section class="promo-banners section-pink">
-        <div class="banner brown-banner">
-            <h3>Sua festa merece o melhor sabor!</h3>
-            <button class="btn-outline-light">Encomendar</button>
-        </div>
-        <div class="banner cream-banner">
-            <h3>Conheça nossa linha inclusiva</h3>
-            <button class="btn-primary">Ver Opções</button>
-        </div>
-    </section>
-
     <!-- ONDA 3: Rosa para Creme -->
-    <div class="wave" style="background-color: #ffb6c1;">
+    <div class="wave" style="background-color: var(--color-pink);">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
-            <path fill="#fffaf0" d="M0,64 C480,150 960,-20 1440,64 L1440,120 L0,120 Z"></path>
+            <path fill="var(--color-cream)" d="M0,64 C480,150 960,-20 1440,64 L1440,120 L0,120 Z"></path>
         </svg>
     </div>
 
-    <!-- Our Story (Fundo Creme) -->
-    <section class="our-story text-center section-cream">
-        <p class="subtitle">Nossa História</p>
-        <h2>A Cris Deguste</h2>
-        <p class="desc">Nasceu da paixão por transformar momentos especiais em memórias inesquecíveis através do sabor. Nossa missão é oferecer doces e bolos que abraçam todos os paladares.</p>
-        <div class="stats-grid">
-            <div class="stat"><h3>100%</h3><p>Artesanal</p></div>
-            <div class="stat"><h3>+50</h3><p>Opções no Cardápio</p></div>
-            <div class="stat"><h3>♥</h3><p>Feito com Amor</p></div>
+    <!-- FAQ Section -->
+    <section class="faq section-cream" id="faq">
+        <div class="text-center">
+            <p class="subtitle">Dúvidas?</p>
+            <h2>Perguntas Frequentes</h2>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question">Qual a antecedência mínima para encomendas?</button>
+                <div class="faq-answer"><p>Pedimos uma antecedência mínima de 3 dias úteis para bolos personalizados e 2 dias para caixas de doces padrão.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Vocês fazem entregas?</button>
+                <div class="faq-answer"><p>Sim, realizamos entregas mediante taxa calculada pela distância. Você também pode retirar o pedido diretamente no nosso ateliê.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Os doces inclusivos têm risco de contaminação cruzada?</button>
+                <div class="faq-answer"><p>Temos um rigoroso controle de higiene. Nossas opções Zero Açúcar são feitas com utensílios higienizados, mas para alérgicos severos a glúten (Celíacos), informamos que pode haver traços devido ao ambiente compartilhado.</p></div>
+            </div>
         </div>
     </section>
 
     <!-- ONDA 4: Creme para Rosa -->
-    <div class="wave" style="background-color: #fffaf0;">
+    <div class="wave" style="background-color: var(--color-cream);">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
-            <path fill="#ffb6c1" d="M0,64 C480,-20 960,150 1440,64 L1440,120 L0,120 Z"></path>
+            <path fill="var(--color-pink)" d="M0,64 C480,-20 960,150 1440,64 L1440,120 L0,120 Z"></path>
         </svg>
     </div>
 
-    <!-- Gallery (Fundo Rosa) -->
-    <section class="gallery text-center section-pink">
-        <p class="subtitle">Galeria</p>
-        <h2>Nossas Delícias</h2>
-        <p class="desc">Cada doce é uma obra de arte feita para você!</p>
-        <div class="gallery-grid">
-            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&q=80" alt="Galeria 1">
-            <img src="https://images.unsplash.com/photo-1605807646983-377bc5a76493?w=300&q=80" alt="Galeria 2">
-            <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?w=300&q=80" alt="Galeria 3">
-            <img src="https://images.unsplash.com/photo-1495147466023-af5c19cb3738?w=300&q=80" alt="Galeria 4">
+    <!-- Avaliações Section -->
+    <section class="avaliacoes section-pink" id="avaliacoes">
+        <div class="text-center">
+            <p class="subtitle">Comentários</p>
+            <h2>O Que Nossos Clientes Dizem</h2>
+        </div>
+        
+        <!-- Área onde os comentários vão aparecer -->
+        <div class="reviews-list" id="reviews-list">
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"Melhor bolo da vida! Encomendei para o aniversário da minha filha e todos amaram."</p>
+                <p class="review-author">- Maria Silva</p>
+            </div>
+        </div>
+
+        <!-- Formulário para publicar review -->
+        <div class="review-form-container">
+            <h3>Deixe sua avaliação</h3>
+            <form id="review-form">
+                <input type="text" id="rev-name" placeholder="Seu Nome" required>
+                
+                <div class="star-rating-input" id="star-rating-input">
+                    <span data-val="1">★</span><span data-val="2">★</span><span data-val="3">★</span><span data-val="4">★</span><span data-val="5">★</span>
+                </div>
+                <input type="hidden" id="rev-rating" value="5">
+
+                <textarea id="rev-text" rows="4" placeholder="Escreva sobre sua experiência com nossos doces..." required></textarea>
+                
+                <div class="file-upload">
+                    <label for="rev-file">Anexar Foto/Vídeo (Opcional):</label>
+                    <input type="file" id="rev-file" accept="image/*,video/*">
+                </div>
+
+                <button type="submit" class="btn-primary mt-2">Publicar Avaliação</button>
+            </form>
         </div>
     </section>
 
     <!-- ONDA 5: Rosa para Marrom (Footer) -->
-    <div class="wave" style="background-color: #ffb6c1;">
+    <div class="wave" style="background-color: var(--color-pink);">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none">
-            <path fill="#5c3522" d="M0,40 C480,80 960,0 1440,40 L1440,80 L0,80 Z"></path>
+            <path fill="var(--color-brown)" d="M0,40 C480,80 960,0 1440,40 L1440,80 L0,80 Z"></path>
         </svg>
     </div>
 
-    <!-- Footer (Fundo Marrom) -->
-    <footer class="footer">
+    <!-- Footer -->
+    <footer class="footer" id="contato">
         <div class="footer-grid">
             <div class="col">
                 <h3 class="logo-text">Cris Deguste</h3>
                 <p>Confeitaria Tradicional e Inclusiva. O sabor perfeito para a sua comemoração.</p>
-                <div class="socials">
-                    <a href="https://instagram.com/crisdeguste">Instagram: @crisdeguste</a>
-                </div>
             </div>
             <div class="col">
                 <h4>Navegação</h4>
-                <ul><li><a href="#">Sobre nós</a></li><li><a href="#">Cardápio</a></li><li><a href="#">Encomendas</a></li></ul>
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#sobre">Sobre Nós</a></li>
+                    <li><a href="#cardapio">Cardápio</a></li>
+                    <li><a href="#avaliacoes">Avaliações</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
             </div>
             <div class="col">
-                <h4>Contato</h4>
+                <h4>Faça seu Pedido</h4>
                 <p class="phone">WhatsApp:</p>
-                <p class="phone" style="font-size: 1.4rem;">(11) 97092-4433</p>
+                <a href="#" class="phone" style="font-size: 1.4rem; display:block;">(11) 97092-4433</a>
+                <a href="https://instagram.com/crisdeguste" target="_blank" style="margin-top: 15px; display:inline-block; font-weight:bold;">Siga @crisdeguste</a>
             </div>
         </div>
     </footer>
