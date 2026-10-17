@@ -767,3 +767,42 @@ body.modo-escuro {
         height: 40px; 
     }
 }
+
+/* ==========================================================================
+   ESTILOS PARA O FILTRO DE CARDÁPIO (NOVA FUNCIONALIDADE)
+   ========================================================================== */
+.filter-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 2px solid var(--color-brown);
+    color: var(--color-brown);
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.filter-btn:hover, 
+.filter-btn.active {
+    background: var(--color-brown);
+    color: var(--color-cream);
+}
+
+.modo-escuro .filter-btn {
+    border-color: var(--color-pink);
+    color: var(--color-pink);
+}
+
+.modo-escuro .filter-btn:hover, 
+.modo-escuro .filter-btn.active {
+    background: var(--color-pink);
+    color: var(--color-brown-dark);
+}

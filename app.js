@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const faqQuestions = document.querySelectorAll('.faq-question');
     faqQuestions.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Fecha os outros (Opcional, remove se quiser abrir vários ao mesmo tempo)
             faqQuestions.forEach(item => {
                 if (item !== btn) {
                     item.classList.remove('active');
@@ -29,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Abre o clicado
             btn.classList.toggle('active');
             const answer = btn.nextElementSibling;
             if (answer.style.maxHeight) {
@@ -43,12 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- LÓGICA DE AVALIAÇÕES (ESTRELAS E FORMULÁRIO) ---
     const starInput = document.getElementById('star-rating-input');
     const ratingHidden = document.getElementById('rev-rating');
-    let currentRating = 5; // Padrão 5 estrelas
+    let currentRating = 5; 
 
     if(starInput) {
         const stars = starInput.querySelectorAll('span');
         
-        // Pinta estrelas padrão
         const highlightStars = (rating) => {
             stars.forEach(s => {
                 s.style.color = s.getAttribute('data-val') <= rating ? '#f4b63f' : '#ccc';
@@ -72,25 +69,21 @@ document.addEventListener('DOMContentLoaded', () => {
         reviewForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            // Pega os dados do form
             const name = document.getElementById('rev-name').value;
             const text = document.getElementById('rev-text').value;
             const rating = ratingHidden.value;
             const fileInput = document.getElementById('rev-file');
             
-            // Monta as estrelas
             let starsHTML = '';
             for(let i=1; i<=5; i++) {
                 starsHTML += i <= rating ? '★' : '☆';
             }
 
-            // Prepara a imagem/vídeo se houver anexo
             let mediaHTML = '';
             if (fileInput.files && fileInput.files[0]) {
                 const file = fileInput.files[0];
                 const fileURL = URL.createObjectURL(file);
                 
-                // Checa se é imagem ou vídeo
                 if(file.type.startsWith('image/')) {
                     mediaHTML = `<img src="${fileURL}" class="review-media" alt="Foto da avaliação">`;
                 } else if(file.type.startsWith('video/')) {
@@ -98,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Cria o elemento do comentário
             const reviewCard = document.createElement('div');
             reviewCard.classList.add('review-card');
             reviewCard.innerHTML = `
@@ -108,10 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p class="review-author">- ${name}</p>
             `;
 
-            // Adiciona no topo da lista
             reviewsList.prepend(reviewCard);
 
-            // Limpa o formulário e reseta estrelas
             reviewForm.reset();
             currentRating = 5;
             ratingHidden.value = 5;
@@ -127,12 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnTopo = document.getElementById('btn-topo');
 
     if (btnTopo) {
-        // Mostra o botão quando a rolagem passa de 400 pixels
         window.addEventListener('scroll', () => {
             btnTopo.classList.toggle('visivel', window.scrollY > 400);
         });
 
-        // Rola suavemente até o topo ao clicar
         btnTopo.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
@@ -142,19 +130,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnTema = document.getElementById('btn-tema');
 
     if (btnTema) {
-        // Aplica ou remove o tema escuro, troca o ícone e salva a escolha no navegador
         const aplicarTema = (escuro) => {
             document.body.classList.toggle('modo-escuro', escuro);
             btnTema.textContent = escuro ? '☀️' : '🌙';
             localStorage.setItem('cris-tema', escuro ? 'escuro' : 'claro');
         };
 
-        // Recupera o tema salvo na última visita (o padrão é o claro)
         aplicarTema(localStorage.getItem('cris-tema') === 'escuro');
 
-        // Alterna o tema a cada clique no botão
         btnTema.addEventListener('click', () => {
             aplicarTema(!document.body.classList.contains('modo-escuro'));
+        });
+    }
+
+    // --- LÓGICA DO FILTRO DINÂMICO DE CARDÁPIO (NOVA FUNCIONALIDADE) ---
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const menuItems = document.querySelectorAll('.menu-item-card');
+
+    if(filterButtons.length > 0 && menuItems.length > 0) {
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove a classe 'active' de todos os botões
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Adiciona a classe 'active' no botão clicado
+                button.classList.add('active');
+                
+                // Captura a categoria escolhida
+                const targetCategory = button.getAttribute('data-filter');
+
+                // Percorre os itens do cardápio para mostrar ou esconder
+                menuItems.forEach(item => {
+                    const itemCategory = item.getAttribute('data-category');
+                    
+                    if(targetCategory === 'all' || itemCategory === targetCategory) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
         });
     }
 });

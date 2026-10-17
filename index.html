@@ -142,8 +142,16 @@
         <h2>Cardápio Detalhado</h2>
         <p class="desc">Confira nossas opções mais pedidas e os valores base. (Preços sujeitos a alteração conforme personalização).</p>
         
+        <!-- Adição dos Botões de Filtro -->
+        <div class="filter-controls box-model-target" style="border: none;">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="tradicional">Tradicionais</button>
+            <button class="filter-btn" data-filter="inclusivo">Inclusivos</button>
+        </div>
+
         <div class="menu-grid">
-            <div class="menu-item box-model-target">
+            <!-- Adição das classes menu-item-card e data-category em cada item -->
+            <div class="menu-item box-model-target menu-item-card" data-category="tradicional">
                 <div class="menu-item-info">
                     <h4>Bolo Red Velvet</h4>
                     <p>Massa aveludada vermelha com recheio de cream cheese tradicional.</p>
@@ -151,7 +159,7 @@
                 <div class="menu-item-price">A partir de R$ 85,00/kg</div>
             </div>
 
-            <div class="menu-item box-model-target">
+            <div class="menu-item box-model-target menu-item-card" data-category="tradicional">
                 <div class="menu-item-info">
                     <h4>Bolo de Cenoura com Brigadeiro</h4>
                     <p>O clássico com cobertura generosa de brigadeiro belga.</p>
@@ -159,7 +167,7 @@
                 <div class="menu-item-price">A partir de R$ 60,00/kg</div>
             </div>
 
-            <div class="menu-item box-model-target">
+            <div class="menu-item box-model-target menu-item-card" data-category="tradicional">
                 <div class="menu-item-info">
                     <h4>Cento de Docinhos Tradicionais</h4>
                     <p>Brigadeiro, Beijinho, Bicho de pé e Dois Amores.</p>
@@ -167,7 +175,7 @@
                 <div class="menu-item-price">R$ 120,00</div>
             </div>
 
-            <div class="menu-item box-model-target">
+            <div class="menu-item box-model-target menu-item-card" data-category="inclusivo">
                 <div class="menu-item-info">
                     <h4>Torta de Limão (Zero Açúcar)</h4>
                     <p>Massa crocante sem glúten, creme de limão e merengue diet.</p>
@@ -175,7 +183,7 @@
                 <div class="menu-item-price">R$ 90,00 (unidade)</div>
             </div>
 
-            <div class="menu-item box-model-target">
+            <div class="menu-item box-model-target menu-item-card" data-category="tradicional">
                 <div class="menu-item-info">
                     <h4>Brownie Recheado</h4>
                     <p>Brownie úmido com recheio de doce de leite ou creme de avelã.</p>
@@ -183,7 +191,7 @@
                 <div class="menu-item-price">R$ 15,00 (unidade)</div>
             </div>
 
-            <div class="menu-item box-model-target">
+            <div class="menu-item box-model-target menu-item-card" data-category="tradicional">
                 <div class="menu-item-info">
                     <h4>Taça da Felicidade (Família)</h4>
                     <p>Camadas de creme, morangos frescos, bolo e ganache de chocolate.</p>
@@ -191,7 +199,7 @@
                 <div class="menu-item-price">R$ 140,00</div>
             </div>
 
-            <div class="menu-item box-model-target">
+            <div class="menu-item box-model-target menu-item-card" data-category="tradicional">
                 <div class="menu-item-info">
                     <h4>Bolo Vulcão de Ninho</h4>
                     <p>Massa fofinha com cobertura farta de leite ninho trufado.</p>
@@ -199,7 +207,7 @@
                 <div class="menu-item-price">R$ 75,00 (unidade)</div>
             </div>
 
-            <div class="menu-item box-model-target">
+            <div class="menu-item box-model-target menu-item-card" data-category="tradicional">
                 <div class="menu-item-info">
                     <h4>Coxinha de Morango</h4>
                     <p>Morango fresco envolvido em brigadeiro branco cremoso.</p>
