@@ -122,4 +122,19 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Sua avaliação foi publicada com sucesso! Obrigado pelo carinho.');
         });
     }
+
+    // --- LÓGICA DO BOTÃO VOLTAR AO TOPO ---
+    const btnTopo = document.getElementById('btn-topo');
+
+    if (btnTopo) {
+        // Mostra o botão quando a rolagem passa de 400 pixels
+        window.addEventListener('scroll', () => {
+            btnTopo.classList.toggle('visivel', window.scrollY > 400);
+        });
+
+        // Rola suavemente até o topo ao clicar
+        btnTopo.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 });
