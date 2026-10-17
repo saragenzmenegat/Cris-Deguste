@@ -1,17 +1,23 @@
-/* Definição de variáveis globais de cor e tipografia */
+/* ==========================================================================
+   CONFIGURAÇÕES GERAIS E VARIÁVEIS
+   ========================================================================== */
 :root {
     color-scheme: light; 
 
+    /* Paleta de Cores Principal */
     --color-pink: #ffb6c1;       
     --color-cream: #fffaf0;      
     --color-brown: #5c3522;      
     --color-brown-dark: #3a2216; 
     
+    /* Tipografia */
     --font-main: 'Poppins', sans-serif;
     --font-script: 'Great Vibes', cursive;
 }
 
-/* Reset de formatação padrão dos navegadores e box model inicial */
+/* ==========================================================================
+   RESET DE CSS
+   ========================================================================== */
 * { 
     margin: 0; 
     padding: 0; 
@@ -19,10 +25,9 @@
     font-family: var(--font-main); 
 }
 
-/* Comportamento de rolagem suave e compensação da altura do cabeçalho fixo */
 html { 
     scroll-behavior: smooth; 
-    scroll-padding-top: 85px; 
+    scroll-padding-top: 85px; /* Compensa a altura do menu fixo */
 }
 
 body { 
@@ -35,7 +40,7 @@ a {
     text-decoration: none; 
     color: var(--color-brown); 
     font-weight: 600; 
-    transition: 0.3s; 
+    transition: color 0.3s ease; 
 }
 
 ul { 
@@ -47,7 +52,9 @@ img {
     border-radius: 12px; 
 }
 
-/* Classes utilitárias para definição de cor de fundo */
+/* ==========================================================================
+   CLASSES UTILITÁRIAS E LAYOUT BASE
+   ========================================================================== */
 .section-pink { 
     background-color: var(--color-pink); 
 }
@@ -60,7 +67,11 @@ img {
     text-align: center; 
 }
 
-/* Aplicação de propriedades de Box Model em elementos reutilizáveis */
+.mt-2 { 
+    margin-top: 20px; 
+}
+
+/* Aplicação do Box Model exigido na atividade */
 .box-model-target {
     margin: 10px;
     padding: 20px;
@@ -68,7 +79,9 @@ img {
     border-radius: 15px;
 }
 
-/* Estilização de títulos e textos descritivos */
+/* ==========================================================================
+   TIPOGRAFIA
+   ========================================================================== */
 .subtitle { 
     font-family: var(--font-script); 
     font-size: 2.8rem; 
@@ -76,7 +89,10 @@ img {
     margin-bottom: -15px; 
 }
 
-h1, h2, h3, h4 { 
+h1, 
+h2, 
+h3, 
+h4 { 
     color: var(--color-brown); 
     font-weight: 700; 
 }
@@ -93,11 +109,9 @@ h2 {
     font-weight: 500; 
 }
 
-.mt-2 { 
-    margin-top: 20px; 
-}
-
-/* Formatação padronizada para botões e links estilo botão */
+/* ==========================================================================
+   BOTÕES GERAIS
+   ========================================================================== */
 button, 
 .btn-primary, 
 .btn-outline, 
@@ -153,7 +167,9 @@ button,
     font-size: 0.85rem; 
 }
 
-/* Configuração do cabeçalho fixo com uso de Flexbox */
+/* ==========================================================================
+   CABEÇALHO E NAVEGAÇÃO (NAVBAR)
+   ========================================================================== */
 .header { 
     display: flex; 
     justify-content: space-between; 
@@ -173,7 +189,6 @@ button,
     color: var(--color-cream); 
 }
 
-/* Estruturação da navegação horizontal usando propriedades Flex */
 .navbar { 
     display: flex; 
 }
@@ -192,30 +207,29 @@ button,
     color: var(--color-pink); 
 }
 
-/* Grupo de botões do cabeçalho (modo escuro e menu mobile) */
-.header-acoes {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+/* Ações do cabeçalho (Botão de Tema e Menu Mobile) */
+.header-acoes { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
 }
 
-/* Botão redondo que alterna entre modo claro e modo escuro */
 .btn-tema {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
+    width: 40px; 
+    height: 40px; 
+    display: flex; 
+    align-items: center; 
     justify-content: center;
-    background: transparent;
-    border: 2px solid var(--color-cream);
+    background: transparent; 
+    border: 2px solid var(--color-cream); 
     border-radius: 50%;
-    color: var(--color-cream);
-    font-size: 1.1rem;
+    color: var(--color-cream); 
+    font-size: 1.1rem; 
     line-height: 1;
 }
 
-.btn-tema:hover {
-    background: rgba(255, 250, 240, 0.15);
+.btn-tema:hover { 
+    background: rgba(255, 250, 240, 0.15); 
 }
 
 .menu-icon { 
@@ -225,7 +239,9 @@ button,
     display: none; 
 }
 
-/* Seção de apresentação inicial com Flexbox para layout lado a lado */
+/* ==========================================================================
+   SEÇÃO HERO (INÍCIO)
+   ========================================================================== */
 .hero { 
     display: flex; 
     flex-wrap: wrap; 
@@ -261,7 +277,7 @@ button,
 
 .buttons { 
     display: flex; 
-    flex-wrap: wrap;
+    flex-wrap: wrap; 
     gap: 15px; 
 }
 
@@ -271,27 +287,38 @@ button,
     min-width: 300px; 
 }
 
-/* Configuração de contêineres em grid simulado por Flexbox */
-.categories, .valores, .equipe, .menu-list { 
-    padding: 60px 5%;
+/* ==========================================================================
+   SEÇÕES GERAIS E GRIDS (CATEGORIAS E VALORES)
+   ========================================================================== */
+.categories, 
+.valores, 
+.equipe, 
+.menu-list, 
+.contato { 
+    padding: 60px 5%; 
 }
 
-.categories-container, .valores-grid, .equipe-grid, .menu-grid {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+.categories-container, 
+.valores-grid, 
+.equipe-grid, 
+.menu-grid {
+    display: flex; 
+    justify-content: center; 
+    gap: 20px; 
     flex-wrap: wrap;
 }
 
-/* Estilização dos cartões de categoria e membros de equipe */
-.cat-card, .valor-card, .membro-card { 
+/* Cards reutilizáveis */
+.cat-card, 
+.valor-card, 
+.membro-card { 
     display: flex; 
     flex-direction: column; 
     align-items: center; 
     width: 280px; 
     text-align: center; 
     gap: 15px; 
-    background: #fff;
+    background: #fff; 
     box-shadow: 0 4px 10px rgba(92, 53, 34, 0.15);
 }
 
@@ -316,28 +343,57 @@ button,
     object-fit: cover; 
 }
 
-.membro-card img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
+/* Equipe */
+.membro-card img { 
+    width: 120px; 
+    height: 120px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    margin-bottom: 15px; 
 }
 
-/* Divisão horizontal de conteúdo do cardápio detalhado */
-.menu-grid {
-    max-width: 1000px;
-    margin: 0 auto;
-    justify-content: space-between;
+/* ==========================================================================
+   CARDÁPIO E FILTROS (JS)
+   ========================================================================== */
+.filter-controls { 
+    display: flex; 
+    justify-content: center; 
+    gap: 15px; 
+    margin-bottom: 30px; 
+    flex-wrap: wrap; 
 }
 
-.menu-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.filter-btn {
+    background: transparent; 
+    border: 2px solid var(--color-brown); 
+    color: var(--color-brown);
+    padding: 8px 20px; 
+    border-radius: 20px; 
+    font-weight: 600; 
+    transition: 0.3s; 
+    cursor: pointer;
+}
+
+.filter-btn:hover, 
+.filter-btn.active { 
+    background: var(--color-brown); 
+    color: var(--color-cream); 
+}
+
+/* Grid do Menu de Produtos */
+.menu-grid { 
+    max-width: 1000px; 
+    margin: 0 auto; 
+    justify-content: space-between; 
+}
+
+.menu-item { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
     width: 48%; 
-    background: #fff;
-    text-align: left;
+    background: #fff; 
+    text-align: left; 
 }
 
 .menu-item-info h4 { 
@@ -349,20 +405,22 @@ button,
     color: var(--color-brown-dark); 
 }
 
-.menu-item-action {
-    text-align: right;
-    min-width: 120px;
+.menu-item-action { 
+    text-align: right; 
+    min-width: 120px; 
 }
 
 .menu-item-price { 
     font-weight: bold; 
-    color: var(--color-brown);
-    display: block;
-    margin-bottom: 8px;
-    font-size: 1.1rem;
+    color: var(--color-brown); 
+    display: block; 
+    margin-bottom: 8px; 
+    font-size: 1.1rem; 
 }
 
-/* Seção de história com conteúdo lado a lado */
+/* ==========================================================================
+   HISTÓRIA E FAQ
+   ========================================================================== */
 .feature-split { 
     display: flex; 
     align-items: center; 
@@ -371,7 +429,8 @@ button,
     flex-wrap: wrap; 
 }
 
-.img-container, .text-container { 
+.img-container, 
+.text-container { 
     flex: 1; 
     min-width: 300px; 
 }
@@ -384,7 +443,6 @@ button,
     font-weight: 600; 
 }
 
-/* Estilização da seção de perguntas frequentes */
 .faq { 
     padding: 60px 5%; 
 }
@@ -437,15 +495,17 @@ button,
     color: var(--color-brown-dark); 
 }
 
-/* Formatação do formulário e exibição de avaliações de clientes */
+/* ==========================================================================
+   AVALIAÇÕES DE CLIENTES E FORMULÁRIOS
+   ========================================================================== */
 .avaliacoes { 
     padding: 60px 5%; 
 }
 
 .reviews-list { 
     display: flex; 
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: wrap; 
+    justify-content: center; 
     gap: 20px; 
     max-width: 1000px; 
     margin: 30px auto; 
@@ -453,7 +513,7 @@ button,
 
 .review-card { 
     background: var(--color-cream); 
-    width: 300px;
+    width: 300px; 
     box-shadow: 0 4px 10px rgba(92, 53, 34, 0.15); 
 }
 
@@ -475,21 +535,17 @@ button,
     text-align: right; 
 }
 
-.review-media { 
-    width: 100%; 
-    max-height: 200px; 
-    object-fit: cover; 
-    border-radius: 10px; 
-    margin-top: 10px; 
-}
-
-.review-form-container { 
+/* Formulário de Review e Contato */
+.review-form-container, 
+.contact-form-container { 
     max-width: 600px; 
     margin: 50px auto 0; 
-    background: #fff;
+    background: #fff; 
+    padding: 30px;
 }
 
-.review-form-container h3 { 
+.review-form-container h3, 
+.contact-form-container h3 { 
     margin-bottom: 20px; 
 }
 
@@ -509,19 +565,215 @@ button,
     margin-bottom: 15px; 
 }
 
-.file-upload { 
+.form-group { 
     margin-bottom: 20px; 
-    font-size: 0.9rem; 
-    font-weight: 600; 
+    text-align: left;
 }
 
-/* Formas vetoriais separadoras de seções */
+.form-group label { 
+    display: block; 
+    margin-bottom: 8px; 
+    font-weight: 600; 
+    color: var(--color-brown-dark); 
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid #ccc; 
+    border-radius: 8px;
+    font-family: var(--font-main); 
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus {
+    border-color: var(--color-brown); 
+    outline: none;
+}
+
+/* ==========================================================================
+   CARRINHO DE COMPRAS
+   ========================================================================== */
+.btn-floating-cart {
+    position: fixed; 
+    left: 20px; 
+    bottom: 20px; 
+    width: 60px; 
+    height: 60px; 
+    border: none;
+    border-radius: 50%; 
+    background: var(--color-brown); 
+    color: var(--color-cream);
+    font-size: 1.5rem; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+    cursor: pointer;
+    z-index: 900; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    transition: 0.3s;
+}
+
+.btn-floating-cart:hover { 
+    background: var(--color-brown-dark); 
+    transform: scale(1.05); 
+}
+
+.cart-badge {
+    position: absolute; 
+    top: -5px; 
+    right: -5px; 
+    background: #e74c3c; 
+    color: #fff;
+    font-size: 0.8rem; 
+    font-weight: bold; 
+    width: 24px; 
+    height: 24px; 
+    border-radius: 50%;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+.cart-sidebar {
+    position: fixed; 
+    top: 0; 
+    right: -100%; 
+    width: 350px; 
+    max-width: 100vw; 
+    height: 100vh;
+    background: var(--color-cream); 
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2); 
+    z-index: 1001;
+    transition: right 0.4s ease; 
+    display: flex; 
+    flex-direction: column; 
+    padding: 20px;
+}
+
+.cart-sidebar.open { 
+    right: 0; 
+}
+
+.cart-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 20px; 
+    padding-bottom: 10px; 
+    border-bottom: 2px solid var(--color-pink); 
+}
+
+.close-cart { 
+    background: transparent; 
+    border: none; 
+    font-size: 2rem; 
+    color: var(--color-brown); 
+    cursor: pointer; 
+}
+
+.cart-items-container { 
+    flex: 1; 
+    overflow-y: auto; 
+    margin-bottom: 20px; 
+}
+
+.cart-item { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 15px 0; 
+    border-bottom: 1px solid rgba(92, 53, 34, 0.1); 
+}
+
+.cart-item-info h4 { 
+    font-size: 1rem; 
+    margin-bottom: 5px; 
+    color: var(--color-brown); 
+}
+
+.btn-remove-item { 
+    background: transparent; 
+    border: none; 
+    color: #e74c3c; 
+    font-size: 1.5rem; 
+    cursor: pointer; 
+    padding: 0 10px; 
+}
+
+.cart-footer { 
+    border-top: 2px solid var(--color-pink); 
+    padding-top: 20px; 
+}
+
+.cart-total { 
+    font-size: 1.2rem; 
+    font-weight: 700; 
+    color: var(--color-brown); 
+    margin-bottom: 15px; 
+    display: flex; 
+    justify-content: space-between; 
+}
+
+/* ==========================================================================
+   SISTEMA DE NOTIFICAÇÕES (TOAST)
+   ========================================================================== */
+.toast-container {
+    position: fixed; 
+    top: 90px; 
+    right: 20px; 
+    z-index: 9999;
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    pointer-events: none;
+}
+
+.toast {
+    background: #fff; 
+    color: #333; 
+    padding: 15px 25px; 
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+    display: flex; 
+    align-items: center;
+    gap: 12px; 
+    font-weight: 600; 
+    font-size: 0.95rem; 
+    pointer-events: auto;
+    transform: translateX(120%); 
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.toast.show { 
+    transform: translateX(0); 
+}
+
+.toast-success { 
+    border-left: 5px solid #2ecc71; 
+}
+
+.toast-warning { 
+    border-left: 5px solid #f1c40f; 
+}
+
+.toast-error { 
+    border-left: 5px solid #e74c3c; 
+}
+
+/* ==========================================================================
+   ELEMENTOS DE TRANSIÇÃO (WAVES / ONDAS)
+   ========================================================================== */
 .wave { 
     display: block; 
     width: 100%; 
     height: 80px; 
     margin-bottom: -1px; 
-    margin-top: -1px;
+    margin-top: -1px; 
 }
 
 .wave svg { 
@@ -533,8 +785,11 @@ button,
 .wave-pink-to-cream path { fill: var(--color-cream); }
 .wave-cream-to-pink path { fill: var(--color-pink); }
 .wave-cream-to-brown path { fill: var(--color-brown); }
+.wave-pink-to-brown path { fill: var(--color-brown); }
 
-/* Configuração do rodapé e links secundários */
+/* ==========================================================================
+   RODAPÉ (FOOTER)
+   ========================================================================== */
 .footer { 
     background-color: var(--color-brown); 
     padding: 50px 5% 20px; 
@@ -578,278 +833,231 @@ button,
 
 .col ul li a { 
     color: var(--color-cream); 
-    font-weight: normal;
+    font-weight: normal; 
 }
 
 .col ul li a:hover { 
     color: var(--color-pink); 
 }
 
-/* Botão fixo "Voltar ao topo" */
+/* Botão de voltar ao topo */
 .btn-topo {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    width: 48px;
+    position: fixed; 
+    right: 20px; 
+    bottom: 20px; 
+    width: 48px; 
     height: 48px;
-    border: none;
-    border-radius: 50%;
-    background: var(--color-brown);
+    border: none; 
+    border-radius: 50%; 
+    background: var(--color-brown); 
     color: var(--color-cream);
-    font-size: 1.4rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    font-size: 1.4rem; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
     opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
-    transition: 0.3s;
+    visibility: hidden; 
+    transform: translateY(20px); 
+    transition: 0.3s; 
     z-index: 890;
 }
 
-.btn-topo.visivel {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+.btn-topo.visivel { 
+    opacity: 1; 
+    visibility: visible; 
+    transform: translateY(0); 
 }
 
-.btn-topo:hover {
-    background: var(--color-brown-dark);
-}
-
-/* ==========================================================================
-   ESTILOS PARA O FILTRO DE CARDÁPIO
-   ========================================================================== */
-.filter-controls {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-}
-
-.filter-btn {
-    background: transparent;
-    border: 2px solid var(--color-brown);
-    color: var(--color-brown);
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    transition: 0.3s;
-    cursor: pointer;
-}
-
-.filter-btn:hover, 
-.filter-btn.active {
-    background: var(--color-brown);
-    color: var(--color-cream);
+.btn-topo:hover { 
+    background: var(--color-brown-dark); 
 }
 
 /* ==========================================================================
-   ESTILOS PARA O CARRINHO DE COMPRAS
+   MODO ESCURO (DARK MODE)
    ========================================================================== */
-.btn-floating-cart {
-    position: fixed;
-    left: 20px;
-    bottom: 20px;
-    width: 60px;
-    height: 60px;
-    border: none;
-    border-radius: 50%;
-    background: var(--color-brown);
-    color: var(--color-cream);
-    font-size: 1.5rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    z-index: 900;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
+body.modo-escuro { 
+    background-color: #1e1410; 
+    color: #f3e6dc; 
+    color-scheme: dark; 
 }
 
-.btn-floating-cart:hover {
-    background: var(--color-brown-dark);
-    transform: scale(1.05);
+.modo-escuro .section-pink { 
+    background-color: #2a1b14; 
 }
 
-.cart-badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: #e74c3c;
-    color: #fff;
-    font-size: 0.8rem;
-    font-weight: bold;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.modo-escuro .section-cream { 
+    background-color: #1e1410; 
 }
 
-.cart-sidebar {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 350px;
-    max-width: 100vw;
-    height: 100vh;
-    background: var(--color-cream);
-    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
-    z-index: 1001;
-    transition: right 0.4s ease;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-}
-
-.cart-sidebar.open {
-    right: 0;
-}
-
-.cart-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--color-pink);
-}
-
-.close-cart {
-    background: transparent;
-    border: none;
-    font-size: 2rem;
-    color: var(--color-brown);
-    cursor: pointer;
-}
-
-.cart-items-container {
-    flex: 1;
-    overflow-y: auto;
-    margin-bottom: 20px;
-}
-
-.cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 0;
-    border-bottom: 1px solid rgba(92, 53, 34, 0.1);
-}
-
-.cart-item-info h4 {
-    font-size: 1rem;
-    margin-bottom: 5px;
-    color: var(--color-brown);
-}
-
-.btn-remove-item {
-    background: transparent;
-    border: none;
-    color: #e74c3c;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 0 10px;
-}
-
-.cart-footer {
-    border-top: 2px solid var(--color-pink);
-    padding-top: 20px;
-}
-
-.cart-total {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--color-brown);
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: space-between;
-}
-
-
-/* ==========================================================================
-   MODO ESCURO
-   ========================================================================== */
-body.modo-escuro {
-    background-color: #1e1410;
-    color: #f3e6dc;
-    color-scheme: dark;
-}
-
-.modo-escuro .section-pink { background-color: #2a1b14; }
-.modo-escuro .section-cream { background-color: #1e1410; }
 .modo-escuro .wave-pink-to-cream path { fill: #1e1410; }
 .modo-escuro .wave-cream-to-pink path { fill: #2a1b14; }
+.modo-escuro .wave-pink-to-brown path { fill: #5c3522; }
 
-.modo-escuro h1, .modo-escuro h2, .modo-escuro h3, .modo-escuro h4,
-.modo-escuro .subtitle, .modo-escuro .hero-text h2 { 
+.modo-escuro h1, 
+.modo-escuro h2, 
+.modo-escuro h3, 
+.modo-escuro h4,
+.modo-escuro .subtitle, 
+.modo-escuro .hero-text h2 { 
     color: var(--color-pink); 
 }
 
-.modo-escuro .desc, .modo-escuro .menu-item-info p, .modo-escuro .faq-answer p, 
-.modo-escuro .cart-item-info p { 
+.modo-escuro .desc, 
+.modo-escuro .menu-item-info p, 
+.modo-escuro .faq-answer p, 
+.modo-escuro .cart-item-info p, 
+.modo-escuro .form-group label { 
     color: #f3e6dc; 
 }
 
-.modo-escuro .cat-card.cream, .modo-escuro .valor-card, .modo-escuro .membro-card,
-.modo-escuro .menu-item, .modo-escuro .faq-item, .modo-escuro .review-card,
-.modo-escuro .review-form-container { 
+.modo-escuro .cat-card.cream, 
+.modo-escuro .valor-card, 
+.modo-escuro .membro-card,
+.modo-escuro .menu-item, 
+.modo-escuro .faq-item, 
+.modo-escuro .review-card,
+.modo-escuro .review-form-container, 
+.modo-escuro .contact-form-container { 
     background-color: #3a2216; 
     color: #f3e6dc; 
     border-color: rgba(255, 182, 193, 0.15);
 }
 
-.modo-escuro .cat-card.brown { background-color: #5c3522; }
+.modo-escuro .cat-card.brown { 
+    background-color: #5c3522; 
+}
 
-.modo-escuro .menu-item-price, .modo-escuro .review-author { 
+.modo-escuro .menu-item-price, 
+.modo-escuro .review-author { 
     color: var(--color-pink); 
 }
 
-.modo-escuro .faq-question { background: #3a2216; color: var(--color-pink); }
-.modo-escuro .faq-answer { background: #2a1b14; }
-
-.modo-escuro .review-form-container input[type="text"],
-.modo-escuro .review-form-container textarea { 
-    background: #2a1b14; color: #f3e6dc; border-color: #5c3522; 
+.modo-escuro .faq-question { 
+    background: #3a2216; 
+    color: var(--color-pink); 
 }
 
-.modo-escuro .btn-outline { color: var(--color-pink); border-color: var(--color-pink); }
-.modo-escuro .btn-outline:hover { background: var(--color-pink); color: var(--color-brown-dark); }
-
-.modo-escuro .filter-btn { border-color: var(--color-pink); color: var(--color-pink); }
-.modo-escuro .filter-btn:hover, .modo-escuro .filter-btn.active { background: var(--color-pink); color: var(--color-brown-dark); }
-
-/* Dark mode do carrinho */
-.modo-escuro .cart-sidebar {
-    background: #1e1410;
-}
-.modo-escuro .cart-header, .modo-escuro .cart-footer {
-    border-color: var(--color-brown);
-}
-.modo-escuro .close-cart, .modo-escuro .cart-total, .modo-escuro .cart-item-info h4 {
-    color: var(--color-pink);
-}
-.modo-escuro .cart-item {
-    border-bottom-color: rgba(255, 182, 193, 0.15);
+.modo-escuro .faq-answer { 
+    background: #2a1b14; 
 }
 
-/* Configurações de design responsivo para telas menores */
+.modo-escuro input, 
+.modo-escuro select, 
+.modo-escuro textarea { 
+    background: #2a1b14; 
+    color: #f3e6dc; 
+    border-color: #5c3522; 
+}
+
+.modo-escuro .btn-outline { 
+    color: var(--color-pink); 
+    border-color: var(--color-pink); 
+}
+
+.modo-escuro .btn-outline:hover { 
+    background: var(--color-pink); 
+    color: var(--color-brown-dark); 
+}
+
+.modo-escuro .filter-btn { 
+    border-color: var(--color-pink); 
+    color: var(--color-pink); 
+}
+
+.modo-escuro .filter-btn:hover, 
+.modo-escuro .filter-btn.active { 
+    background: var(--color-pink); 
+    color: var(--color-brown-dark); 
+}
+
+/* Modo escuro para o Carrinho de Compras */
+.modo-escuro .cart-sidebar { 
+    background: #1e1410; 
+}
+
+.modo-escuro .cart-header, 
+.modo-escuro .cart-footer { 
+    border-color: var(--color-brown); 
+}
+
+.modo-escuro .close-cart, 
+.modo-escuro .cart-total, 
+.modo-escuro .cart-item-info h4 { 
+    color: var(--color-pink); 
+}
+
+.modo-escuro .cart-item { 
+    border-bottom-color: rgba(255, 182, 193, 0.15); 
+}
+
+.modo-escuro .toast { 
+    background: #3a2216; 
+    color: #f3e6dc; 
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (DESIGN RESPONSIVO)
+   ========================================================================== */
 @media (max-width: 900px) {
-    .menu-icon { display: block; } 
+    .menu-icon { 
+        display: block; 
+    } 
+    
     .navbar {
-        position: absolute; top: 100%; left: -100%; width: 100%;
-        background-color: var(--color-brown); transition: 0.4s ease; 
+        position: absolute; 
+        top: 100%; 
+        left: -100%; 
+        width: 100%;
+        background-color: var(--color-brown); 
+        transition: left 0.4s ease; 
         box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
     }
-    .navbar.active { left: 0; } 
-    .nav-links { flex-direction: column; text-align: center; padding: 20px 0; gap: 20px; }
-    .nav-links li a { font-size: 1.2rem; display: block; width: 100%; }
-    .hero-text { text-align: center; }
-    .buttons { justify-content: center; }
-    .feature-split { text-align: center; }
-    .text-container ul li { justify-content: center; }
-    .menu-item { width: 100%; flex-direction: column; align-items: flex-start; gap: 15px; text-align: center; }
-    .menu-item-action { text-align: center; width: 100%; }
-    .wave { height: 40px; }
+    
+    .navbar.active { 
+        left: 0; 
+    } 
+    
+    .nav-links { 
+        flex-direction: column; 
+        text-align: center; 
+        padding: 20px 0; 
+        gap: 20px; 
+    }
+
+    .nav-links li a { 
+        font-size: 1.2rem; 
+        display: block; 
+        width: 100%; 
+    }
+    
+    .hero-text { 
+        text-align: center; 
+    }
+
+    .buttons { 
+        justify-content: center; 
+    }
+
+    .feature-split { 
+        text-align: center; 
+    }
+
+    .text-container ul li { 
+        justify-content: center; 
+    }
+    
+    .menu-item { 
+        width: 100%; 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 15px; 
+        text-align: center; 
+    }
+    
+    .menu-item-action { 
+        text-align: center; 
+        width: 100%; 
+    }
+    
+    .wave { 
+        height: 40px; 
+    }
 }

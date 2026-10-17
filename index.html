@@ -27,7 +27,7 @@
                 <li><a href="#equipe">Equipe</a></li>
                 <li><a href="#avaliacoes">Avaliações</a></li>
                 <li><a href="#faq">FAQ</a></li>
-                <li><a href="#contato">Contato</a></li>
+                <li><a href="#fale-conosco">Contato</a></li>
             </ul>
         </nav>
         
@@ -46,7 +46,7 @@
             <p>Confeitaria Tradicional e Inclusiva. O sabor perfeito para o seu momento especial, feito com ingredientes selecionados e muito amor.</p>
             <div class="buttons">
                 <a href="#cardapio" class="btn-primary">Ver Cardápio Completo</a>
-                <a href="#contato" class="btn-outline">Faça seu Pedido Agora</a>
+                <a href="#fale-conosco" class="btn-outline">Faça seu Pedido Agora</a>
             </div>
         </div>
         <div class="hero-image">
@@ -135,7 +135,6 @@
         </div>
 
         <div class="menu-grid">
-            <!-- Os itens agora possuem um bloco "menu-item-action" com o botão do Carrinho -->
             <div class="menu-item box-model-target" data-category="tradicional">
                 <div class="menu-item-info">
                     <h4>Bolo Red Velvet</h4>
@@ -321,12 +320,6 @@
                     <p>Aceitamos Pix, cartões de crédito (parcelamento em até 3x sem juros) e débito. Pedimos sinal de 50% para confirmação de encomenda de grandes volumes.</p>
                 </div>
             </div>
-            <div class="faq-item box-model-target">
-                <button class="faq-question">Vocês realizam degustação para casamentos?</button>
-                <div class="faq-answer">
-                    <p>Sim. O agendamento para degustação de casamentos e grandes eventos deve ser feito com no mínimo duas semanas de antecedência e possui uma taxa fixa de reserva de data.</p>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -336,7 +329,7 @@
         </svg>
     </div>
 
-    <!-- Seção para avaliações e formulário de comentários de clientes -->
+    <!-- Seção para avaliações -->
     <section class="avaliacoes section-cream" id="avaliacoes">
         <div class="text-center">
             <p class="subtitle">Depoimentos</p>
@@ -348,11 +341,6 @@
                 <div class="review-stars">★★★★★</div>
                 <p class="review-text">"Melhor bolo da vida! Encomendei para o aniversário da minha filha e todos amaram. A massa é fofinha e o recheio não é enjoativo."</p>
                 <p class="review-author">- Maria Silva</p>
-            </div>
-            <div class="review-card box-model-target">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-text">"A linha inclusiva salvou minha festa. Minha mãe tem diabetes e pôde comer o bolo inteiro sem culpa. Sabor idêntico ao original!"</p>
-                <p class="review-author">- Carlos Eduardo</p>
             </div>
         </div>
 
@@ -370,13 +358,8 @@
                 </div>
                 <input type="hidden" id="rev-rating" value="5">
 
-                <textarea id="rev-text" class="box-model-target" rows="4" placeholder="Escreva sobre sua experiência com nossos bolos e doces..." required></textarea>
+                <textarea id="rev-text" class="box-model-target" rows="4" placeholder="Escreva sobre sua experiência..." required></textarea>
                 
-                <div class="file-upload">
-                    <label for="rev-file">Anexar Foto/Vídeo (Opcional):</label>
-                    <input type="file" id="rev-file" accept="image/*,video/*">
-                </div>
-
                 <button type="submit" class="btn-primary mt-2 box-model-target" style="width: 100%;">
                     Publicar Avaliação no Mural
                 </button>
@@ -384,7 +367,55 @@
         </div>
     </section>
 
-    <div class="wave wave-cream-to-brown">
+    <div class="wave wave-cream-to-pink">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
+            <path d="M0,64 C480,-20 960,150 1440,64 L1440,120 L0,120 Z"></path>
+        </svg>
+    </div>
+
+    <!-- === NOVA SEÇÃO: FORMULÁRIO DE CONTATO === -->
+    <section class="contato section-pink" id="fale-conosco">
+        <div class="text-center">
+            <p class="subtitle">Fale Conosco</p>
+            <h2>Envie uma Mensagem</h2>
+            <p class="desc">Tem alguma dúvida específica ou deseja um orçamento para casamentos?</p>
+        </div>
+        
+        <div class="contact-form-container box-model-target">
+            <form id="contact-form" novalidate>
+                <div class="form-group">
+                    <label for="contato-nome">Nome Completo:</label>
+                    <input type="text" id="contato-nome" placeholder="Ex: João da Silva">
+                </div>
+                
+                <div class="form-group">
+                    <label for="contato-email">E-mail:</label>
+                    <input type="email" id="contato-email" placeholder="joao@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="contato-assunto">Assunto:</label>
+                    <select id="contato-assunto">
+                        <option value="">Selecione um assunto...</option>
+                        <option value="duvida">Dúvida Geral</option>
+                        <option value="orcamento">Orçamento para Eventos</option>
+                        <option value="feedback">Sugestões / Reclamações</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contato-mensagem">Sua Mensagem:</label>
+                    <textarea id="contato-mensagem" rows="5" placeholder="Escreva sua mensagem aqui..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">
+                    Enviar Mensagem
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <div class="wave wave-pink-to-brown">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none">
             <path d="M0,40 C480,80 960,0 1440,40 L1440,80 L0,80 Z"></path>
         </svg>
@@ -403,7 +434,6 @@
                 <h4>Links Rápidos</h4>
                 <ul>
                     <li><a href="#inicio">Voltar ao Início</a></li>
-                    <li><a href="#sobre">Nossa História</a></li>
                     <li><a href="#cardapio">Ver Cardápio</a></li>
                     <li><a href="#avaliacoes">Mural de Avaliações</a></li>
                     <li><a href="#faq">Dúvidas Frequentes</a></li>
@@ -411,10 +441,10 @@
             </div>
             
             <div class="col">
-                <h4>Faça seu Pedido Agora</h4>
+                <h4>Redes Sociais</h4>
                 <p class="phone">WhatsApp Comercial:</p>
                 <a href="#" class="phone" style="font-size: 1.4rem; display:block;">(11) 97092-4433</a>
-                <p style="margin-top: 15px;">Acompanhe nossas novidades no Instagram:</p>
+                <p style="margin-top: 15px;">Instagram:</p>
                 <a href="https://instagram.com/crisdeguste" target="_blank" style="display:inline-block; font-weight:bold; color: var(--color-pink);">
                     @crisdeguste
                 </a>
@@ -429,7 +459,7 @@
     <!-- Botão fixo para voltar ao topo da página -->
     <button class="btn-topo" id="btn-topo" aria-label="Voltar ao topo">&#8593;</button>
 
-    <!-- === ESTRUTURA DO CARRINHO DE COMPRAS === -->
+    <!-- Estrutura do Carrinho de Compras -->
     <button class="btn-floating-cart" id="btn-floating-cart" aria-label="Abrir carrinho">
         🛒 <span class="cart-badge" id="cart-badge">0</span>
     </button>
@@ -440,9 +470,7 @@
             <button id="close-cart" class="close-cart">&times;</button>
         </div>
         <div class="cart-items-container">
-            <ul id="cart-items-list">
-                <!-- Itens adicionados aparecerão aqui via JavaScript -->
-            </ul>
+            <ul id="cart-items-list"></ul>
         </div>
         <div class="cart-footer">
             <div class="cart-total">Total: <span>R$ 0,00</span></div>
@@ -450,7 +478,10 @@
         </div>
     </div>
 
-    <!-- Script externo com toda a lógica de interatividade do site -->
+    <!-- Container do Toast (Notificações Flutuantes) sempre no final do body -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Script externo -->
     <script src="script.js"></script>
 </body>
 </html>

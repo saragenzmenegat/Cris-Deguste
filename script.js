@@ -1,3 +1,12 @@
+/**
+ * ============================================================================
+ * PROJETO ACADÊMICO: CRIS DEGUSTE
+ * ARQUIVO: script.js
+ * DESCRIÇÃO: Central de interatividade com múltiplas lógicas de Front-End
+ * para atender aos requisitos da disciplina.
+ * ============================================================================
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
     
     // --- LÓGICA DO MENU MOBILE ---
@@ -16,6 +25,37 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // --- SISTEMA GLOBAL DE NOTIFICAÇÕES (TOAST) ---
+    // Esta função será usada em vários lugares do código para substituir o alert()
+    const toastContainer = document.getElementById('toast-container');
+
+    window.showToast = function(message, type = 'success') {
+        if(!toastContainer) return; 
+
+        // Cria o elemento da notificação
+        const toast = document.createElement('div');
+        toast.classList.add('toast', `toast-${type}`); 
+        
+        // Define o ícone com base no tipo
+        const icone = type === 'success' ? '✅' : (type === 'error' ? '❌' : '⚠️');
+
+        toast.innerHTML = `
+            <span>${icone}</span>
+            <p>${message}</p>
+        `;
+
+        toastContainer.appendChild(toast);
+
+        // Animação de entrada
+        setTimeout(() => toast.classList.add('show'), 100);
+
+        // Remove o Toast automaticamente após 3 segundos
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300); // Aguarda o fim da animação
+        }, 3000);
+    };
 
     // --- LÓGICA DO FAQ (ACORDEÃO) ---
     const faqQuestions = document.querySelectorAll('.faq-question');
@@ -72,44 +112,27 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = document.getElementById('rev-name').value;
             const text = document.getElementById('rev-text').value;
             const rating = ratingHidden.value;
-            const fileInput = document.getElementById('rev-file');
             
             let starsHTML = '';
             for(let i=1; i<=5; i++) {
                 starsHTML += i <= rating ? '★' : '☆';
             }
 
-            let mediaHTML = '';
-            if (fileInput.files && fileInput.files[0]) {
-                const file = fileInput.files[0];
-                const fileURL = URL.createObjectURL(file);
-                
-                if(file.type.startsWith('image/')) {
-                    mediaHTML = `<img src="${fileURL}" class="review-media" alt="Foto da avaliação">`;
-                } else if(file.type.startsWith('video/')) {
-                    mediaHTML = `<video src="${fileURL}" class="review-media" controls></video>`;
-                }
-            }
-
             const reviewCard = document.createElement('div');
-            reviewCard.classList.add('review-card');
+            reviewCard.classList.add('review-card', 'box-model-target');
             reviewCard.innerHTML = `
                 <div class="review-stars">${starsHTML}</div>
                 <p class="review-text">"${text}"</p>
-                ${mediaHTML}
                 <p class="review-author">- ${name}</p>
             `;
 
             reviewsList.prepend(reviewCard);
-
             reviewForm.reset();
             currentRating = 5;
             ratingHidden.value = 5;
-            if(starInput) {
-                starInput.querySelectorAll('span').forEach(s => s.style.color = '#f4b63f');
-            }
+            if(starInput) highlightStars(5);
             
-            alert('Sua avaliação foi publicada com sucesso! Obrigado pelo carinho.');
+            showToast('Sua avaliação foi publicada no mural!', 'success');
         });
     }
 
@@ -143,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- LÓGICA DO FILTRO DE CARDÁPIO (V0.3.1) ---
+    // --- LÓGICA DO FILTRO DE CARDÁPIO ---
     const filterButtons = document.querySelectorAll('.filter-btn');
     const menuItems = document.querySelectorAll('.menu-item');
 
@@ -170,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- LÓGICA DO CARRINHO DE COMPRAS (V0.4.0) ---
+    // --- LÓGICA DO CARRINHO DE COMPRAS ---
     const btnFloatingCart = document.getElementById('btn-floating-cart');
     const cartSidebar = document.getElementById('cart-sidebar');
     const closeCartBtn = document.getElementById('close-cart');
@@ -180,29 +203,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnAddCartList = document.querySelectorAll('.btn-add-cart');
     const btnFinalizarPedido = document.getElementById('btn-finalizar-pedido');
 
-    // Array que armazenará os produtos selecionados
     let cart = [];
 
-    // Função para abrir o carrinho
     if(btnFloatingCart && cartSidebar && closeCartBtn) {
-        btnFloatingCart.addEventListener('click', () => {
-            cartSidebar.classList.add('open');
-        });
-        
-        closeCartBtn.addEventListener('click', () => {
-            cartSidebar.classList.remove('open');
-        });
+        btnFloatingCart.addEventListener('click', () => cartSidebar.classList.add('open'));
+        closeCartBtn.addEventListener('click', () => cartSidebar.classList.remove('open'));
     }
 
-    // Função que redesenha a interface do carrinho sempre que algo muda
     function updateCartUI() {
-        cartItemsList.innerHTML = ''; // Limpa a lista na tela
-        let total = 0; // Zera a contagem de preço
+        cartItemsList.innerHTML = ''; 
+        let total = 0; 
         
         cart.forEach((item, index) => {
-            total += item.price; // Soma os preços
+            total += item.price; 
             
-            // Cria o elemento da lista
             const li = document.createElement('li');
             li.classList.add('cart-item');
             li.innerHTML = `
@@ -215,61 +229,89 @@ document.addEventListener('DOMContentLoaded', () => {
             cartItemsList.appendChild(li);
         });
 
-        // Atualiza os valores visuais do Total e da "Bolinha vermelha" de notificação
         cartTotalSpan.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
         cartBadge.textContent = cart.length;
 
-        // Adiciona funcionalidade de deletar nos botões 'x' criados acima
         const removeBtns = document.querySelectorAll('.btn-remove-item');
         removeBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const indexToRemove = e.target.getAttribute('data-index');
-                cart.splice(indexToRemove, 1); // Remove 1 item do array baseado no índice
-                updateCartUI(); // Atualiza a interface
+                const itemName = cart[indexToRemove].name;
+                cart.splice(indexToRemove, 1); 
+                updateCartUI(); 
+                showToast(`${itemName} removido do carrinho.`, 'warning');
             });
         });
     }
 
-    // Adiciona o evento de "Colocar no Carrinho" em todos os botões do cardápio
     if(btnAddCartList.length > 0) {
         btnAddCartList.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const name = e.target.getAttribute('data-name');
                 const price = parseFloat(e.target.getAttribute('data-price'));
                 
-                // Salva no array
                 cart.push({ name, price });
                 updateCartUI();
                 
-                // Feedback visual sutil (animação no botão)
+                showToast(`${name} adicionado ao carrinho!`, 'success');
+
                 const originalText = e.target.textContent;
-                e.target.textContent = 'Adicionado ✔';
+                e.target.textContent = '✔';
                 e.target.style.background = '#2ecc71';
-                e.target.style.color = '#fff';
                 e.target.style.borderColor = '#2ecc71';
+                e.target.style.color = '#fff';
                 
-                // Volta ao normal após 1 segundo
                 setTimeout(() => {
                     e.target.textContent = originalText;
                     e.target.style.background = '';
-                    e.target.style.color = '';
                     e.target.style.borderColor = '';
+                    e.target.style.color = '';
                 }, 1000);
             });
         });
     }
 
-    // Ação do botão Finalizar
     if (btnFinalizarPedido) {
         btnFinalizarPedido.addEventListener('click', () => {
             if (cart.length === 0) {
-                alert('Seu carrinho está vazio. Adicione alguns doces primeiro!');
+                showToast('Seu carrinho está vazio!', 'error');
             } else {
-                alert('Pedido finalizado com sucesso! (Em breve redirecionamento para o WhatsApp).');
-                cart = []; // Esvazia o carrinho
+                showToast('Pedido registrado! Redirecionando para o pagamento...', 'success');
+                cart = []; 
                 updateCartUI();
-                cartSidebar.classList.remove('open');
+                setTimeout(() => cartSidebar.classList.remove('open'), 1500);
             }
+        });
+    }
+
+    // --- LÓGICA DE VALIDAÇÃO DO FORMULÁRIO DE CONTATO (V0.5.0) ---
+    const contactForm = document.getElementById('contact-form');
+    
+    if(contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Impede o envio real (recarregamento)
+            
+            // Seleciona os campos
+            const nome = document.getElementById('contato-nome').value.trim();
+            const email = document.getElementById('contato-email').value.trim();
+            const assunto = document.getElementById('contato-assunto').value;
+            const mensagem = document.getElementById('contato-mensagem').value.trim();
+
+            // Validação 1: Campos em branco
+            if(nome === '' || email === '' || assunto === '' || mensagem === '') {
+                showToast('Por favor, preencha todos os campos obrigatórios.', 'warning');
+                return; // Interrompe a execução
+            }
+
+            // Validação 2: Formato do e-mail (básico)
+            if(!email.includes('@') || !email.includes('.')) {
+                showToast('O e-mail informado não parece ser válido.', 'error');
+                return;
+            }
+
+            // Se passar pelas validações, limpa o formulário e avisa sucesso
+            contactForm.reset(); 
+            showToast(`Obrigado ${nome}! Sua mensagem foi enviada.`, 'success');
         });
     }
 });
