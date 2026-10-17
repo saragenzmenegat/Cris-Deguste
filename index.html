@@ -20,7 +20,6 @@
         
         <nav class="navbar">
             <ul class="nav-links">
-                <!-- Links de âncora para navegação na mesma página -->
                 <li><a href="#inicio">Início</a></li>
                 <li><a href="#sobre">Nossa História</a></li>
                 <li><a href="#valores">Valores</a></li>
@@ -34,10 +33,7 @@
         
         <!-- Grupo de botões do cabeçalho: modo escuro e menu mobile -->
         <div class="header-acoes">
-            <!-- Botão que alterna entre modo claro e modo escuro -->
             <button class="btn-tema" id="btn-tema" aria-label="Alternar modo escuro">🌙</button>
-
-            <!-- Ícone para ativação do menu em dispositivos móveis -->
             <div class="menu-icon" id="menu-icon">&#9776;</div>
         </div>
     </header>
@@ -54,13 +50,10 @@
             </div>
         </div>
         <div class="hero-image">
-            <img 
-                src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500&q=80" 
-                alt="Bolo Decorado de Casamento">
+            <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500&q=80" alt="Bolo Decorado de Casamento">
         </div>
     </section>
 
-    <!-- Divisor visual svg -->
     <div class="wave wave-pink-to-cream">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
             <path d="M0,64 C480,150 960,-20 1440,64 L1440,120 L0,120 Z"></path>
@@ -91,7 +84,6 @@
         </div>
     </section>
 
-    <!-- Divisor visual svg -->
     <div class="wave wave-cream-to-pink">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
             <path d="M0,64 C480,-20 960,150 1440,64 L1440,120 L0,120 Z"></path>
@@ -106,31 +98,24 @@
             <div class="cat-card cream box-model-target">
                 <h3>Tradicionais</h3>
                 <p>Os clássicos que todo mundo ama, com o toque especial da casa.</p>
-                <a href="#contato" class="btn-primary btn-small">Pedir Agora</a>
-                <img 
-                    src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&q=80" 
-                    alt="Bolo Tradicional">
+                <a href="#cardapio-detalhado" class="btn-primary btn-small">Ver Opções</a>
+                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&q=80" alt="Bolo Tradicional">
             </div>
             <div class="cat-card brown box-model-target">
                 <h3>Inclusivos</h3>
                 <p>Doces adaptados para restrições alimentares sem perder o sabor.</p>
-                <a href="#contato" class="btn-outline-light btn-small">Pedir Agora</a>
-                <img 
-                    src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?w=300&q=80" 
-                    alt="Doces Zero">
+                <a href="#cardapio-detalhado" class="btn-outline-light btn-small">Ver Opções</a>
+                <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?w=300&q=80" alt="Doces Zero">
             </div>
             <div class="cat-card cream box-model-target">
                 <h3>Sobremesas</h3>
                 <p>Opções incríveis para adoçar o seu final de semana em família.</p>
-                <a href="#contato" class="btn-primary btn-small">Pedir Agora</a>
-                <img 
-                    src="https://images.unsplash.com/photo-1495147466023-af5c19cb3738?w=300&q=80" 
-                    alt="Sobremesas Variadas">
+                <a href="#cardapio-detalhado" class="btn-primary btn-small">Ver Opções</a>
+                <img src="https://images.unsplash.com/photo-1495147466023-af5c19cb3738?w=300&q=80" alt="Sobremesas Variadas">
             </div>
         </div>
     </section>
 
-    <!-- Divisor visual svg -->
     <div class="wave wave-pink-to-cream">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
             <path d="M0,64 C480,150 960,-20 1440,64 L1440,120 L0,120 Z"></path>
@@ -138,11 +123,11 @@
     </div>
 
     <!-- Seção de detalhamento do cardápio e preços base -->
-    <section class="menu-list section-cream text-center">
+    <section class="menu-list section-cream text-center" id="cardapio-detalhado">
         <h2>Cardápio Detalhado</h2>
-        <p class="desc">Confira nossas opções mais pedidas e os valores base. (Preços sujeitos a alteração conforme personalização).</p>
+        <p class="desc">Confira nossas opções mais pedidas e adicione ao seu carrinho!</p>
         
-        <!-- === BOTÕES DE FILTRO === -->
+        <!-- === FILTROS === -->
         <div class="filter-controls">
             <button class="filter-btn active" data-filter="all">Todos</button>
             <button class="filter-btn" data-filter="tradicional">Tradicionais</button>
@@ -150,13 +135,16 @@
         </div>
 
         <div class="menu-grid">
-            <!-- Os itens possuem a classe "menu-item" e o atributo "data-category" -->
+            <!-- Os itens agora possuem um bloco "menu-item-action" com o botão do Carrinho -->
             <div class="menu-item box-model-target" data-category="tradicional">
                 <div class="menu-item-info">
                     <h4>Bolo Red Velvet</h4>
-                    <p>Massa aveludada vermelha com recheio de cream cheese tradicional.</p>
+                    <p>Massa vermelha, recheio de cream cheese tradicional.</p>
                 </div>
-                <div class="menu-item-price">A partir de R$ 85,00/kg</div>
+                <div class="menu-item-action">
+                    <span class="menu-item-price">R$ 85,00</span>
+                    <button class="btn-primary btn-small btn-add-cart" data-name="Bolo Red Velvet" data-price="85.00">+ Carrinho</button>
+                </div>
             </div>
 
             <div class="menu-item box-model-target" data-category="tradicional">
@@ -164,39 +152,54 @@
                     <h4>Bolo de Cenoura com Brigadeiro</h4>
                     <p>O clássico com cobertura generosa de brigadeiro belga.</p>
                 </div>
-                <div class="menu-item-price">A partir de R$ 60,00/kg</div>
+                <div class="menu-item-action">
+                    <span class="menu-item-price">R$ 60,00</span>
+                    <button class="btn-primary btn-small btn-add-cart" data-name="Bolo de Cenoura" data-price="60.00">+ Carrinho</button>
+                </div>
             </div>
 
             <div class="menu-item box-model-target" data-category="tradicional">
                 <div class="menu-item-info">
-                    <h4>Cento de Docinhos Tradicionais</h4>
+                    <h4>Cento de Docinhos</h4>
                     <p>Brigadeiro, Beijinho, Bicho de pé e Dois Amores.</p>
                 </div>
-                <div class="menu-item-price">R$ 120,00</div>
+                <div class="menu-item-action">
+                    <span class="menu-item-price">R$ 120,00</span>
+                    <button class="btn-primary btn-small btn-add-cart" data-name="Cento de Docinhos" data-price="120.00">+ Carrinho</button>
+                </div>
             </div>
 
             <div class="menu-item box-model-target" data-category="inclusivo">
                 <div class="menu-item-info">
-                    <h4>Torta de Limão (Zero Açúcar)</h4>
-                    <p>Massa crocante sem glúten, creme de limão e merengue diet.</p>
+                    <h4>Torta de Limão (Diet)</h4>
+                    <p>Massa sem glúten, creme de limão e merengue diet.</p>
                 </div>
-                <div class="menu-item-price">R$ 90,00 (unidade)</div>
+                <div class="menu-item-action">
+                    <span class="menu-item-price">R$ 90,00</span>
+                    <button class="btn-primary btn-small btn-add-cart" data-name="Torta de Limão Diet" data-price="90.00">+ Carrinho</button>
+                </div>
             </div>
 
             <div class="menu-item box-model-target" data-category="tradicional">
                 <div class="menu-item-info">
                     <h4>Brownie Recheado</h4>
-                    <p>Brownie úmido com recheio de doce de leite ou creme de avelã.</p>
+                    <p>Brownie úmido com recheio de doce de leite.</p>
                 </div>
-                <div class="menu-item-price">R$ 15,00 (unidade)</div>
+                <div class="menu-item-action">
+                    <span class="menu-item-price">R$ 15,00</span>
+                    <button class="btn-primary btn-small btn-add-cart" data-name="Brownie Recheado" data-price="15.00">+ Carrinho</button>
+                </div>
             </div>
 
             <div class="menu-item box-model-target" data-category="tradicional">
                 <div class="menu-item-info">
-                    <h4>Taça da Felicidade (Família)</h4>
-                    <p>Camadas de creme, morangos frescos, bolo e ganache de chocolate.</p>
+                    <h4>Taça da Felicidade</h4>
+                    <p>Creme, morangos frescos, bolo e ganache de chocolate.</p>
                 </div>
-                <div class="menu-item-price">R$ 140,00</div>
+                <div class="menu-item-action">
+                    <span class="menu-item-price">R$ 140,00</span>
+                    <button class="btn-primary btn-small btn-add-cart" data-name="Taça da Felicidade" data-price="140.00">+ Carrinho</button>
+                </div>
             </div>
 
             <div class="menu-item box-model-target" data-category="tradicional">
@@ -204,7 +207,10 @@
                     <h4>Bolo Vulcão de Ninho</h4>
                     <p>Massa fofinha com cobertura farta de leite ninho trufado.</p>
                 </div>
-                <div class="menu-item-price">R$ 75,00 (unidade)</div>
+                <div class="menu-item-action">
+                    <span class="menu-item-price">R$ 75,00</span>
+                    <button class="btn-primary btn-small btn-add-cart" data-name="Bolo Vulcão Ninho" data-price="75.00">+ Carrinho</button>
+                </div>
             </div>
 
             <div class="menu-item box-model-target" data-category="tradicional">
@@ -212,12 +218,14 @@
                     <h4>Coxinha de Morango</h4>
                     <p>Morango fresco envolvido em brigadeiro branco cremoso.</p>
                 </div>
-                <div class="menu-item-price">R$ 8,00 (unidade)</div>
+                <div class="menu-item-action">
+                    <span class="menu-item-price">R$ 8,00</span>
+                    <button class="btn-primary btn-small btn-add-cart" data-name="Coxinha de Morango" data-price="8.00">+ Carrinho</button>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Divisor visual svg -->
     <div class="wave wave-cream-to-pink">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
             <path d="M0,64 C480,-20 960,150 1440,64 L1440,120 L0,120 Z"></path>
@@ -227,9 +235,7 @@
     <!-- Seção sobre a história da empresa em formato de layout dividido -->
     <section class="organic feature-split section-pink" id="sobre">
         <div class="img-container box-model-target">
-            <img 
-                src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=500&q=80" 
-                alt="Mãos preparando massa de bolo">
+            <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=500&q=80" alt="Mãos preparando massa de bolo">
         </div>
         <div class="text-container">
             <p class="subtitle">Tradição</p>
@@ -244,7 +250,6 @@
         </div>
     </section>
 
-    <!-- Divisor visual svg -->
     <div class="wave wave-pink-to-cream">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
             <path d="M0,64 C480,150 960,-20 1440,64 L1440,120 L0,120 Z"></path>
@@ -257,37 +262,28 @@
         <h2>Conheça Nossa Equipe</h2>
         <div class="equipe-grid">
             <div class="membro-card box-model-target">
-                <img 
-                    src="https://images.unsplash.com/photo-1583338917451-fade27513032?w=200&q=80" 
-                    alt="Foto da Cris">
+                <img src="https://images.unsplash.com/photo-1583338917451-fade27513032?w=200&q=80" alt="Foto da Cris">
                 <h4>Cris Silva</h4>
                 <p>Fundadora e Chef Confeiteira</p>
             </div>
             <div class="membro-card box-model-target">
-                <img 
-                    src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=200&q=80" 
-                    alt="Foto do João">
+                <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=200&q=80" alt="Foto do João">
                 <h4>João Marcos</h4>
                 <p>Especialista em Bolos Decorados</p>
             </div>
             <div class="membro-card box-model-target">
-                <img 
-                    src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=200&q=80" 
-                    alt="Foto da Ana">
+                <img src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=200&q=80" alt="Foto da Ana">
                 <h4>Ana Beatriz</h4>
                 <p>Especialista na Linha Inclusiva</p>
             </div>
             <div class="membro-card box-model-target">
-                <img 
-                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80" 
-                    alt="Foto do Lucas">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80" alt="Foto do Lucas">
                 <h4>Lucas Mendes</h4>
                 <p>Atendimento ao Cliente</p>
             </div>
         </div>
     </section>
 
-    <!-- Divisor visual svg -->
     <div class="wave wave-cream-to-pink">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
             <path d="M0,64 C480,-20 960,150 1440,64 L1440,120 L0,120 Z"></path>
@@ -334,7 +330,6 @@
         </div>
     </section>
 
-    <!-- Divisor visual svg -->
     <div class="wave wave-pink-to-cream">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
             <path d="M0,64 C480,150 960,-20 1440,64 L1440,120 L0,120 Z"></path>
@@ -348,7 +343,6 @@
             <h2>O Que Nossos Clientes Dizem</h2>
         </div>
         
-        <!-- Lista de comentários renderizados -->
         <div class="reviews-list" id="reviews-list">
             <div class="review-card box-model-target">
                 <div class="review-stars">★★★★★</div>
@@ -362,16 +356,10 @@
             </div>
         </div>
 
-        <!-- Formulário para submissão de nova avaliação -->
         <div class="review-form-container box-model-target">
             <h3 class="text-center">Deixe sua avaliação sobre nossos doces</h3>
             <form id="review-form">
-                <input 
-                    type="text" 
-                    id="rev-name" 
-                    class="box-model-target" 
-                    placeholder="Seu Nome Completo" 
-                    required>
+                <input type="text" id="rev-name" class="box-model-target" placeholder="Seu Nome Completo" required>
                 
                 <div class="star-rating-input" id="star-rating-input">
                     <span data-val="1">★</span>
@@ -382,12 +370,7 @@
                 </div>
                 <input type="hidden" id="rev-rating" value="5">
 
-                <textarea 
-                    id="rev-text" 
-                    class="box-model-target" 
-                    rows="4" 
-                    placeholder="Escreva sobre sua experiência com nossos bolos e doces..." 
-                    required></textarea>
+                <textarea id="rev-text" class="box-model-target" rows="4" placeholder="Escreva sobre sua experiência com nossos bolos e doces..." required></textarea>
                 
                 <div class="file-upload">
                     <label for="rev-file">Anexar Foto/Vídeo (Opcional):</label>
@@ -401,7 +384,6 @@
         </div>
     </section>
 
-    <!-- Divisor visual svg de transição para o rodapé -->
     <div class="wave wave-cream-to-brown">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none">
             <path d="M0,40 C480,80 960,0 1440,40 L1440,80 L0,80 Z"></path>
@@ -446,6 +428,27 @@
 
     <!-- Botão fixo para voltar ao topo da página -->
     <button class="btn-topo" id="btn-topo" aria-label="Voltar ao topo">&#8593;</button>
+
+    <!-- === ESTRUTURA DO CARRINHO DE COMPRAS === -->
+    <button class="btn-floating-cart" id="btn-floating-cart" aria-label="Abrir carrinho">
+        🛒 <span class="cart-badge" id="cart-badge">0</span>
+    </button>
+
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Seu Pedido</h3>
+            <button id="close-cart" class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items-container">
+            <ul id="cart-items-list">
+                <!-- Itens adicionados aparecerão aqui via JavaScript -->
+            </ul>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">Total: <span>R$ 0,00</span></div>
+            <button class="btn-primary" style="width: 100%;" id="btn-finalizar-pedido">Finalizar Pedido</button>
+        </div>
+    </div>
 
     <!-- Script externo com toda a lógica de interatividade do site -->
     <script src="script.js"></script>

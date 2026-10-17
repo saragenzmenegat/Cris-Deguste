@@ -105,7 +105,7 @@ button,
     cursor: pointer; 
     border-radius: 30px; 
     font-weight: 600; 
-    transition: background-color 0.3s, color 0.3s; 
+    transition: background-color 0.3s, color 0.3s, transform 0.2s; 
     display: inline-block; 
     text-align: center; 
 }
@@ -349,9 +349,17 @@ button,
     color: var(--color-brown-dark); 
 }
 
+.menu-item-action {
+    text-align: right;
+    min-width: 120px;
+}
+
 .menu-item-price { 
     font-weight: bold; 
-    color: var(--color-brown); 
+    color: var(--color-brown);
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
 }
 
 /* Seção de história com conteúdo lado a lado */
@@ -577,7 +585,7 @@ button,
     color: var(--color-pink); 
 }
 
-/* Botão fixo "Voltar ao topo": fica escondido até o usuário rolar a página */
+/* Botão fixo "Voltar ao topo" */
 .btn-topo {
     position: fixed;
     right: 20px;
@@ -593,11 +601,10 @@ button,
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px);
-    transition: opacity 0.3s, transform 0.3s, visibility 0.3s, background-color 0.3s;
-    z-index: 900;
+    transition: 0.3s;
+    z-index: 890;
 }
 
-/* Classe adicionada pelo JavaScript quando o botão deve aparecer */
 .btn-topo.visivel {
     opacity: 1;
     visibility: visible;
@@ -609,167 +616,7 @@ button,
 }
 
 /* ==========================================================================
-   MODO ESCURO
-   Todas as regras abaixo só valem quando o body tem a classe "modo-escuro",
-   que é adicionada e removida pelo JavaScript ao clicar no botão de tema
-   ========================================================================== */
-
-/* Fundo geral, cor do texto e controles do navegador no tema escuro */
-body.modo-escuro {
-    background-color: #1e1410;
-    color: #f3e6dc;
-    color-scheme: dark;
-}
-
-/* Fundos das seções rosa e creme */
-.modo-escuro .section-pink { 
-    background-color: #2a1b14; 
-}
-
-.modo-escuro .section-cream { 
-    background-color: #1e1410; 
-}
-
-/* Ondas acompanham a cor da seção seguinte */
-.modo-escuro .wave-pink-to-cream path { 
-    fill: #1e1410; 
-}
-
-.modo-escuro .wave-cream-to-pink path { 
-    fill: #2a1b14; 
-}
-
-/* Títulos e textos de destaque em rosa para manter o contraste */
-.modo-escuro h1,
-.modo-escuro h2,
-.modo-escuro h3,
-.modo-escuro h4,
-.modo-escuro .subtitle,
-.modo-escuro .hero-text h2 { 
-    color: var(--color-pink); 
-}
-
-.modo-escuro .desc,
-.modo-escuro .menu-item-info p,
-.modo-escuro .faq-answer p { 
-    color: #f3e6dc; 
-}
-
-/* Cartões e blocos que eram brancos ou cremes ficam marrom escuro */
-.modo-escuro .cat-card.cream,
-.modo-escuro .valor-card,
-.modo-escuro .membro-card,
-.modo-escuro .menu-item,
-.modo-escuro .faq-item,
-.modo-escuro .review-card,
-.modo-escuro .review-form-container { 
-    background-color: #3a2216; 
-    color: #f3e6dc; 
-    border-color: rgba(255, 182, 193, 0.15);
-}
-
-.modo-escuro .cat-card.brown { 
-    background-color: #5c3522; 
-}
-
-/* Preços e autores em rosa */
-.modo-escuro .menu-item-price,
-.modo-escuro .review-author { 
-    color: var(--color-pink); 
-}
-
-/* Perguntas e respostas do FAQ */
-.modo-escuro .faq-question { 
-    background: #3a2216; 
-    color: var(--color-pink); 
-}
-
-.modo-escuro .faq-answer { 
-    background: #2a1b14; 
-}
-
-/* Campos do formulário de avaliação */
-.modo-escuro .review-form-container input[type="text"],
-.modo-escuro .review-form-container textarea { 
-    background: #2a1b14; 
-    color: #f3e6dc; 
-    border-color: #5c3522; 
-}
-
-/* Botão com contorno, que antes usava marrom sobre fundo claro */
-.modo-escuro .btn-outline { 
-    color: var(--color-pink); 
-    border-color: var(--color-pink); 
-}
-
-.modo-escuro .btn-outline:hover { 
-    background: var(--color-pink); 
-    color: var(--color-brown-dark); 
-}
-
-/* Configurações de design responsivo para telas menores */
-@media (max-width: 900px) {
-    .menu-icon { 
-        display: block; 
-    } 
-    
-    .navbar {
-        position: absolute;
-        top: 100%;
-        left: -100%; 
-        width: 100%;
-        background-color: var(--color-brown);
-        transition: 0.4s ease; 
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
-    }
-    
-    .navbar.active { 
-        left: 0; 
-    } 
-    
-    .nav-links { 
-        flex-direction: column; 
-        text-align: center; 
-        padding: 20px 0; 
-        gap: 20px; 
-    }
-
-    .nav-links li a { 
-        font-size: 1.2rem; 
-        display: block; 
-        width: 100%; 
-    }
-    
-    .hero-text { 
-        text-align: center; 
-    }
-
-    .buttons { 
-        justify-content: center; 
-    }
-
-    .feature-split { 
-        text-align: center; 
-    }
-
-    .text-container ul li { 
-        justify-content: center; 
-    }
-    
-    .menu-item { 
-        width: 100%; 
-        flex-direction: column; 
-        align-items: flex-start; 
-        gap: 10px; 
-    }
-    
-    .wave { 
-        height: 40px; 
-    }
-}
-
-/* ==========================================================================
-   ESTILOS PARA O FILTRO DE CARDÁPIO (NOVA FUNCIONALIDADE)
+   ESTILOS PARA O FILTRO DE CARDÁPIO
    ========================================================================== */
 .filter-controls {
     display: flex;
@@ -796,13 +643,213 @@ body.modo-escuro {
     color: var(--color-cream);
 }
 
-.modo-escuro .filter-btn {
-    border-color: var(--color-pink);
-    color: var(--color-pink);
+/* ==========================================================================
+   ESTILOS PARA O CARRINHO DE COMPRAS
+   ========================================================================== */
+.btn-floating-cart {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    background: var(--color-brown);
+    color: var(--color-cream);
+    font-size: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
 }
 
-.modo-escuro .filter-btn:hover, 
-.modo-escuro .filter-btn.active {
-    background: var(--color-pink);
-    color: var(--color-brown-dark);
+.btn-floating-cart:hover {
+    background: var(--color-brown-dark);
+    transform: scale(1.05);
+}
+
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #e74c3c;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 350px;
+    max-width: 100vw;
+    height: 100vh;
+    background: var(--color-cream);
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    z-index: 1001;
+    transition: right 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.cart-sidebar.open {
+    right: 0;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--color-pink);
+}
+
+.close-cart {
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    color: var(--color-brown);
+    cursor: pointer;
+}
+
+.cart-items-container {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(92, 53, 34, 0.1);
+}
+
+.cart-item-info h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: var(--color-brown);
+}
+
+.btn-remove-item {
+    background: transparent;
+    border: none;
+    color: #e74c3c;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.cart-footer {
+    border-top: 2px solid var(--color-pink);
+    padding-top: 20px;
+}
+
+.cart-total {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-brown);
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/* ==========================================================================
+   MODO ESCURO
+   ========================================================================== */
+body.modo-escuro {
+    background-color: #1e1410;
+    color: #f3e6dc;
+    color-scheme: dark;
+}
+
+.modo-escuro .section-pink { background-color: #2a1b14; }
+.modo-escuro .section-cream { background-color: #1e1410; }
+.modo-escuro .wave-pink-to-cream path { fill: #1e1410; }
+.modo-escuro .wave-cream-to-pink path { fill: #2a1b14; }
+
+.modo-escuro h1, .modo-escuro h2, .modo-escuro h3, .modo-escuro h4,
+.modo-escuro .subtitle, .modo-escuro .hero-text h2 { 
+    color: var(--color-pink); 
+}
+
+.modo-escuro .desc, .modo-escuro .menu-item-info p, .modo-escuro .faq-answer p, 
+.modo-escuro .cart-item-info p { 
+    color: #f3e6dc; 
+}
+
+.modo-escuro .cat-card.cream, .modo-escuro .valor-card, .modo-escuro .membro-card,
+.modo-escuro .menu-item, .modo-escuro .faq-item, .modo-escuro .review-card,
+.modo-escuro .review-form-container { 
+    background-color: #3a2216; 
+    color: #f3e6dc; 
+    border-color: rgba(255, 182, 193, 0.15);
+}
+
+.modo-escuro .cat-card.brown { background-color: #5c3522; }
+
+.modo-escuro .menu-item-price, .modo-escuro .review-author { 
+    color: var(--color-pink); 
+}
+
+.modo-escuro .faq-question { background: #3a2216; color: var(--color-pink); }
+.modo-escuro .faq-answer { background: #2a1b14; }
+
+.modo-escuro .review-form-container input[type="text"],
+.modo-escuro .review-form-container textarea { 
+    background: #2a1b14; color: #f3e6dc; border-color: #5c3522; 
+}
+
+.modo-escuro .btn-outline { color: var(--color-pink); border-color: var(--color-pink); }
+.modo-escuro .btn-outline:hover { background: var(--color-pink); color: var(--color-brown-dark); }
+
+.modo-escuro .filter-btn { border-color: var(--color-pink); color: var(--color-pink); }
+.modo-escuro .filter-btn:hover, .modo-escuro .filter-btn.active { background: var(--color-pink); color: var(--color-brown-dark); }
+
+/* Dark mode do carrinho */
+.modo-escuro .cart-sidebar {
+    background: #1e1410;
+}
+.modo-escuro .cart-header, .modo-escuro .cart-footer {
+    border-color: var(--color-brown);
+}
+.modo-escuro .close-cart, .modo-escuro .cart-total, .modo-escuro .cart-item-info h4 {
+    color: var(--color-pink);
+}
+.modo-escuro .cart-item {
+    border-bottom-color: rgba(255, 182, 193, 0.15);
+}
+
+/* Configurações de design responsivo para telas menores */
+@media (max-width: 900px) {
+    .menu-icon { display: block; } 
+    .navbar {
+        position: absolute; top: 100%; left: -100%; width: 100%;
+        background-color: var(--color-brown); transition: 0.4s ease; 
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    }
+    .navbar.active { left: 0; } 
+    .nav-links { flex-direction: column; text-align: center; padding: 20px 0; gap: 20px; }
+    .nav-links li a { font-size: 1.2rem; display: block; width: 100%; }
+    .hero-text { text-align: center; }
+    .buttons { justify-content: center; }
+    .feature-split { text-align: center; }
+    .text-container ul li { justify-content: center; }
+    .menu-item { width: 100%; flex-direction: column; align-items: flex-start; gap: 15px; text-align: center; }
+    .menu-item-action { text-align: center; width: 100%; }
+    .wave { height: 40px; }
 }
