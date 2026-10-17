@@ -192,6 +192,32 @@ button,
     color: var(--color-pink); 
 }
 
+/* Grupo de botões do cabeçalho (modo escuro e menu mobile) */
+.header-acoes {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Botão redondo que alterna entre modo claro e modo escuro */
+.btn-tema {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 2px solid var(--color-cream);
+    border-radius: 50%;
+    color: var(--color-cream);
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.btn-tema:hover {
+    background: rgba(255, 250, 240, 0.15);
+}
+
 .menu-icon { 
     font-size: 1.8rem; 
     cursor: pointer; 
@@ -580,6 +606,105 @@ button,
 
 .btn-topo:hover {
     background: var(--color-brown-dark);
+}
+
+/* ==========================================================================
+   MODO ESCURO
+   Todas as regras abaixo só valem quando o body tem a classe "modo-escuro",
+   que é adicionada e removida pelo JavaScript ao clicar no botão de tema
+   ========================================================================== */
+
+/* Fundo geral, cor do texto e controles do navegador no tema escuro */
+body.modo-escuro {
+    background-color: #1e1410;
+    color: #f3e6dc;
+    color-scheme: dark;
+}
+
+/* Fundos das seções rosa e creme */
+.modo-escuro .section-pink { 
+    background-color: #2a1b14; 
+}
+
+.modo-escuro .section-cream { 
+    background-color: #1e1410; 
+}
+
+/* Ondas acompanham a cor da seção seguinte */
+.modo-escuro .wave-pink-to-cream path { 
+    fill: #1e1410; 
+}
+
+.modo-escuro .wave-cream-to-pink path { 
+    fill: #2a1b14; 
+}
+
+/* Títulos e textos de destaque em rosa para manter o contraste */
+.modo-escuro h1,
+.modo-escuro h2,
+.modo-escuro h3,
+.modo-escuro h4,
+.modo-escuro .subtitle,
+.modo-escuro .hero-text h2 { 
+    color: var(--color-pink); 
+}
+
+.modo-escuro .desc,
+.modo-escuro .menu-item-info p,
+.modo-escuro .faq-answer p { 
+    color: #f3e6dc; 
+}
+
+/* Cartões e blocos que eram brancos ou cremes ficam marrom escuro */
+.modo-escuro .cat-card.cream,
+.modo-escuro .valor-card,
+.modo-escuro .membro-card,
+.modo-escuro .menu-item,
+.modo-escuro .faq-item,
+.modo-escuro .review-card,
+.modo-escuro .review-form-container { 
+    background-color: #3a2216; 
+    color: #f3e6dc; 
+    border-color: rgba(255, 182, 193, 0.15);
+}
+
+.modo-escuro .cat-card.brown { 
+    background-color: #5c3522; 
+}
+
+/* Preços e autores em rosa */
+.modo-escuro .menu-item-price,
+.modo-escuro .review-author { 
+    color: var(--color-pink); 
+}
+
+/* Perguntas e respostas do FAQ */
+.modo-escuro .faq-question { 
+    background: #3a2216; 
+    color: var(--color-pink); 
+}
+
+.modo-escuro .faq-answer { 
+    background: #2a1b14; 
+}
+
+/* Campos do formulário de avaliação */
+.modo-escuro .review-form-container input[type="text"],
+.modo-escuro .review-form-container textarea { 
+    background: #2a1b14; 
+    color: #f3e6dc; 
+    border-color: #5c3522; 
+}
+
+/* Botão com contorno, que antes usava marrom sobre fundo claro */
+.modo-escuro .btn-outline { 
+    color: var(--color-pink); 
+    border-color: var(--color-pink); 
+}
+
+.modo-escuro .btn-outline:hover { 
+    background: var(--color-pink); 
+    color: var(--color-brown-dark); 
 }
 
 /* Configurações de design responsivo para telas menores */
