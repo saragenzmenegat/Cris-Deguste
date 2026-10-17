@@ -143,29 +143,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- LÓGICA DO FILTRO DINÂMICO DE CARDÁPIO (NOVA FUNCIONALIDADE) ---
+    // --- LÓGICA DO FILTRO DE CARDÁPIO (V0.3.1 - À PROVA DE FALHAS) ---
     const filterButtons = document.querySelectorAll('.filter-btn');
-    const menuItems = document.querySelectorAll('.menu-item-card');
+    const menuItems = document.querySelectorAll('.menu-item');
 
     if(filterButtons.length > 0 && menuItems.length > 0) {
         filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove a classe 'active' de todos os botões
-                filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.addEventListener('click', (e) => {
+                e.preventDefault(); // Previne comportamentos inesperados do botão
                 
-                // Adiciona a classe 'active' no botão clicado
+                // Atualiza o botão ativo
+                filterButtons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
                 
-                // Captura a categoria escolhida
+                // Captura a categoria escolhida ('all', 'tradicional' ou 'inclusivo')
                 const targetCategory = button.getAttribute('data-filter');
 
-                // Percorre os itens do cardápio para mostrar ou esconder
+                // Filtra os itens de forma segura
                 menuItems.forEach(item => {
-                    const itemCategory = item.getAttribute('data-category');
+                    // Pega a categoria do item, ou 'none' caso o HTML esteja incompleto
+                    const itemCategory = item.getAttribute('data-category') || 'none';
                     
-                    if(targetCategory === 'all' || itemCategory === targetCategory) {
+                    if(targetCategory === 'all') {
+                        // Se clicou em "Todos", mostra o item restaurando o flex do CSS original
+                        item.style.display = 'flex';
+                    } else if(itemCategory === targetCategory) {
+                        // Se a categoria do item bater com a do botão, mostra o item
                         item.style.display = 'flex';
                     } else {
+                        // Caso contrário, oculta
                         item.style.display = 'none';
                     }
                 });
