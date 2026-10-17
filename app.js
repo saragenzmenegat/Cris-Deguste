@@ -137,4 +137,24 @@ document.addEventListener('DOMContentLoaded', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
+
+    // --- LÓGICA DO MODO ESCURO ---
+    const btnTema = document.getElementById('btn-tema');
+
+    if (btnTema) {
+        // Aplica ou remove o tema escuro, troca o ícone e salva a escolha no navegador
+        const aplicarTema = (escuro) => {
+            document.body.classList.toggle('modo-escuro', escuro);
+            btnTema.textContent = escuro ? '☀️' : '🌙';
+            localStorage.setItem('cris-tema', escuro ? 'escuro' : 'claro');
+        };
+
+        // Recupera o tema salvo na última visita (o padrão é o claro)
+        aplicarTema(localStorage.getItem('cris-tema') === 'escuro');
+
+        // Alterna o tema a cada clique no botão
+        btnTema.addEventListener('click', () => {
+            aplicarTema(!document.body.classList.contains('modo-escuro'));
+        });
+    }
 });
