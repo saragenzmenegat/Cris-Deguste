@@ -551,6 +551,37 @@ button,
     color: var(--color-pink); 
 }
 
+/* Botão fixo "Voltar ao topo": fica escondido até o usuário rolar a página */
+.btn-topo {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: var(--color-brown);
+    color: var(--color-cream);
+    font-size: 1.4rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.3s, transform 0.3s, visibility 0.3s, background-color 0.3s;
+    z-index: 900;
+}
+
+/* Classe adicionada pelo JavaScript quando o botão deve aparecer */
+.btn-topo.visivel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.btn-topo:hover {
+    background: var(--color-brown-dark);
+}
+
 /* Configurações de design responsivo para telas menores */
 @media (max-width: 900px) {
     .menu-icon { 
