@@ -17,17 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- LÓGICA DO CARROSSEL DE DESTAQUES ---
-    const carousel = document.getElementById('carousel');
-    const prevBtn = document.querySelector('.nav-btn.prev');
-    const nextBtn = document.querySelector('.nav-btn.next');
-
-    if (carousel && prevBtn && nextBtn) {
-        const scrollAmount = 300; 
-        nextBtn.addEventListener('click', () => carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' }));
-        prevBtn.addEventListener('click', () => carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' }));
-    }
-
     // --- LÓGICA DO FAQ (ACORDEÃO) ---
     const faqQuestions = document.querySelectorAll('.faq-question');
     faqQuestions.forEach(btn => {
