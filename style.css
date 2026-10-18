@@ -951,13 +951,16 @@ button,
     color: var(--color-pink); 
 }
 
-/* FIX: Correção para a cor do link do WhatsApp no rodapé e evitar sobreposição */
-.col a.phone { 
+/* Estilos padronizados para links de contato no rodapé */
+.col a.social-link { 
     color: var(--color-cream); 
+    font-size: 1.4rem;
+    display: block;
+    font-weight: 600;
     transition: color 0.3s;
 }
 
-.col a.phone:hover { 
+.col a.social-link:hover { 
     color: var(--color-pink); 
 }
 
