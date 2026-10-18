@@ -32,7 +32,7 @@
         <div class="hero-text">
             <h2>Bem-vindo à</h2>
             <h1>Cris Deguste</h1>
-            <p>Confeitaria Tradicional e Inclusiva. O sabor perfeito para o seu momento especial, feito com ingredientes selecionados e muito amor.</p>
+            <p>Confeitaria Tradicional e Inclusiva. Sabores perfeitos para os momentos especiais, feito com ingredientes selecionados e muito amor.</p>
             <div class="buttons">
                 <a href="#cardapio" class="btn-primary">Ver Cardápio Completo</a>
                 <a href="#fale-conosco" class="btn-outline">Faça seu Pedido Agora</a>
@@ -51,7 +51,7 @@
 
     <section class="categories section-cream text-center" id="cardapio">
         <p class="subtitle">Descubra</p>
-        <h2>Nossas Especialidades</h2>
+        <h2>Nossas especialidades</h2>
         <div class="categories-container">
             <div class="cat-card box-model-target">
                 <h3>Tradicionais</h3>
@@ -65,11 +65,12 @@
                 <a href="#cardapio-detalhado" class="btn-outline-light btn-small">Ver Opções</a>
                 <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?w=300&q=80" alt="Doces Zero">
             </div>
+            <!-- ALTERADO: SOBREMESAS -> FAVORITOS -->
             <div class="cat-card box-model-target">
-                <h3>Sobremesas</h3>
-                <p>Opções incríveis para adoçar o seu final de semana em família.</p>
+                <h3>Favoritos</h3>
+                <p>Os doces mais pedidos e amados pelos nossos clientes todos os dias.</p>
                 <a href="#cardapio-detalhado" class="btn-primary btn-small">Ver Opções</a>
-                <img src="https://images.unsplash.com/photo-1495147466023-af5c19cb3738?w=300&q=80" alt="Sobremesas Variadas">
+                <img src="https://images.unsplash.com/photo-1495147466023-af5c19cb3738?w=300&q=80" alt="Doces Favoritos">
             </div>
         </div>
     </section>
@@ -81,17 +82,20 @@
     </div>
 
     <section class="menu-list section-pink text-center" id="cardapio-detalhado">
-        <h2>Cardápio Detalhado</h2>
-        <p class="desc">Confira nossas opções mais pedidas e adicione ao seu carrinho!</p>
+        <h2>Cardápio</h2>
+        <p class="desc">Confira nossas opções e adicione ao seu carrinho!</p>
         
         <div class="filter-controls">
             <button class="filter-btn active" data-filter="all">Todos</button>
+            <!-- NOVO BOTÃO DE FILTRO -->
+            <button class="filter-btn" data-filter="favorito">Favoritos</button>
             <button class="filter-btn" data-filter="tradicional">Tradicionais</button>
             <button class="filter-btn" data-filter="inclusivo">Inclusivos</button>
         </div>
 
         <div class="menu-grid">
-            <div class="menu-item box-model-target" data-category="tradicional">
+            <!-- Bolo Red Velvet alterado para Favorito -->
+            <div class="menu-item box-model-target" data-category="favorito">
                 <div class="menu-item-info">
                     <h4>Bolo Red Velvet</h4>
                     <p>Massa vermelha, recheio de cream cheese tradicional.</p>
@@ -146,7 +150,8 @@
                 </div>
             </div>
 
-            <div class="menu-item box-model-target" data-category="tradicional">
+            <!-- Taça da Felicidade alterada para Favorito -->
+            <div class="menu-item box-model-target" data-category="favorito">
                 <div class="menu-item-info">
                     <h4>Taça da Felicidade</h4>
                     <p>Creme, morangos frescos, bolo e ganache de chocolate.</p>
@@ -193,7 +198,7 @@
         </div>
         <div class="text-container">
             <p class="subtitle">Tradição</p>
-            <h2>Feito com Amor pela Cris</h2>
+            <h2>Feito com amor pela Cris</h2>
             <p class="desc">A Cris Deguste nasceu da paixão de infância por transformar momentos especiais em memórias inesquecíveis através do sabor. Começamos pequenos, na cozinha de casa, e hoje nossa missão é oferecer doces que abraçam a todos da família.</p>
             <ul>
                 <li>Opções Zero Açúcar e Sem Glúten certificadas</li>
@@ -212,7 +217,7 @@
 
     <section class="valores section-pink text-center" id="valores">
         <p class="subtitle">O que nos move</p>
-        <h2>Nossos Pilares</h2>
+        <h2>Nossos pilares</h2>
         <div class="valores-grid">
             <div class="valor-card box-model-target">
                 <h3>Inclusão</h3>
@@ -241,7 +246,7 @@
 
     <section class="equipe section-cream text-center" id="equipe">
         <p class="subtitle">Quem faz a mágica</p>
-        <h2>Conheça Nossa Equipe</h2>
+        <h2>Conheça nossa equipe</h2>
         <div class="equipe-grid">
             <div class="membro-card box-model-target">
                 <img src="https://images.unsplash.com/photo-1583338917451-fade27513032?w=200&q=80" alt="Foto da Cris">
@@ -250,7 +255,7 @@
             </div>
             <div class="membro-card box-model-target">
                 <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=200&q=80" alt="Foto do João">
-                <h4>João Marcos</h4>
+                <h4>Arthur Vinicius</h4>
                 <p>Especialista em Bolos Decorados</p>
             </div>
         </div>
@@ -265,7 +270,7 @@
     <section class="faq section-pink" id="faq">
         <div class="text-center">
             <p class="subtitle">Dúvidas?</p>
-            <h2>Perguntas Frequentes</h2>
+            <h2>Perguntas frequentes</h2>
         </div>
         <div class="faq-container">
             <div class="faq-item box-model-target">
@@ -304,7 +309,7 @@
     <section class="avaliacoes section-cream" id="avaliacoes">
         <div class="text-center">
             <p class="subtitle">Depoimentos</p>
-            <h2>O Que Nossos Clientes Dizem</h2>
+            <h2>O que nossos clientes dizem</h2>
         </div>
         
         <div class="reviews-list" id="reviews-list">
@@ -347,7 +352,7 @@
     <section class="contato section-pink" id="fale-conosco">
         <div class="text-center">
             <p class="subtitle">Fale Conosco</p>
-            <h2>Envie uma Mensagem</h2>
+            <h2>Envie uma mensagem</h2>
             <p class="desc">Tem alguma dúvida específica ou deseja um orçamento para casamentos?</p>
         </div>
         
@@ -355,21 +360,22 @@
             <form id="contact-form" novalidate>
                 <div class="form-group">
                     <label for="contato-nome">Nome Completo:</label>
-                    <input type="text" id="contato-nome" placeholder="Ex: João da Silva">
+                    <input type="text" id="contato-nome" placeholder="Ex: Cris Deguste">
                 </div>
                 
                 <div class="form-group">
                     <label for="contato-email">E-mail:</label>
-                    <input type="email" id="contato-email" placeholder="joao@email.com">
+                    <input type="email" id="contato-email" placeholder="cris@email.com">
                 </div>
 
                 <div class="form-group">
                     <label for="contato-assunto">Assunto:</label>
                     <select id="contato-assunto">
                         <option value="">Selecione um assunto...</option>
-                        <option value="duvida">Dúvida Geral</option>
                         <option value="orcamento">Orçamento para Eventos</option>
                         <option value="feedback">Sugestões / Reclamações</option>
+                        <option value="duvidas">Dúvidas</option>
+                        <option value="outros">Outros</option>
                     </select>
                 </div>
                 
@@ -395,34 +401,21 @@
         <div class="footer-grid">
             <div class="col">
                 <h3 class="logo-text">Cris Deguste</h3>
-                <p>Confeitaria Tradicional e Inclusiva. O sabor perfeito para a sua comemoração familiar, casamentos e eventos corporativos.</p>
-                <p style="margin-top:10px;">CNPJ: 00.000.000/0001-00</p>
-            </div>
-            
-            <div class="col">
-                <h4>Links Rápidos</h4>
-                <ul>
-                    <li><a href="#inicio">Voltar ao Início</a></li>
-                    <li><a href="#cardapio">Ver Cardápio</a></li>
-                    <li><a href="#avaliacoes">Mural de Avaliações</a></li>
-                    <li><a href="#faq">Dúvidas Frequentes</a></li>
-                </ul>
+                <p>Confeitaria Tradicional e Inclusiva. Sabores perfeitos para os momentos especiais, casamentos e eventos corporativos.</p>
             </div>
             
             <div class="col">
                 <h4>Redes Sociais</h4>
-                <p>WhatsApp Comercial:</p>
-                <!-- NOVA CLASSE APLICADA AQUI -->
+                <p>WhatsApp:</p>
                 <a href="https://wa.me/5511970924433" target="_blank" class="social-link">(11) 97092-4433</a>
                 
                 <p style="margin-top: 15px;">Instagram:</p>
-                <!-- NOVA CLASSE APLICADA AQUI TAMBÉM -->
                 <a href="https://instagram.com/crisdeguste" target="_blank" class="social-link">@crisdeguste</a>
             </div>
         </div>
         
         <div class="text-center" style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
-            <p>&copy; 2026 Cris Deguste Confeitaria. Todos os direitos reservados. Projeto web acadêmico.</p>
+            <p>&copy; 2026 Cris Deguste Confeitaria. Todos os direitos reservados.</p>
         </div>
     </footer>
 
