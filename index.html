@@ -1,23 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <!-- Configurações da página e metadados -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cris Deguste - Confeitaria Tradicional e Inclusiva</title>
-    
-    <!-- Link para folha de estilos externa -->
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Importação de fontes externas -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Cabeçalho fixo e barra de navegação principal -->
     <header class="header">
         <div class="logo">Cris Deguste</div>
-        
         <nav class="navbar">
             <ul class="nav-links">
                 <li><a href="#inicio">Início</a></li>
@@ -30,15 +23,12 @@
                 <li><a href="#fale-conosco">Contato</a></li>
             </ul>
         </nav>
-        
-        <!-- Grupo de botões do cabeçalho: modo escuro e menu mobile -->
         <div class="header-acoes">
             <button class="btn-tema" id="btn-tema" aria-label="Alternar modo escuro">🌙</button>
             <div class="menu-icon" id="menu-icon">&#9776;</div>
         </div>
     </header>
 
-    <!-- Seção inicial de apresentação da confeitaria -->
     <section class="hero section-pink" id="inicio">
         <div class="hero-text">
             <h2>Bem-vindo à</h2>
@@ -60,7 +50,6 @@
         </svg>
     </div>
 
-    <!-- Seção de valores institucionais -->
     <section class="valores section-cream text-center" id="valores">
         <p class="subtitle">O que nos move</p>
         <h2>Nossos Pilares</h2>
@@ -90,7 +79,6 @@
         </svg>
     </div>
 
-    <!-- Seção de categorias de produtos em destaque -->
     <section class="categories section-pink text-center" id="cardapio">
         <p class="subtitle">Descubra</p>
         <h2>Nossas Especialidades</h2>
@@ -122,12 +110,10 @@
         </svg>
     </div>
 
-    <!-- Seção de detalhamento do cardápio e preços base -->
     <section class="menu-list section-cream text-center" id="cardapio-detalhado">
         <h2>Cardápio Detalhado</h2>
         <p class="desc">Confira nossas opções mais pedidas e adicione ao seu carrinho!</p>
         
-        <!-- === FILTROS === -->
         <div class="filter-controls">
             <button class="filter-btn active" data-filter="all">Todos</button>
             <button class="filter-btn" data-filter="tradicional">Tradicionais</button>
@@ -231,7 +217,6 @@
         </svg>
     </div>
 
-    <!-- Seção sobre a história da empresa em formato de layout dividido -->
     <section class="organic feature-split section-pink" id="sobre">
         <div class="img-container box-model-target">
             <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=500&q=80" alt="Mãos preparando massa de bolo">
@@ -255,7 +240,6 @@
         </svg>
     </div>
 
-    <!-- Seção de apresentação da equipe -->
     <section class="equipe section-cream text-center" id="equipe">
         <p class="subtitle">Quem faz a mágica</p>
         <h2>Conheça Nossa Equipe</h2>
@@ -289,7 +273,6 @@
         </svg>
     </div>
 
-    <!-- Seção de perguntas frequentes em formato acordeão -->
     <section class="faq section-pink" id="faq">
         <div class="text-center">
             <p class="subtitle">Dúvidas?</p>
@@ -329,7 +312,6 @@
         </svg>
     </div>
 
-    <!-- Seção para avaliações -->
     <section class="avaliacoes section-cream" id="avaliacoes">
         <div class="text-center">
             <p class="subtitle">Depoimentos</p>
@@ -337,11 +319,12 @@
         </div>
         
         <div class="reviews-list" id="reviews-list">
-            <div class="review-card box-model-target">
+            <div class="review-card box-model-target static-review">
                 <div class="review-stars">★★★★★</div>
                 <p class="review-text">"Melhor bolo da vida! Encomendei para o aniversário da minha filha e todos amaram. A massa é fofinha e o recheio não é enjoativo."</p>
                 <p class="review-author">- Maria Silva</p>
             </div>
+            <!-- Avaliações dinâmicas aparecerão aqui -->
         </div>
 
         <div class="review-form-container box-model-target">
@@ -361,7 +344,7 @@
                 <textarea id="rev-text" class="box-model-target" rows="4" placeholder="Escreva sobre sua experiência..." required></textarea>
                 
                 <button type="submit" class="btn-primary mt-2 box-model-target" style="width: 100%;">
-                    Publicar Avaliação no Mural
+                    Enviar Avaliação
                 </button>
             </form>
         </div>
@@ -373,7 +356,6 @@
         </svg>
     </div>
 
-    <!-- === NOVA SEÇÃO: FORMULÁRIO DE CONTATO === -->
     <section class="contato section-pink" id="fale-conosco">
         <div class="text-center">
             <p class="subtitle">Fale Conosco</p>
@@ -421,7 +403,6 @@
         </svg>
     </div>
 
-    <!-- Rodapé contendo informações legais, contato e navegação secundária -->
     <footer class="footer" id="contato">
         <div class="footer-grid">
             <div class="col">
@@ -456,10 +437,8 @@
         </div>
     </footer>
 
-    <!-- Botão fixo para voltar ao topo da página -->
     <button class="btn-topo" id="btn-topo" aria-label="Voltar ao topo">&#8593;</button>
 
-    <!-- Estrutura do Carrinho de Compras -->
     <button class="btn-floating-cart" id="btn-floating-cart" aria-label="Abrir carrinho">
         🛒 <span class="cart-badge" id="cart-badge">0</span>
     </button>
@@ -478,10 +457,23 @@
         </div>
     </div>
 
-    <!-- Container do Toast (Notificações Flutuantes) sempre no final do body -->
+    <!-- === PAINEL DE MODERAÇÃO OCULTO (ATALHO CTRL + 0) === -->
+    <div class="admin-overlay" id="admin-overlay">
+        <div class="admin-modal box-model-target">
+            <div class="admin-header">
+                <h3>Painel de Moderação</h3>
+                <button id="close-admin" class="close-btn">&times;</button>
+            </div>
+            <div class="admin-content">
+                <p style="margin-bottom: 15px; font-weight: 500;">Avaliações aguardando aprovação:</p>
+                <div id="admin-reviews-list">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="toast-container" class="toast-container"></div>
 
-    <!-- Script externo -->
     <script src="script.js"></script>
 </body>
 </html>
