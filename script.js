@@ -59,89 +59,92 @@ document.addEventListener('DOMContentLoaded', () => {
             faqQuestions.forEach(item => {
                 if (item !== btn) {
                     item.classList.remove('active');
-                    item.nextElementSibling.style.maxHeight = null;
+                    if(item.nextElementSibling) item.nextElementSibling.style.maxHeight = null;
                 }
             });
 
             btn.classList.toggle('active');
             const answer = btn.nextElementSibling;
-            if (answer.style.maxHeight) {
+            if (answer && answer.style.maxHeight) {
                 answer.style.maxHeight = null;
-            } else {
+            } else if (answer) {
                 answer.style.maxHeight = answer.scrollHeight + "px";
             }
         });
     });
 
-    // --- LÓGICA DE AVALIAÇÕES (ESTRELAS E FORMULÁRIO) ---
+    // --- LÓGICA DE AVALIAÇÕES (ESTRELAS E MODERAÇÃO Oculta) ---
+    const reviewForm = document.getElementById('review-form');
     const starInput = document.getElementById('star-rating-input');
     const ratingHidden = document.getElementById('rev-rating');
     let currentRating = 5; 
 
-    if(starInput) {
+    // Lógica para controle do visual das estrelas
+    if (starInput) {
         const stars = starInput.querySelectorAll('span');
         
         const highlightStars = (rating) => {
             stars.forEach(s => {
-                s.style.color = s.getAttribute('data-val') <= rating ? '#f4b63f' : '#ccc';
+                // Pinta de dourado se for menor/igual à nota, senão fica cinza
+                s.style.color = parseInt(s.getAttribute('data-val')) <= rating ? '#f4b63f' : '#ccc';
             });
         };
+        
+        // Pinta 5 estrelas quando a página carrega
         highlightStars(currentRating);
 
         stars.forEach(star => {
             star.addEventListener('click', () => {
-                currentRating = star.getAttribute('data-val');
-                ratingHidden.value = currentRating;
+                currentRating = parseInt(star.getAttribute('data-val'));
+                if (ratingHidden) ratingHidden.value = currentRating;
                 highlightStars(currentRating);
             });
         });
     }
 
-    const reviewForm = document.getElementById('review-form');
-    const reviewsList = document.getElementById('reviews-list');
-
-    // --- LÓGICA DE AVALIAÇÕES (MODERAÇÃO E PREVENÇÃO DE SPAM) ---
-    const reviewForm = document.getElementById('review-form');
-    // const reviewsList = document.getElementById('reviews-list'); // Não usaremos mais a injeção direta
-
-    if(reviewForm) {
+    // Lógica segura de submissão do formulário
+    if (reviewForm) {
         reviewForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+            // TRAVA O RECARREGAMENTO NATIVO (impede a tela de pular)
+            e.preventDefault(); 
 
-            // 1. Captura os dados
-            const name = document.getElementById('rev-name').value.trim();
-            const text = document.getElementById('rev-text').value.trim();
-            const rating = ratingHidden.value;
+            const nameElement = document.getElementById('rev-name');
+            const textElement = document.getElementById('rev-text');
             
-            // 2. Cria o objeto simulando um envio (Payload)
+            const name = nameElement ? nameElement.value.trim() : 'Anônimo';
+            const text = textElement ? textElement.value.trim() : '';
+            const rating = ratingHidden ? ratingHidden.value : 5;
+
+            // Cria o objeto simulando um envio para o Banco de Dados
             const novaAvaliacao = {
                 id: Date.now(),
                 nome: name,
                 texto: text,
                 estrelas: parseInt(rating),
                 dataCriacao: new Date().toISOString(),
-                status: 'pendente' // Flag crucial para moderação
+                status: 'pendente' // Indica que aguarda moderação
             };
 
-            // 3. Simula o salvamento no banco de dados (usando LocalStorage temporariamente)
+            // Salva ocultamente no LocalStorage do navegador
             let avaliacoesPendentes = JSON.parse(localStorage.getItem('avaliacoes_pendentes')) || [];
             avaliacoesPendentes.push(novaAvaliacao);
             localStorage.setItem('avaliacoes_pendentes', JSON.stringify(avaliacoesPendentes));
 
-            // Log no console para o professor ver que a lógica dos dados está funcionando
+            // Log discreto para comprovação de funcionamento
             console.log("NOVA AVALIAÇÃO ENVIADA PARA MODERAÇÃO:", novaAvaliacao);
 
-            // 4. Limpa o formulário e reseta as estrelas
+            // Reseta o formulário visualmente
             reviewForm.reset();
             currentRating = 5;
-            ratingHidden.value = 5;
-            if(starInput) {
+            if (ratingHidden) ratingHidden.value = 5;
+            
+            if (starInput) {
                 const stars = starInput.querySelectorAll('span');
                 stars.forEach(s => s.style.color = '#f4b63f');
             }
             
-            // 5. Exibe o feedback seguro para o usuário
-            showToast('Avaliação enviada para moderação. Após análise, ela aparecerá no mural!', 'success');
+            // Dá o feedback seguro usando o Toast
+            showToast('Avaliação enviada para moderação. Após análise ela aparecerá aqui!', 'success');
         });
     }
 
@@ -220,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateCartUI() {
+        if(!cartItemsList) return;
         cartItemsList.innerHTML = ''; 
         let total = 0; 
         
@@ -238,8 +242,8 @@ document.addEventListener('DOMContentLoaded', () => {
             cartItemsList.appendChild(li);
         });
 
-        cartTotalSpan.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
-        cartBadge.textContent = cart.length;
+        if(cartTotalSpan) cartTotalSpan.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        if(cartBadge) cartBadge.textContent = cart.length;
 
         const removeBtns = document.querySelectorAll('.btn-remove-item');
         removeBtns.forEach(btn => {
@@ -288,10 +292,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             } 
             
-            // Defina aqui o número do WhatsApp da loja (com código do país 55 e DDD)
+            // Número de WhatsApp da Loja
             const numeroWhatsApp = "5511970924433"; 
 
-            // Monta a string do pedido
             let textoPedido = "Olá Cris Deguste! Gostaria de fazer o seguinte pedido:\n\n";
             let totalPedido = 0;
 
@@ -301,14 +304,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             textoPedido += `\n*Total estimado: R$ ${totalPedido.toFixed(2).replace('.', ',')}*\n\n`;
-            
-            // O encodeURIComponent transforma espaços e quebras de linha em formato seguro para URL
+            textoPedido += "Como podemos prosseguir com o pagamento e a entrega?";
+
             const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(textoPedido)}`;
 
-            // Redireciona o usuário (abre nova aba)
             window.open(urlWhatsApp, '_blank');
 
-            // Feedback visual e limpeza do carrinho
             showToast('Redirecionando para o WhatsApp...', 'success');
             cart = []; 
             updateCartUI();
