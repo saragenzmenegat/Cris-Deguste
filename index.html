@@ -12,13 +12,12 @@
     <header class="header">
         <div class="logo">Cris Deguste</div>
         <nav class="navbar">
-            <!-- MENU REORDENADO PARA SEGUIR O FLUXO DA PÁGINA -->
             <ul class="nav-links">
                 <li><a href="#inicio">Início</a></li>
                 <li><a href="#valores">Valores</a></li>
                 <li><a href="#cardapio">Cardápio</a></li>
-                <li><a href="#sobre">Nossa História</a></li>
-                <li><a href="#equipe">Equipe</a></li>
+                <!-- Nossa História e Equipe unificados em Sobre nós -->
+                <li><a href="#sobre">Sobre nós</a></li>
                 <li><a href="#faq">FAQ</a></li>
                 <li><a href="#avaliacoes">Avaliações</a></li>
                 <li><a href="#fale-conosco">Contato</a></li>
@@ -218,6 +217,7 @@
         </svg>
     </div>
 
+    <!-- O ID continua "sobre", ancorando a história e englobando visualmente a equipe logo abaixo -->
     <section class="organic feature-split section-pink" id="sobre">
         <div class="img-container box-model-target">
             <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=500&q=80" alt="Mãos preparando massa de bolo">
@@ -241,6 +241,7 @@
         </svg>
     </div>
 
+    <!-- O ID "equipe" continua existindo caso queira âncorar algo lá, mas não está mais no nav superior -->
     <section class="equipe section-cream text-center" id="equipe">
         <p class="subtitle">Quem faz a mágica</p>
         <h2>Conheça Nossa Equipe</h2>
@@ -325,6 +326,7 @@
                 <p class="review-text">"Melhor bolo da vida! Encomendei para o aniversário da minha filha e todos amaram. A massa é fofinha e o recheio não é enjoativo."</p>
                 <p class="review-author">- Maria Silva</p>
             </div>
+            <!-- Avaliações dinâmicas aparecerão aqui -->
         </div>
 
         <div class="review-form-container box-model-target">
