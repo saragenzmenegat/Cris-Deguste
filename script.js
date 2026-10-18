@@ -143,17 +143,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Botão "Finalizar Pedido" - Redirecionamento configurado
     if (btnFinalizarPedido) {
         btnFinalizarPedido.addEventListener('click', () => {
             if (cart.length === 0) return showToast('Seu carrinho está vazio!', 'error');
+            
+            // Número exato do WhatsApp confirmado!
             const numeroWhatsApp = "5511970924433"; 
+            
             let textoPedido = "Olá Cris Deguste! Gostaria de fazer o seguinte pedido:\n\n";
             let totalPedido = 0;
-            cart.forEach((item) => { textoPedido += `- 1x ${item.name} (R$ ${item.price.toFixed(2).replace('.', ',')})\n`; totalPedido += item.price; });
+            
+            cart.forEach((item) => { 
+                textoPedido += `- 1x ${item.name} (R$ ${item.price.toFixed(2).replace('.', ',')})\n`; 
+                totalPedido += item.price; 
+            });
+            
             textoPedido += `\n*Total estimado: R$ ${totalPedido.toFixed(2).replace('.', ',')}*\n\nComo podemos prosseguir com o pagamento e a entrega?`;
+            
             window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(textoPedido)}`, '_blank');
             showToast('Redirecionando para o WhatsApp...', 'success');
-            cart = []; updateCartUI(); setTimeout(() => cartSidebar.classList.remove('open'), 1500);
+            
+            cart = []; 
+            updateCartUI(); 
+            setTimeout(() => cartSidebar.classList.remove('open'), 1500);
         });
     }
 
@@ -361,7 +374,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             showToast('Enviando mensagem, aguarde...', 'warning');
 
-            // --- ATENÇÃO: COLE A SUA CHAVE DO WEB3FORMS AQUI ---
             const web3formsAccessKey = "c7a8b00c-5f70-475c-bacd-7decf2ed036d"; 
 
             const corpoDoEmail = `
@@ -374,7 +386,6 @@ Nome: ${nome}
 E-mail de Contato: ${email}
             `;
 
-            // Faz a requisição segura para a API, escondendo o e-mail real do desenvolvedor
             fetch("https://api.web3forms.com/submit", {
                 method: "POST",
                 headers: { 
@@ -385,7 +396,7 @@ E-mail de Contato: ${email}
                     access_key: web3formsAccessKey,
                     subject: `Cris Deguste: ${assunto}`,
                     from_name: nome,
-                    replyto: email, // O botão "Responder" no seu Gmail vai direto pro cliente
+                    replyto: email, 
                     message: corpoDoEmail
                 })
             })
