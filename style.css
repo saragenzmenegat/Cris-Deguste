@@ -768,6 +768,9 @@ button,
 /* ==========================================================================
    ELEMENTOS DE TRANSIÇÃO (WAVES / ONDAS)
    ========================================================================== */
+/* ==========================================================================
+   ELEMENTOS DE TRANSIÇÃO (WAVES / ONDAS)
+   ========================================================================== */
 .wave { 
     display: block; 
     width: 100%; 
@@ -782,9 +785,17 @@ button,
     display: block; 
 }
 
+/* O fundo pega a cor da seção de cima, o path (SVG) pega a cor da de baixo */
+.wave-pink-to-cream { background-color: var(--color-pink); }
 .wave-pink-to-cream path { fill: var(--color-cream); }
+
+.wave-cream-to-pink { background-color: var(--color-cream); }
 .wave-cream-to-pink path { fill: var(--color-pink); }
+
+.wave-cream-to-brown { background-color: var(--color-cream); }
 .wave-cream-to-brown path { fill: var(--color-brown); }
+
+.wave-pink-to-brown { background-color: var(--color-pink); }
 .wave-pink-to-brown path { fill: var(--color-brown); }
 
 /* ==========================================================================
@@ -887,9 +898,20 @@ body.modo-escuro {
     background-color: #1e1410; 
 }
 
+/* ==========================================================================
+   ONDAS NO MODO ESCURO
+   ========================================================================== */
+.modo-escuro .wave-pink-to-cream { background-color: #2a1b14; }
 .modo-escuro .wave-pink-to-cream path { fill: #1e1410; }
+
+.modo-escuro .wave-cream-to-pink { background-color: #1e1410; }
 .modo-escuro .wave-cream-to-pink path { fill: #2a1b14; }
-.modo-escuro .wave-pink-to-brown path { fill: #5c3522; }
+
+.modo-escuro .wave-cream-to-brown { background-color: #1e1410; }
+.modo-escuro .wave-cream-to-brown path { fill: var(--color-brown); }
+
+.modo-escuro .wave-pink-to-brown { background-color: #2a1b14; }
+.modo-escuro .wave-pink-to-brown path { fill: var(--color-brown); }
 
 .modo-escuro h1, 
 .modo-escuro h2, 
