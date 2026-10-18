@@ -391,7 +391,9 @@ button,
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
-    width: 48%; 
+    /* CORREÇÃO DO LAYOUT NO PC: Calcula 50% menos o espaço do gap e zera a margem externa */
+    width: calc(50% - 10px); 
+    margin: 0; 
     background: #fff; 
     text-align: left; 
 }
@@ -768,9 +770,6 @@ button,
 /* ==========================================================================
    ELEMENTOS DE TRANSIÇÃO (WAVES / ONDAS)
    ========================================================================== */
-/* ==========================================================================
-   ELEMENTOS DE TRANSIÇÃO (WAVES / ONDAS)
-   ========================================================================== */
 .wave { 
     display: block; 
     width: 100%; 
@@ -898,9 +897,7 @@ body.modo-escuro {
     background-color: #1e1410; 
 }
 
-/* ==========================================================================
-   ONDAS NO MODO ESCURO
-   ========================================================================== */
+/* Ondas no Modo Escuro - Correção do Bug da Máscara */
 .modo-escuro .wave-pink-to-cream { background-color: #2a1b14; }
 .modo-escuro .wave-pink-to-cream path { fill: #1e1410; }
 
@@ -1067,7 +1064,9 @@ body.modo-escuro {
     }
     
     .menu-item { 
+        /* CORREÇÃO DO LAYOUT NO MOBILE: Volta a ocupar 100% da tela */
         width: 100%; 
+        margin: 0;
         flex-direction: column; 
         align-items: flex-start; 
         gap: 15px; 
