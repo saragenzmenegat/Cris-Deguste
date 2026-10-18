@@ -951,7 +951,11 @@ button,
     color: var(--color-pink); 
 }
 
-/* Estilos padronizados para links de contato no rodapé */
+/* Nova regra que alinha especificamente a coluna de contatos à direita */
+.footer-social { 
+    text-align: right; 
+}
+
 .col a.social-link { 
     color: var(--color-cream); 
     font-size: 1.4rem;
@@ -1227,5 +1231,14 @@ body.modo-escuro {
     
     .wave { 
         height: 40px; 
+    }
+
+    /* Centraliza todo o rodapé e remove o alinhamento da direita no celular */
+    .footer-grid .col {
+        text-align: center;
+    }
+
+    .footer-social {
+        text-align: center;
     }
 }
