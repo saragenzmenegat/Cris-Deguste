@@ -27,17 +27,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- SISTEMA GLOBAL DE NOTIFICAÇÕES (TOAST) ---
-    // Esta função será usada em vários lugares do código para substituir o alert()
     const toastContainer = document.getElementById('toast-container');
 
     window.showToast = function(message, type = 'success') {
         if(!toastContainer) return; 
 
-        // Cria o elemento da notificação
         const toast = document.createElement('div');
         toast.classList.add('toast', `toast-${type}`); 
         
-        // Define o ícone com base no tipo
         const icone = type === 'success' ? '✅' : (type === 'error' ? '❌' : '⚠️');
 
         toast.innerHTML = `
@@ -47,13 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         toastContainer.appendChild(toast);
 
-        // Animação de entrada
         setTimeout(() => toast.classList.add('show'), 100);
 
-        // Remove o Toast automaticamente após 3 segundos
         setTimeout(() => {
             toast.classList.remove('show');
-            setTimeout(() => toast.remove(), 300); // Aguarda o fim da animação
+            setTimeout(() => toast.remove(), 300); 
         }, 3000);
     };
 
@@ -193,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- LÓGICA DO CARRINHO DE COMPRAS ---
+    // --- LÓGICA DO CARRINHO DE COMPRAS E INTEGRAÇÃO WHATSAPP ---
     const btnFloatingCart = document.getElementById('btn-floating-cart');
     const cartSidebar = document.getElementById('cart-sidebar');
     const closeCartBtn = document.getElementById('close-cart');
@@ -271,45 +266,64 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Ação do Botão "Finalizar Pedido" (Redirecionamento WhatsApp)
     if (btnFinalizarPedido) {
         btnFinalizarPedido.addEventListener('click', () => {
             if (cart.length === 0) {
                 showToast('Seu carrinho está vazio!', 'error');
-            } else {
-                showToast('Pedido registrado! Redirecionando para o pagamento...', 'success');
-                cart = []; 
-                updateCartUI();
-                setTimeout(() => cartSidebar.classList.remove('open'), 1500);
-            }
+                return;
+            } 
+            
+            // Defina aqui o número do WhatsApp da loja (com código do país 55 e DDD)
+            const numeroWhatsApp = "5511970924433"; 
+
+            // Monta a string do pedido
+            let textoPedido = "Olá Cris Deguste! Gostaria de fazer o seguinte pedido:\n\n";
+            let totalPedido = 0;
+
+            cart.forEach((item) => {
+                textoPedido += `- 1x ${item.name} (R$ ${item.price.toFixed(2).replace('.', ',')})\n`;
+                totalPedido += item.price;
+            });
+
+            textoPedido += `\n*Total estimado: R$ ${totalPedido.toFixed(2).replace('.', ',')}*\n\n`;
+            
+            // O encodeURIComponent transforma espaços e quebras de linha em formato seguro para URL
+            const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(textoPedido)}`;
+
+            // Redireciona o usuário (abre nova aba)
+            window.open(urlWhatsApp, '_blank');
+
+            // Feedback visual e limpeza do carrinho
+            showToast('Redirecionando para o WhatsApp...', 'success');
+            cart = []; 
+            updateCartUI();
+            setTimeout(() => cartSidebar.classList.remove('open'), 1500);
         });
     }
 
-    // --- LÓGICA DE VALIDAÇÃO DO FORMULÁRIO DE CONTATO (V0.5.0) ---
+    // --- LÓGICA DE VALIDAÇÃO DO FORMULÁRIO DE CONTATO ---
     const contactForm = document.getElementById('contact-form');
     
     if(contactForm) {
         contactForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Impede o envio real (recarregamento)
+            e.preventDefault(); 
             
-            // Seleciona os campos
             const nome = document.getElementById('contato-nome').value.trim();
             const email = document.getElementById('contato-email').value.trim();
             const assunto = document.getElementById('contato-assunto').value;
             const mensagem = document.getElementById('contato-mensagem').value.trim();
 
-            // Validação 1: Campos em branco
             if(nome === '' || email === '' || assunto === '' || mensagem === '') {
                 showToast('Por favor, preencha todos os campos obrigatórios.', 'warning');
-                return; // Interrompe a execução
+                return; 
             }
 
-            // Validação 2: Formato do e-mail (básico)
             if(!email.includes('@') || !email.includes('.')) {
                 showToast('O e-mail informado não parece ser válido.', 'error');
                 return;
             }
 
-            // Se passar pelas validações, limpa o formulário e avisa sucesso
             contactForm.reset(); 
             showToast(`Obrigado ${nome}! Sua mensagem foi enviada.`, 'success');
         });
