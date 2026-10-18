@@ -143,12 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Botão "Finalizar Pedido" - Redirecionamento configurado
+    // Botão "Finalizar Pedido" - Redirecionamento configurado para o número comercial real
     if (btnFinalizarPedido) {
         btnFinalizarPedido.addEventListener('click', () => {
             if (cart.length === 0) return showToast('Seu carrinho está vazio!', 'error');
             
-            // Número exato do WhatsApp confirmado!
             const numeroWhatsApp = "5511970924433"; 
             
             let textoPedido = "Olá Cris Deguste! Gostaria de fazer o seguinte pedido:\n\n";

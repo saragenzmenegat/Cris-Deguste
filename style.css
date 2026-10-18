@@ -951,6 +951,16 @@ button,
     color: var(--color-pink); 
 }
 
+/* FIX: Correção para a cor do link do WhatsApp no rodapé e evitar sobreposição */
+.col a.phone { 
+    color: var(--color-cream); 
+    transition: color 0.3s;
+}
+
+.col a.phone:hover { 
+    color: var(--color-pink); 
+}
+
 .btn-topo { 
     position: fixed; 
     right: 20px; 
