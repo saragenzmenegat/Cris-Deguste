@@ -100,34 +100,48 @@ document.addEventListener('DOMContentLoaded', () => {
     const reviewForm = document.getElementById('review-form');
     const reviewsList = document.getElementById('reviews-list');
 
+    // --- LÓGICA DE AVALIAÇÕES (MODERAÇÃO E PREVENÇÃO DE SPAM) ---
+    const reviewForm = document.getElementById('review-form');
+    // const reviewsList = document.getElementById('reviews-list'); // Não usaremos mais a injeção direta
+
     if(reviewForm) {
         reviewForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const name = document.getElementById('rev-name').value;
-            const text = document.getElementById('rev-text').value;
+            // 1. Captura os dados
+            const name = document.getElementById('rev-name').value.trim();
+            const text = document.getElementById('rev-text').value.trim();
             const rating = ratingHidden.value;
             
-            let starsHTML = '';
-            for(let i=1; i<=5; i++) {
-                starsHTML += i <= rating ? '★' : '☆';
-            }
+            // 2. Cria o objeto simulando um envio (Payload)
+            const novaAvaliacao = {
+                id: Date.now(),
+                nome: name,
+                texto: text,
+                estrelas: parseInt(rating),
+                dataCriacao: new Date().toISOString(),
+                status: 'pendente' // Flag crucial para moderação
+            };
 
-            const reviewCard = document.createElement('div');
-            reviewCard.classList.add('review-card', 'box-model-target');
-            reviewCard.innerHTML = `
-                <div class="review-stars">${starsHTML}</div>
-                <p class="review-text">"${text}"</p>
-                <p class="review-author">- ${name}</p>
-            `;
+            // 3. Simula o salvamento no banco de dados (usando LocalStorage temporariamente)
+            let avaliacoesPendentes = JSON.parse(localStorage.getItem('avaliacoes_pendentes')) || [];
+            avaliacoesPendentes.push(novaAvaliacao);
+            localStorage.setItem('avaliacoes_pendentes', JSON.stringify(avaliacoesPendentes));
 
-            reviewsList.prepend(reviewCard);
+            // Log no console para o professor ver que a lógica dos dados está funcionando
+            console.log("NOVA AVALIAÇÃO ENVIADA PARA MODERAÇÃO:", novaAvaliacao);
+
+            // 4. Limpa o formulário e reseta as estrelas
             reviewForm.reset();
             currentRating = 5;
             ratingHidden.value = 5;
-            if(starInput) highlightStars(5);
+            if(starInput) {
+                const stars = starInput.querySelectorAll('span');
+                stars.forEach(s => s.style.color = '#f4b63f');
+            }
             
-            showToast('Sua avaliação foi publicada no mural!', 'success');
+            // 5. Exibe o feedback seguro para o usuário
+            showToast('Avaliação enviada para moderação. Após análise, ela aparecerá no mural!', 'success');
         });
     }
 
