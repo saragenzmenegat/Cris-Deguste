@@ -157,24 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- LÓGICA DE VALIDAÇÃO DO FORMULÁRIO DE CONTATO ---
-    const contactForm = document.getElementById('contact-form');
-    if(contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault(); 
-            const nome = document.getElementById('contato-nome').value.trim();
-            const email = document.getElementById('contato-email').value.trim();
-            const assunto = document.getElementById('contato-assunto').value;
-            const mensagem = document.getElementById('contato-mensagem').value.trim();
-
-            if(!nome || !email || !assunto || !mensagem) return showToast('Preencha todos os campos obrigatórios.', 'warning');
-            if(!email.includes('@') || !email.includes('.')) return showToast('E-mail inválido.', 'error');
-
-            contactForm.reset(); 
-            showToast(`Obrigado ${nome}! Sua mensagem foi enviada.`, 'success');
-        });
-    }
-
     // ==========================================================================
     // SISTEMA DE AVALIAÇÕES E PAINEL DE MODERAÇÃO (CTRL + 0)
     // ==========================================================================
@@ -188,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminOverlay = document.getElementById('admin-overlay');
     const closeAdminBtn = document.getElementById('close-admin');
     const adminReviewsList = document.getElementById('admin-reviews-list');
-    const adminApprovedList = document.getElementById('admin-approved-list'); // Lista de já aprovadas
+    const adminApprovedList = document.getElementById('admin-approved-list'); 
 
     if (starInput) {
         const stars = starInput.querySelectorAll('span');
@@ -234,9 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadApprovedReviews() {
         if(!reviewsList) return;
-        
         document.querySelectorAll('.dynamic-review').forEach(el => el.remove());
-        
         let aprovadas = JSON.parse(localStorage.getItem('avaliacoes_aprovadas')) || [];
         
         aprovadas.forEach(av => {
@@ -269,7 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.renderAdminPanel = function() {
         if(!adminReviewsList || !adminApprovedList) return;
         
-        // Renderiza Pendentes
         adminReviewsList.innerHTML = '';
         let pendentes = JSON.parse(localStorage.getItem('avaliacoes_pendentes')) || [];
         
@@ -295,7 +274,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Renderiza Já Aprovadas
         adminApprovedList.innerHTML = '';
         let aprovadas = JSON.parse(localStorage.getItem('avaliacoes_aprovadas')) || [];
         
@@ -313,7 +291,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><strong>Nota:</strong> <span style="color:#f4b63f">${starsHTML}</span></p>
                     <p><strong>Comentário:</strong> "${av.texto}"</p>
                     <div class="admin-review-actions">
-                        <!-- Botão com cor de alerta para diferenciar da exclusão de pendentes -->
                         <button class="btn-reject" style="background:#e67e22;" onclick="removerAprovada(${av.id})">Remover do Site</button>
                     </div>
                 `;
@@ -356,6 +333,71 @@ document.addEventListener('DOMContentLoaded', () => {
         
         renderAdminPanel();
         loadApprovedReviews(); 
-        showToast('Avaliação removida do mural com sucesso.', 'warning');
+        showToast('Avaliação removida do mural.', 'warning');
     };
+
+    // ==========================================================================
+    // LÓGICA DE VALIDAÇÃO DO FORMULÁRIO DE CONTATO E ENVIO DE E-MAIL (API SEGURA)
+    // ==========================================================================
+    const contactForm = document.getElementById('contact-form');
+    
+    if(contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault(); 
+            
+            const nome = document.getElementById('contato-nome').value.trim();
+            const email = document.getElementById('contato-email').value.trim();
+            const assuntoElement = document.getElementById('contato-assunto');
+            const assunto = assuntoElement.options[assuntoElement.selectedIndex].text;
+            const mensagem = document.getElementById('contato-mensagem').value.trim();
+
+            if(!nome || !email || !assuntoElement.value || !mensagem) {
+                return showToast('Preencha todos os campos obrigatórios.', 'warning');
+            }
+            
+            if(!email.includes('@') || !email.includes('.')) {
+                return showToast('O e-mail informado não parece ser válido.', 'error');
+            }
+
+            showToast('Enviando mensagem, aguarde...', 'warning');
+
+            // --- ATENÇÃO: COLE A SUA CHAVE DO WEB3FORMS AQUI ---
+            const web3formsAccessKey = "c7a8b00c-5f70-475c-bacd-7decf2ed036d"; 
+
+            const corpoDoEmail = `
+Mensagem:
+${mensagem}
+
+----------------------------------------
+Assinatura do Cliente:
+Nome: ${nome}
+E-mail de Contato: ${email}
+            `;
+
+            // Faz a requisição segura para a API, escondendo o e-mail real do desenvolvedor
+            fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    access_key: web3formsAccessKey,
+                    subject: `Cris Deguste: ${assunto}`,
+                    from_name: nome,
+                    replyto: email, // O botão "Responder" no seu Gmail vai direto pro cliente
+                    message: corpoDoEmail
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                contactForm.reset(); 
+                showToast(`Obrigado ${nome}! Sua mensagem foi enviada com sucesso.`, 'success');
+            })
+            .catch(error => {
+                console.error("Erro no envio:", error);
+                showToast('Houve um erro na comunicação com o servidor. Tente novamente mais tarde.', 'error');
+            });
+        });
+    }
 });
