@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(!toastContainer) return; 
         const toast = document.createElement('div');
         toast.classList.add('toast', `toast-${type}`); 
-        const icone = type === 'success' ? '✅' : (type === 'error' ? '❌' : '⚠️');
+        const icone = type === 'success' ? '✅' : (type === 'warning' ? '⚠️' : '❌');
         toast.innerHTML = `<span>${icone}</span><p>${message}</p>`;
         toastContainer.appendChild(toast);
         setTimeout(() => toast.classList.add('show'), 100);
@@ -188,6 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminOverlay = document.getElementById('admin-overlay');
     const closeAdminBtn = document.getElementById('close-admin');
     const adminReviewsList = document.getElementById('admin-reviews-list');
+    const adminApprovedList = document.getElementById('admin-approved-list'); // Lista de já aprovadas
 
     if (starInput) {
         const stars = starInput.querySelectorAll('span');
@@ -266,33 +267,59 @@ document.addEventListener('DOMContentLoaded', () => {
     if(closeAdminBtn) closeAdminBtn.addEventListener('click', () => adminOverlay.classList.remove('active'));
 
     window.renderAdminPanel = function() {
-        if(!adminReviewsList) return;
-        adminReviewsList.innerHTML = '';
+        if(!adminReviewsList || !adminApprovedList) return;
         
+        // Renderiza Pendentes
+        adminReviewsList.innerHTML = '';
         let pendentes = JSON.parse(localStorage.getItem('avaliacoes_pendentes')) || [];
         
         if(pendentes.length === 0) {
-            adminReviewsList.innerHTML = '<p>Nenhuma avaliação pendente no momento.</p>';
-            return;
+            adminReviewsList.innerHTML = '<p style="font-size:0.9rem; color:#666;">Nenhuma avaliação pendente.</p>';
+        } else {
+            pendentes.forEach(av => {
+                let starsHTML = '';
+                for(let i=1; i<=5; i++) starsHTML += i <= av.estrelas ? '★' : '☆';
+
+                const item = document.createElement('div');
+                item.classList.add('admin-review-item');
+                item.innerHTML = `
+                    <p><strong>Nome:</strong> ${av.nome}</p>
+                    <p><strong>Nota:</strong> <span style="color:#f4b63f">${starsHTML}</span></p>
+                    <p><strong>Comentário:</strong> "${av.texto}"</p>
+                    <div class="admin-review-actions">
+                        <button class="btn-approve" onclick="aprovarAvaliacao(${av.id})">Aprovar</button>
+                        <button class="btn-reject" onclick="rejeitarAvaliacao(${av.id})">Excluir</button>
+                    </div>
+                `;
+                adminReviewsList.appendChild(item);
+            });
         }
 
-        pendentes.forEach(av => {
-            let starsHTML = '';
-            for(let i=1; i<=5; i++) starsHTML += i <= av.estrelas ? '★' : '☆';
+        // Renderiza Já Aprovadas
+        adminApprovedList.innerHTML = '';
+        let aprovadas = JSON.parse(localStorage.getItem('avaliacoes_aprovadas')) || [];
+        
+        if(aprovadas.length === 0) {
+            adminApprovedList.innerHTML = '<p style="font-size:0.9rem; color:#666;">Nenhuma avaliação dinâmica publicada.</p>';
+        } else {
+            aprovadas.forEach(av => {
+                let starsHTML = '';
+                for(let i=1; i<=5; i++) starsHTML += i <= av.estrelas ? '★' : '☆';
 
-            const item = document.createElement('div');
-            item.classList.add('admin-review-item');
-            item.innerHTML = `
-                <p><strong>Nome:</strong> ${av.nome}</p>
-                <p><strong>Nota:</strong> <span style="color:#f4b63f">${starsHTML}</span></p>
-                <p><strong>Comentário:</strong> "${av.texto}"</p>
-                <div class="admin-review-actions">
-                    <button class="btn-approve" onclick="aprovarAvaliacao(${av.id})">Aprovar</button>
-                    <button class="btn-reject" onclick="rejeitarAvaliacao(${av.id})">Excluir</button>
-                </div>
-            `;
-            adminReviewsList.appendChild(item);
-        });
+                const item = document.createElement('div');
+                item.classList.add('admin-review-item');
+                item.innerHTML = `
+                    <p><strong>Nome:</strong> ${av.nome}</p>
+                    <p><strong>Nota:</strong> <span style="color:#f4b63f">${starsHTML}</span></p>
+                    <p><strong>Comentário:</strong> "${av.texto}"</p>
+                    <div class="admin-review-actions">
+                        <!-- Botão com cor de alerta para diferenciar da exclusão de pendentes -->
+                        <button class="btn-reject" style="background:#e67e22;" onclick="removerAprovada(${av.id})">Remover do Site</button>
+                    </div>
+                `;
+                adminApprovedList.appendChild(item);
+            });
+        }
     };
 
     window.aprovarAvaliacao = function(id) {
@@ -320,5 +347,15 @@ document.addEventListener('DOMContentLoaded', () => {
         
         renderAdminPanel();
         showToast('Avaliação excluída com sucesso.', 'error');
+    };
+
+    window.removerAprovada = function(id) {
+        let aprovadas = JSON.parse(localStorage.getItem('avaliacoes_aprovadas')) || [];
+        aprovadas = aprovadas.filter(av => av.id !== id);
+        localStorage.setItem('avaliacoes_aprovadas', JSON.stringify(aprovadas));
+        
+        renderAdminPanel();
+        loadApprovedReviews(); 
+        showToast('Avaliação removida do mural com sucesso.', 'warning');
     };
 });
