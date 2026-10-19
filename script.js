@@ -84,7 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- LÓGICA DO CARRINHO DE COMPRAS E INTEGRAÇÃO WHATSAPP ---
+    // ==========================================================================
+    // CARRINHO DE COMPRAS INTELIGENTE (COM PERSISTÊNCIA E QUANTIDADES)
+    // ==========================================================================
     const btnHeaderCart = document.getElementById('btn-header-cart');
     const cartSidebar = document.getElementById('cart-sidebar');
     const closeCartBtn = document.getElementById('close-cart');
@@ -93,52 +95,117 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartBadge = document.getElementById('cart-badge');
     const btnAddCartList = document.querySelectorAll('.btn-add-cart');
     const btnFinalizarPedido = document.getElementById('btn-finalizar-pedido');
-    let cart = [];
+    
+    // Recupera o carrinho salvo no navegador ou inicializa vazio
+    let cart = JSON.parse(localStorage.getItem('cris_cart')) || [];
 
     if(btnHeaderCart && cartSidebar && closeCartBtn) {
         btnHeaderCart.addEventListener('click', () => cartSidebar.classList.add('open'));
         closeCartBtn.addEventListener('click', () => cartSidebar.classList.remove('open'));
     }
 
+    // Função central para salvar o estado no localStorage e atualizar a interface
+    function saveAndRenderCart() {
+        localStorage.setItem('cris_cart', JSON.stringify(cart));
+        updateCartUI();
+    }
+
     function updateCartUI() {
         if(!cartItemsList) return;
         cartItemsList.innerHTML = ''; 
         let total = 0; 
+        let totalCount = 0;
+
         cart.forEach((item, index) => {
-            total += item.price; 
+            const subtotal = item.price * item.quantity;
+            total += subtotal;
+            totalCount += item.quantity;
+
             const li = document.createElement('li');
             li.classList.add('cart-item');
             li.innerHTML = `
-                <div class="cart-item-info"><h4>${item.name}</h4><p>R$ ${item.price.toFixed(2).replace('.', ',')}</p></div>
-                <button class="btn-remove-item" data-index="${index}">&times;</button>
+                <div class="cart-item-info">
+                    <h4>${item.name}</h4>
+                    <p>R$ ${subtotal.toFixed(2).replace('.', ',')} (${item.quantity}x)</p>
+                </div>
+                <div class="cart-item-actions">
+                    <button class="cart-qty-btn btn-decrease" data-index="${index}">-</button>
+                    <span class="cart-item-qty">${item.quantity}</span>
+                    <button class="cart-qty-btn btn-increase" data-index="${index}">+</button>
+                    <button class="btn-remove-item" data-index="${index}" title="Remover item">&times;</button>
+                </div>
             `;
             cartItemsList.appendChild(li);
         });
-        if(cartTotalSpan) cartTotalSpan.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
-        if(cartBadge) cartBadge.textContent = cart.length;
 
+        if(cartTotalSpan) cartTotalSpan.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        if(cartBadge) cartBadge.textContent = totalCount;
+
+        // Listener para o botão de diminuir quantidade (-)
+        document.querySelectorAll('.btn-decrease').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const index = e.target.getAttribute('data-index');
+                if (cart[index].quantity > 1) {
+                    cart[index].quantity -= 1;
+                } else {
+                    cart.splice(index, 1);
+                }
+                saveAndRenderCart();
+            });
+        });
+
+        // Listener para o botão de aumentar quantidade (+)
+        document.querySelectorAll('.btn-increase').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const index = e.target.getAttribute('data-index');
+                cart[index].quantity += 1;
+                saveAndRenderCart();
+            });
+        });
+
+        // Listener para o botão de remover item completo (&times;)
         document.querySelectorAll('.btn-remove-item').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const indexToRemove = e.target.getAttribute('data-index');
                 const itemName = cart[indexToRemove].name;
                 cart.splice(indexToRemove, 1); 
-                updateCartUI(); 
+                saveAndRenderCart();
                 showToast(`${itemName} removido do carrinho.`, 'warning');
             });
         });
     }
+
+    // Inicializa a UI do carrinho na carga da página
+    updateCartUI();
 
     if(btnAddCartList.length > 0) {
         btnAddCartList.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const name = e.target.getAttribute('data-name');
                 const price = parseFloat(e.target.getAttribute('data-price'));
-                cart.push({ name, price });
-                updateCartUI();
-                showToast(`${name} adicionado ao carrinho!`, 'success');
+                
+                // Verifica se o item já existe no carrinho para incrementar a quantidade
+                const existingItemIndex = cart.findIndex(item => item.name === name);
+                if (existingItemIndex > -1) {
+                    cart[existingItemIndex].quantity += 1;
+                } else {
+                    cart.push({ name, price, quantity: 1 });
+                }
+
+                saveAndRenderCart();
+                showToast(`${name} adicionado ao carrinho!`);
+                
                 const originalText = e.target.textContent;
-                e.target.textContent = '✔'; e.target.style.background = '#2ecc71'; e.target.style.borderColor = '#2ecc71'; e.target.style.color = '#fff';
-                setTimeout(() => { e.target.textContent = originalText; e.target.style.background = ''; e.target.style.borderColor = ''; e.target.style.color = ''; }, 1000);
+                e.target.textContent = '✔'; 
+                e.target.style.background = '#2ecc71'; 
+                e.target.style.borderColor = '#2ecc71'; 
+                e.target.style.color = '#fff';
+                setTimeout(() => { 
+                    e.target.textContent = originalText; 
+                    e.target.style.background = ''; 
+                    e.target.style.borderColor = ''; 
+                    e.target.style.color = ''; 
+                }, 1000);
             });
         });
     }
@@ -149,11 +216,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const numeroWhatsApp = "5511970924433"; 
             let textoPedido = "Olá Cris Deguste! Gostaria de fazer o seguinte pedido:\n\n";
             let totalPedido = 0;
-            cart.forEach((item) => { textoPedido += `- 1x ${item.name} (R$ ${item.price.toFixed(2).replace('.', ',')})\n`; totalPedido += item.price; });
+            
+            cart.forEach((item) => {
+                let subtotalItem = item.price * item.quantity;
+                textoPedido += `- ${item.quantity}x ${item.name} (R$ ${subtotalItem.toFixed(2).replace('.', ',')})\n`; 
+                totalPedido += subtotalItem; 
+            });
+            
             textoPedido += `\n*Total estimado: R$ ${totalPedido.toFixed(2).replace('.', ',')}*\n\nComo podemos prosseguir com o pagamento e a entrega?`;
             window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(textoPedido)}`, '_blank');
             showToast('Redirecionando para o WhatsApp...', 'success');
-            cart = []; updateCartUI(); setTimeout(() => cartSidebar.classList.remove('open'), 1500);
+            
+            cart = []; 
+            saveAndRenderCart(); 
+            setTimeout(() => cartSidebar.classList.remove('open'), 1500);
         });
     }
 
@@ -301,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // LÓGICA DE VALIDAÇÃO DO FORMULÁRIO DE CONTATO E ENVIO DE E-MAIL (API SEGURA)
+    // LÓGICA DE VALIDAÇÃO DO FORMULÁRIO DE CONTATO E ENVIO DE E-MAIL
     // ==========================================================================
     const contactForm = document.getElementById('contact-form');
     

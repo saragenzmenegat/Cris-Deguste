@@ -3,7 +3,7 @@
    ========================================================================== */
 :root {
     color-scheme: light; 
-    --color-pink: #ffb6c1;       
+    --color-pink: #ffb6c1;        
     --color-cream: #fffaf0;      
     --color-brown: #5c3522;      
     --color-brown-dark: #3a2216; 
@@ -13,7 +13,7 @@
 }
 
 /* ==========================================================================
-   RESET DE CSS
+   RESET DE CSS (Corrigido o seletor universal)
    ========================================================================== */
 * {
     margin: 0;
@@ -446,7 +446,6 @@ button,
     color: var(--color-brown-dark);
 }
 
-/* ATUALIZADO: CSS da Área do Carrinho transformado em Flexbox */
 .menu-item-action {
     text-align: right;
     min-width: 120px;
@@ -464,7 +463,6 @@ button,
     font-size: 1.1rem;
 }
 
-/* NOVO: Estilos do botão Redondo de Carrinho (+) e do rótulo de texto */
 .cart-label {
     font-size: 0.75rem;
     font-weight: 600;
@@ -721,7 +719,7 @@ button,
     position: fixed;
     top: 0;
     right: -100%;
-    width: 350px;
+    width: 380px;
     max-width: 100vw;
     height: 100vh;
     background: var(--color-cream);
@@ -769,18 +767,57 @@ button,
 }
 
 .cart-item-info h4 {
-    font-size: 1rem;
-    margin-bottom: 5px;
+    font-size: 0.95rem;
+    margin-bottom: 3px;
     color: var(--color-brown);
+}
+
+.cart-item-info p {
+    font-size: 0.85rem;
+    color: var(--color-brown-dark);
+}
+
+/* Controles de quantidade e exclusão na linha do carrinho */
+.cart-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cart-qty-btn {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1px solid var(--color-brown);
+    background: transparent;
+    color: var(--color-brown);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.cart-qty-btn:hover {
+    background: var(--color-brown);
+    color: var(--color-cream);
+}
+
+.cart-item-qty {
+    font-weight: 600;
+    font-size: 0.9rem;
+    min-width: 20px;
+    text-align: center;
 }
 
 .btn-remove-item {
     background: transparent;
     border: none;
     color: #e74c3c;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     cursor: pointer;
-    padding: 0 10px;
+    padding: 0 5px;
 }
 
 .cart-footer {
@@ -1140,6 +1177,16 @@ body.modo-escuro {
     border-bottom-color: rgba(255, 182, 193, 0.15);
 }
 
+.modo-escuro .cart-qty-btn {
+    border-color: var(--color-pink);
+    color: var(--color-pink);
+}
+
+.modo-escuro .cart-qty-btn:hover {
+    background: var(--color-pink);
+    color: var(--color-brown-dark);
+}
+
 .modo-escuro .toast {
     background: #3a2216;
     color: #f3e6dc;
@@ -1208,7 +1255,7 @@ body.modo-escuro {
     .menu-item-action {
         text-align: center;
         width: 100%;
-        align-items: center; /* Centraliza botao e label no celular */
+        align-items: center;
     }
     
     .wave {
