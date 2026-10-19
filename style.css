@@ -9,6 +9,8 @@
     --color-brown-dark: #3a2216; 
     --font-main: 'Poppins', sans-serif;
     --font-script: 'Great Vibes', cursive;
+    /* NOVA VARIÁVEL ADICIONADA PARA OS TÍTULOS (H2) */
+    --font-title: 'Montserrat', sans-serif; 
 }
 
 /* ==========================================================================
@@ -75,25 +77,32 @@ img {
 }
 
 /* ==========================================================================
-   TIPOGRAFIA
+   TIPOGRAFIA (TÍTULOS E SUBTÍTULOS)
    ========================================================================== */
+/* ATUALIZADO: Subtítulo para Sans Serif e ajustado o tamanho para não quebrar o design */
 .subtitle { 
-    font-family: var(--font-script); 
-    font-size: 2.8rem; 
+    font-family: sans-serif; 
+    font-size: 1.2rem; 
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     color: var(--color-brown); 
-    margin-bottom: -15px; 
+    margin-bottom: 5px; 
 }
 
 h1, 
-h2, 
 h3, 
 h4 { 
     color: var(--color-brown); 
     font-weight: 700; 
 }
 
+/* ATUALIZADO: Aplicando Montserrat a todos os H2 */
 h2 { 
+    font-family: var(--font-title);
     font-size: 2.2rem; 
+    color: var(--color-brown); 
+    font-weight: 700; 
     margin-bottom: 20px; 
 }
 
@@ -250,10 +259,14 @@ button,
     min-width: 300px; 
 }
 
+/* ATUALIZADO: Subtítulo do Hero ajustado para acompanhar o resto do site */
 .hero-text h2 { 
-    font-family: var(--font-script); 
-    font-size: 3rem; 
-    margin-bottom: -15px; 
+    font-family: sans-serif; 
+    font-size: 1.2rem; 
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 5px; 
     color: var(--color-brown); 
 }
 
@@ -951,7 +964,6 @@ button,
     color: var(--color-pink); 
 }
 
-/* Nova regra que alinha especificamente a coluna de contatos à direita */
 .footer-social { 
     text-align: right; 
 }
@@ -1233,7 +1245,6 @@ body.modo-escuro {
         height: 40px; 
     }
 
-    /* Centraliza todo o rodapé e remove o alinhamento da direita no celular */
     .footer-grid .col {
         text-align: center;
     }
