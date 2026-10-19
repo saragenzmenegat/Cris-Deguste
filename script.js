@@ -373,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             showToast('Enviando mensagem, aguarde...', 'warning');
 
-            const web3formsAccessKey = "c7a8b00c-5f70-475c-bacd-7decf2ed036d"; 
+            const web3formsAccessKey = "95490c2d-df73-4547-afd1-dc0bb6117d22"; 
 
             const corpoDoEmail = `
 Mensagem:
