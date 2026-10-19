@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cris Deguste - Confeitaria Tradicional e Inclusiva</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -66,10 +66,10 @@
                 <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?w=300&q=80" alt="Doces Zero">
             </div>
             <div class="cat-card box-model-target">
-                <h3>Favoritos</h3>
-                <p>Os doces mais pedidos e amados pelos nossos clientes todos os dias.</p>
+                <h3>Sobremesas</h3>
+                <p>Opções incríveis para adoçar o seu final de semana em família.</p>
                 <a href="#cardapio-detalhado" class="btn-primary btn-small">Ver Opções</a>
-                <img src="https://images.unsplash.com/photo-1495147466023-af5c19cb3738?w=300&q=80" alt="Doces Favoritos">
+                <img src="https://images.unsplash.com/photo-1495147466023-af5c19cb3738?w=300&q=80" alt="Sobremesas Variadas">
             </div>
         </div>
     </section>
@@ -86,13 +86,12 @@
         
         <div class="filter-controls">
             <button class="filter-btn active" data-filter="all">Todos</button>
-            <button class="filter-btn" data-filter="favorito">Favoritos</button>
             <button class="filter-btn" data-filter="tradicional">Tradicionais</button>
             <button class="filter-btn" data-filter="inclusivo">Inclusivos</button>
         </div>
 
         <div class="menu-grid">
-            <div class="menu-item box-model-target" data-category="favorito">
+            <div class="menu-item box-model-target" data-category="tradicional">
                 <div class="menu-item-info">
                     <h4>Bolo Red Velvet</h4>
                     <p>Massa vermelha, recheio de cream cheese tradicional.</p>
@@ -147,7 +146,7 @@
                 </div>
             </div>
 
-            <div class="menu-item box-model-target" data-category="favorito">
+            <div class="menu-item box-model-target" data-category="tradicional">
                 <div class="menu-item-info">
                     <h4>Taça da Felicidade</h4>
                     <p>Creme, morangos frescos, bolo e ganache de chocolate.</p>
@@ -302,18 +301,50 @@
         </svg>
     </div>
 
+    <!-- === NOVA ESTRUTURA DO CARROSSEL 3D === -->
     <section class="avaliacoes section-cream" id="avaliacoes">
         <div class="text-center">
             <p class="subtitle">Depoimentos</p>
             <h2>O que nossos clientes dizem</h2>
         </div>
         
-        <div class="reviews-list" id="reviews-list">
-            <div class="review-card box-model-target static-review">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-text">"Melhor bolo da vida! Encomendei para o aniversário da minha filha e todos amaram. A massa é fofinha e o recheio não é enjoativo."</p>
-                <p class="review-author">- Maria Silva</p>
+        <div class="carousel-container">
+            <button class="carousel-btn prev-btn" id="prev-review" aria-label="Avaliação Anterior">&#10094;</button>
+            
+            <div class="reviews-list" id="reviews-list">
+                <div class="review-card static-review">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Melhor bolo da vida! Encomendei para o aniversário da minha filha e todos amaram. A massa é fofinha e não é enjoativa."</p>
+                    <p class="review-author">- Maria Silva</p>
+                </div>
+                <div class="review-card static-review">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"A linha inclusiva salvou minha festa. Minha mãe tem diabetes e pôde comer o bolo inteiro sem culpa. Sabor idêntico ao original!"</p>
+                    <p class="review-author">- Carlos Eduardo</p>
+                </div>
+                <div class="review-card static-review">
+                    <div class="review-stars">★★★★☆</div>
+                    <p class="review-text">"Os docinhos tradicionais são impecáveis. Lembra muito o sabor da minha infância. A entrega atrasou 10 minutinhos, mas valeu a pena."</p>
+                    <p class="review-author">- Fernanda Lima</p>
+                </div>
+                <div class="review-card static-review">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"A Taça da Felicidade é um espetáculo à parte. Serviu minha família toda no domingo e ainda sobrou. Recomendo a todos!"</p>
+                    <p class="review-author">- Ricardo Gomes</p>
+                </div>
+                <div class="review-card static-review">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Ótimo atendimento desde o orçamento até a entrega. Os bolos decorados são simplesmente lindos, verdadeiras obras de arte."</p>
+                    <p class="review-author">- Juliana Alves</p>
+                </div>
+                <div class="review-card static-review">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"O Red Velvet é divino. Não tem igual na cidade inteira! A cobertura de cream cheese tem o azedinho perfeito."</p>
+                    <p class="review-author">- Amanda Oliveira</p>
+                </div>
             </div>
+
+            <button class="carousel-btn next-btn" id="next-review" aria-label="Próxima Avaliação">&#10095;</button>
         </div>
 
         <div class="review-form-container box-model-target">
@@ -400,7 +431,7 @@
                 <p>Confeitaria Tradicional e Inclusiva. Sabores perfeitos para os momentos especiais, casamentos e eventos corporativos.</p>
             </div>
             
-            <div class="col footer-social">
+            <div class="col">
                 <h4>Redes Sociais</h4>
                 <p>WhatsApp:</p>
                 <a href="https://wa.me/5511970924433" target="_blank" class="social-link">(11) 97092-4433</a>
