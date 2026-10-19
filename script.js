@@ -143,46 +143,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Botão "Finalizar Pedido" - Redirecionamento configurado para o número comercial real
     if (btnFinalizarPedido) {
         btnFinalizarPedido.addEventListener('click', () => {
             if (cart.length === 0) return showToast('Seu carrinho está vazio!', 'error');
-            
             const numeroWhatsApp = "5511970924433"; 
-            
             let textoPedido = "Olá Cris Deguste! Gostaria de fazer o seguinte pedido:\n\n";
             let totalPedido = 0;
-            
-            cart.forEach((item) => { 
-                textoPedido += `- 1x ${item.name} (R$ ${item.price.toFixed(2).replace('.', ',')})\n`; 
-                totalPedido += item.price; 
-            });
-            
+            cart.forEach((item) => { textoPedido += `- 1x ${item.name} (R$ ${item.price.toFixed(2).replace('.', ',')})\n`; totalPedido += item.price; });
             textoPedido += `\n*Total estimado: R$ ${totalPedido.toFixed(2).replace('.', ',')}*\n\nComo podemos prosseguir com o pagamento e a entrega?`;
-            
             window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(textoPedido)}`, '_blank');
             showToast('Redirecionando para o WhatsApp...', 'success');
-            
-            cart = []; 
-            updateCartUI(); 
-            setTimeout(() => cartSidebar.classList.remove('open'), 1500);
+            cart = []; updateCartUI(); setTimeout(() => cartSidebar.classList.remove('open'), 1500);
         });
     }
 
     // ==========================================================================
-    // SISTEMA DE AVALIAÇÕES E PAINEL DE MODERAÇÃO (CTRL + 0)
+    // SISTEMA DE AVALIAÇÕES (MURAL DIRETO)
     // ==========================================================================
-    
     const reviewForm = document.getElementById('review-form');
     const starInput = document.getElementById('star-rating-input');
     const ratingHidden = document.getElementById('rev-rating');
     const reviewsList = document.getElementById('reviews-list');
     let currentRating = 5; 
-
-    const adminOverlay = document.getElementById('admin-overlay');
-    const closeAdminBtn = document.getElementById('close-admin');
-    const adminReviewsList = document.getElementById('admin-reviews-list');
-    const adminApprovedList = document.getElementById('admin-approved-list'); 
 
     if (starInput) {
         const stars = starInput.querySelectorAll('span');
@@ -199,39 +181,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (reviewForm) {
-        reviewForm.addEventListener('submit', (e) => {
-            e.preventDefault(); 
-            const nameElement = document.getElementById('rev-name');
-            const textElement = document.getElementById('rev-text');
-            
-            const novaAvaliacao = {
-                id: Date.now(),
-                nome: nameElement ? nameElement.value.trim() : 'Anônimo',
-                texto: textElement ? textElement.value.trim() : '',
-                estrelas: ratingHidden ? parseInt(ratingHidden.value) : 5,
-            };
-
-            let pendentes = JSON.parse(localStorage.getItem('avaliacoes_pendentes')) || [];
-            pendentes.push(novaAvaliacao);
-            localStorage.setItem('avaliacoes_pendentes', JSON.stringify(pendentes));
-
-            reviewForm.reset();
-            currentRating = 5;
-            if (ratingHidden) ratingHidden.value = 5;
-            if (starInput) starInput.querySelectorAll('span').forEach(s => s.style.color = '#f4b63f');
-            
-            showToast('Avaliação enviada para moderação!', 'success');
-            renderAdminPanel(); 
-        });
-    }
-
-    function loadApprovedReviews() {
+    function loadReviews() {
         if(!reviewsList) return;
         document.querySelectorAll('.dynamic-review').forEach(el => el.remove());
-        let aprovadas = JSON.parse(localStorage.getItem('avaliacoes_aprovadas')) || [];
+        let avaliacoes = JSON.parse(localStorage.getItem('avaliacoes_salvas')) || [];
         
-        aprovadas.forEach(av => {
+        avaliacoes.forEach(av => {
             let starsHTML = '';
             for(let i=1; i<=5; i++) starsHTML += i <= av.estrelas ? '★' : '☆';
 
@@ -246,107 +201,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    loadApprovedReviews();
+    loadReviews();
 
-    document.addEventListener('keydown', (e) => {
-        if (e.ctrlKey && e.key === '0') {
-            e.preventDefault();
-            adminOverlay.classList.toggle('active');
-            if(adminOverlay.classList.contains('active')) renderAdminPanel();
-        }
-    });
-
-    if(closeAdminBtn) closeAdminBtn.addEventListener('click', () => adminOverlay.classList.remove('active'));
-
-    window.renderAdminPanel = function() {
-        if(!adminReviewsList || !adminApprovedList) return;
-        
-        adminReviewsList.innerHTML = '';
-        let pendentes = JSON.parse(localStorage.getItem('avaliacoes_pendentes')) || [];
-        
-        if(pendentes.length === 0) {
-            adminReviewsList.innerHTML = '<p style="font-size:0.9rem; color:#666;">Nenhuma avaliação pendente.</p>';
-        } else {
-            pendentes.forEach(av => {
-                let starsHTML = '';
-                for(let i=1; i<=5; i++) starsHTML += i <= av.estrelas ? '★' : '☆';
-
-                const item = document.createElement('div');
-                item.classList.add('admin-review-item');
-                item.innerHTML = `
-                    <p><strong>Nome:</strong> ${av.nome}</p>
-                    <p><strong>Nota:</strong> <span style="color:#f4b63f">${starsHTML}</span></p>
-                    <p><strong>Comentário:</strong> "${av.texto}"</p>
-                    <div class="admin-review-actions">
-                        <button class="btn-approve" onclick="aprovarAvaliacao(${av.id})">Aprovar</button>
-                        <button class="btn-reject" onclick="rejeitarAvaliacao(${av.id})">Excluir</button>
-                    </div>
-                `;
-                adminReviewsList.appendChild(item);
-            });
-        }
-
-        adminApprovedList.innerHTML = '';
-        let aprovadas = JSON.parse(localStorage.getItem('avaliacoes_aprovadas')) || [];
-        
-        if(aprovadas.length === 0) {
-            adminApprovedList.innerHTML = '<p style="font-size:0.9rem; color:#666;">Nenhuma avaliação dinâmica publicada.</p>';
-        } else {
-            aprovadas.forEach(av => {
-                let starsHTML = '';
-                for(let i=1; i<=5; i++) starsHTML += i <= av.estrelas ? '★' : '☆';
-
-                const item = document.createElement('div');
-                item.classList.add('admin-review-item');
-                item.innerHTML = `
-                    <p><strong>Nome:</strong> ${av.nome}</p>
-                    <p><strong>Nota:</strong> <span style="color:#f4b63f">${starsHTML}</span></p>
-                    <p><strong>Comentário:</strong> "${av.texto}"</p>
-                    <div class="admin-review-actions">
-                        <button class="btn-reject" style="background:#e67e22;" onclick="removerAprovada(${av.id})">Remover do Site</button>
-                    </div>
-                `;
-                adminApprovedList.appendChild(item);
-            });
-        }
-    };
-
-    window.aprovarAvaliacao = function(id) {
-        let pendentes = JSON.parse(localStorage.getItem('avaliacoes_pendentes')) || [];
-        let aprovadas = JSON.parse(localStorage.getItem('avaliacoes_aprovadas')) || [];
-        
-        const avaliacao = pendentes.find(av => av.id === id);
-        if(avaliacao) {
-            aprovadas.push(avaliacao); 
-            pendentes = pendentes.filter(av => av.id !== id); 
+    if (reviewForm) {
+        reviewForm.addEventListener('submit', (e) => {
+            e.preventDefault(); 
+            const nameElement = document.getElementById('rev-name');
+            const textElement = document.getElementById('rev-text');
             
-            localStorage.setItem('avaliacoes_aprovadas', JSON.stringify(aprovadas));
-            localStorage.setItem('avaliacoes_pendentes', JSON.stringify(pendentes));
+            const novaAvaliacao = {
+                id: Date.now(),
+                nome: nameElement ? nameElement.value.trim() : 'Anônimo',
+                texto: textElement ? textElement.value.trim() : '',
+                estrelas: ratingHidden ? parseInt(ratingHidden.value) : 5,
+            };
+
+            let avaliacoes = JSON.parse(localStorage.getItem('avaliacoes_salvas')) || [];
+            avaliacoes.push(novaAvaliacao);
+            localStorage.setItem('avaliacoes_salvas', JSON.stringify(avaliacoes));
+
+            reviewForm.reset();
+            currentRating = 5;
+            if (ratingHidden) ratingHidden.value = 5;
+            if (starInput) starInput.querySelectorAll('span').forEach(s => s.style.color = '#f4b63f');
             
-            renderAdminPanel(); 
-            loadApprovedReviews(); 
-            showToast('Avaliação aprovada e publicada!', 'success');
-        }
-    };
-
-    window.rejeitarAvaliacao = function(id) {
-        let pendentes = JSON.parse(localStorage.getItem('avaliacoes_pendentes')) || [];
-        pendentes = pendentes.filter(av => av.id !== id);
-        localStorage.setItem('avaliacoes_pendentes', JSON.stringify(pendentes));
-        
-        renderAdminPanel();
-        showToast('Avaliação excluída com sucesso.', 'error');
-    };
-
-    window.removerAprovada = function(id) {
-        let aprovadas = JSON.parse(localStorage.getItem('avaliacoes_aprovadas')) || [];
-        aprovadas = aprovadas.filter(av => av.id !== id);
-        localStorage.setItem('avaliacoes_aprovadas', JSON.stringify(aprovadas));
-        
-        renderAdminPanel();
-        loadApprovedReviews(); 
-        showToast('Avaliação removida do mural.', 'warning');
-    };
+            showToast('Sua avaliação foi publicada no mural!', 'success');
+            loadReviews(); 
+        });
+    }
 
     // ==========================================================================
     // LÓGICA DE VALIDAÇÃO DO FORMULÁRIO DE CONTATO E ENVIO DE E-MAIL (API SEGURA)

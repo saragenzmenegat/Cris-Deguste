@@ -9,7 +9,6 @@
     --color-brown-dark: #3a2216; 
     --font-main: 'Poppins', sans-serif;
     --font-script: 'Great Vibes', cursive;
-    /* NOVA VARIÁVEL ADICIONADA PARA OS TÍTULOS (H2) */
     --font-title: 'Montserrat', sans-serif; 
 }
 
@@ -79,7 +78,6 @@ img {
 /* ==========================================================================
    TIPOGRAFIA (TÍTULOS E SUBTÍTULOS)
    ========================================================================== */
-/* ATUALIZADO: Subtítulo para Sans Serif e ajustado o tamanho para não quebrar o design */
 .subtitle { 
     font-family: sans-serif; 
     font-size: 1.2rem; 
@@ -97,7 +95,6 @@ h4 {
     font-weight: 700; 
 }
 
-/* ATUALIZADO: Aplicando Montserrat a todos os H2 */
 h2 { 
     font-family: var(--font-title);
     font-size: 2.2rem; 
@@ -259,7 +256,6 @@ button,
     min-width: 300px; 
 }
 
-/* ATUALIZADO: Subtítulo do Hero ajustado para acompanhar o resto do site */
 .hero-text h2 { 
     font-family: sans-serif; 
     font-size: 1.2rem; 
@@ -724,99 +720,6 @@ button,
 }
 
 /* ==========================================================================
-   PAINEL DE MODERAÇÃO OCULTO (ADMIN - CTRL + 0)
-   ========================================================================== */
-.admin-overlay { 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background: rgba(0, 0, 0, 0.8); 
-    z-index: 2000; 
-    display: none; 
-    justify-content: center; 
-    align-items: center; 
-}
-
-.admin-overlay.active { 
-    display: flex; 
-}
-
-.admin-modal { 
-    background: var(--color-cream); 
-    width: 90%; 
-    max-width: 600px; 
-    max-height: 80vh; 
-    overflow-y: auto; 
-    border-radius: 15px; 
-    padding: 20px; 
-}
-
-.admin-header { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    border-bottom: 2px solid var(--color-pink); 
-    padding-bottom: 10px; 
-    margin-bottom: 20px; 
-}
-
-.admin-header h3 { 
-    margin: 0; 
-    color: var(--color-brown); 
-    font-size: 1.5rem; 
-}
-
-.close-btn { 
-    background: transparent; 
-    border: none; 
-    font-size: 2rem; 
-    color: var(--color-brown); 
-    cursor: pointer; 
-}
-
-.admin-review-item { 
-    background: #fff; 
-    border: 1px solid #ccc; 
-    border-radius: 8px; 
-    padding: 15px; 
-    margin-bottom: 15px; 
-    text-align: left; 
-}
-
-.admin-review-item p { 
-    margin-bottom: 5px; 
-    font-size: 0.95rem;
-}
-
-.admin-review-actions { 
-    display: flex; 
-    gap: 10px; 
-    margin-top: 15px; 
-}
-
-.btn-approve { 
-    background: #2ecc71; 
-    color: white; 
-    border: none; 
-    padding: 8px 15px; 
-    border-radius: 5px; 
-    font-weight: bold; 
-    cursor: pointer; 
-}
-
-.btn-reject { 
-    background: #e74c3c; 
-    color: white; 
-    border: none; 
-    padding: 8px 15px; 
-    border-radius: 5px; 
-    font-weight: bold; 
-    cursor: pointer; 
-}
-
-/* ==========================================================================
    SISTEMA DE NOTIFICAÇÕES (TOAST)
    ========================================================================== */
 .toast-container { 
@@ -1135,7 +1038,7 @@ body.modo-escuro {
     color: var(--color-brown-dark); 
 }
 
-/* Modo escuro para Carrinho e Admin */
+/* Modo escuro para Carrinho */
 .modo-escuro .cart-sidebar { 
     background: #1e1410; 
 }
@@ -1157,22 +1060,6 @@ body.modo-escuro {
 
 .modo-escuro .toast { 
     background: #3a2216; 
-    color: #f3e6dc; 
-}
-
-.modo-escuro .admin-modal { 
-    background: #1e1410; 
-    border-color: #5c3522; 
-}
-
-.modo-escuro .admin-header h3, 
-.modo-escuro .close-btn { 
-    color: var(--color-pink); 
-}
-
-.modo-escuro .admin-review-item { 
-    background: #2a1b14; 
-    border-color: #5c3522; 
     color: #f3e6dc; 
 }
 
