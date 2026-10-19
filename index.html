@@ -24,6 +24,12 @@
         </nav>
         <div class="header-acoes">
             <button class="btn-tema" id="btn-tema" aria-label="Alternar modo escuro">🌙</button>
+            
+            <!-- NOVO LOCAL DO CARRINHO (CABEÇALHO) -->
+            <button class="btn-header-cart" id="btn-header-cart" aria-label="Abrir carrinho">
+                🛒 <span class="cart-badge" id="cart-badge">0</span>
+            </button>
+
             <div class="menu-icon" id="menu-icon">&#9776;</div>
         </div>
     </header>
@@ -66,10 +72,10 @@
                 <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?w=300&q=80" alt="Doces Zero">
             </div>
             <div class="cat-card box-model-target">
-                <h3>Sobremesas</h3>
-                <p>Opções incríveis para adoçar o seu final de semana em família.</p>
+                <h3>Favoritos</h3>
+                <p>Os doces mais pedidos e amados pelos nossos clientes todos os dias.</p>
                 <a href="#cardapio-detalhado" class="btn-primary btn-small">Ver Opções</a>
-                <img src="https://images.unsplash.com/photo-1495147466023-af5c19cb3738?w=300&q=80" alt="Sobremesas Variadas">
+                <img src="https://images.unsplash.com/photo-1495147466023-af5c19cb3738?w=300&q=80" alt="Doces Favoritos">
             </div>
         </div>
     </section>
@@ -86,12 +92,13 @@
         
         <div class="filter-controls">
             <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="favorito">Favoritos</button>
             <button class="filter-btn" data-filter="tradicional">Tradicionais</button>
             <button class="filter-btn" data-filter="inclusivo">Inclusivos</button>
         </div>
 
         <div class="menu-grid">
-            <div class="menu-item box-model-target" data-category="tradicional">
+            <div class="menu-item box-model-target" data-category="favorito">
                 <div class="menu-item-info">
                     <h4>Bolo Red Velvet</h4>
                     <p>Massa vermelha, recheio de cream cheese tradicional.</p>
@@ -146,7 +153,7 @@
                 </div>
             </div>
 
-            <div class="menu-item box-model-target" data-category="tradicional">
+            <div class="menu-item box-model-target" data-category="favorito">
                 <div class="menu-item-info">
                     <h4>Taça da Felicidade</h4>
                     <p>Creme, morangos frescos, bolo e ganache de chocolate.</p>
@@ -301,7 +308,7 @@
         </svg>
     </div>
 
-    <!-- === NOVA ESTRUTURA DO CARROSSEL 3D === -->
+    <!-- CARROSSEL 3D DE AVALIAÇÕES -->
     <section class="avaliacoes section-cream" id="avaliacoes">
         <div class="text-center">
             <p class="subtitle">Depoimentos</p>
@@ -431,7 +438,7 @@
                 <p>Confeitaria Tradicional e Inclusiva. Sabores perfeitos para os momentos especiais, casamentos e eventos corporativos.</p>
             </div>
             
-            <div class="col">
+            <div class="col footer-social">
                 <h4>Redes Sociais</h4>
                 <p>WhatsApp:</p>
                 <a href="https://wa.me/5511970924433" target="_blank" class="social-link">(11) 97092-4433</a>
@@ -448,10 +455,7 @@
 
     <button class="btn-topo" id="btn-topo" aria-label="Voltar ao topo">&#8593;</button>
 
-    <button class="btn-floating-cart" id="btn-floating-cart" aria-label="Abrir carrinho">
-        🛒 <span class="cart-badge" id="cart-badge">0</span>
-    </button>
-
+    <!-- SIDEBAR DO CARRINHO (O Botão de acionar agora fica no Header) -->
     <div class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
             <h3>Seu Pedido</h3>

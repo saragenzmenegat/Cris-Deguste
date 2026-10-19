@@ -85,7 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- LÓGICA DO CARRINHO DE COMPRAS E INTEGRAÇÃO WHATSAPP ---
-    const btnFloatingCart = document.getElementById('btn-floating-cart');
+    // ATUALIZADO: Agora busca pelo ID do botão no Header
+    const btnHeaderCart = document.getElementById('btn-header-cart');
     const cartSidebar = document.getElementById('cart-sidebar');
     const closeCartBtn = document.getElementById('close-cart');
     const cartItemsList = document.getElementById('cart-items-list');
@@ -95,8 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnFinalizarPedido = document.getElementById('btn-finalizar-pedido');
     let cart = [];
 
-    if(btnFloatingCart && cartSidebar && closeCartBtn) {
-        btnFloatingCart.addEventListener('click', () => cartSidebar.classList.add('open'));
+    // ATUALIZADO: Variável btnHeaderCart no lugar da antiga
+    if(btnHeaderCart && cartSidebar && closeCartBtn) {
+        btnHeaderCart.addEventListener('click', () => cartSidebar.classList.add('open'));
         closeCartBtn.addEventListener('click', () => cartSidebar.classList.remove('open'));
     }
 
@@ -166,7 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const reviewsList = document.getElementById('reviews-list');
     let currentRating = 5; 
 
-    // --- VARIÁVEIS DO CARROSSEL ---
     let carouselItems = [];
     let currentReviewIndex = 0;
     let autoPlayInterval;
@@ -186,16 +187,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Atualiza as posições 3D dos cartões
     function updateCarousel() {
         const totalItems = carouselItems.length;
         if (totalItems === 0) return;
 
         carouselItems.forEach((item, index) => {
-            // Descobre a distância deste item para o item central atual
             let offset = index - currentReviewIndex;
 
-            // Lógica circular (Infinito)
             if (offset > Math.floor(totalItems / 2)) {
                 offset -= totalItems;
             } else if (offset < -Math.floor(totalItems / 2)) {
@@ -204,22 +202,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const absOffset = Math.abs(offset);
 
-            // Cálculos matemáticos para o Efeito 3D
-            const scale = Math.max(1 - absOffset * 0.15, 0); // Diminui o tamanho
-            const opacity = Math.max(1 - absOffset * 0.4, 0); // Fica transparente
-            const translateX = offset * 110; // Move para a esquerda/direita em %
-            const translateZ = -absOffset * 150; // Empurra para o fundo da tela (profundidade)
-            const zIndex = 100 - absOffset; // Item central fica por cima
+            const scale = Math.max(1 - absOffset * 0.15, 0); 
+            const opacity = Math.max(1 - absOffset * 0.4, 0); 
+            const translateX = offset * 110; 
+            const translateZ = -absOffset * 150; 
+            const zIndex = 100 - absOffset; 
 
             item.style.transform = `translateX(${translateX}%) translateZ(${translateZ}px) scale(${scale})`;
             item.style.opacity = opacity;
             item.style.zIndex = zIndex;
-            item.style.visibility = absOffset > 2 ? 'hidden' : 'visible'; // Esconde os muito distantes
-            item.style.pointerEvents = absOffset === 0 ? 'auto' : 'none'; // Só deixa clicar no item da frente
+            item.style.visibility = absOffset > 2 ? 'hidden' : 'visible'; 
+            item.style.pointerEvents = absOffset === 0 ? 'auto' : 'none'; 
         });
     }
 
-    // Inicializa o carrossel lendo o DOM
     function initCarousel() {
         if(!reviewsList) return;
         carouselItems = Array.from(document.querySelectorAll('.review-card'));
@@ -227,16 +223,14 @@ document.addEventListener('DOMContentLoaded', () => {
         startAutoPlay();
     }
 
-    // Controla o AutoPlay do carrossel
     function startAutoPlay() {
         clearInterval(autoPlayInterval);
         autoPlayInterval = setInterval(() => {
             currentReviewIndex = (currentReviewIndex + 1) % carouselItems.length;
             updateCarousel();
-        }, 4000); // Gira a cada 4 segundos
+        }, 4000); 
     }
 
-    // Botões manuais do Carrossel
     const prevBtn = document.getElementById('prev-review');
     const nextBtn = document.getElementById('next-review');
 
@@ -244,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
         prevBtn.addEventListener('click', () => {
             currentReviewIndex = (currentReviewIndex - 1 + carouselItems.length) % carouselItems.length;
             updateCarousel();
-            startAutoPlay(); // Reseta o timer se o usuário clicou
+            startAutoPlay(); 
         });
 
         nextBtn.addEventListener('click', () => {
@@ -254,7 +248,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Carrega avaliações salvas no LocalStorage e recria a lista
     function loadReviews() {
         if(!reviewsList) return;
         document.querySelectorAll('.dynamic-review').forEach(el => el.remove());
@@ -271,18 +264,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p class="review-text">"${av.texto}"</p>
                 <p class="review-author">- ${av.nome}</p>
             `;
-            // Prepend coloca a nova avaliação no começo da lista (index 0)
             reviewsList.prepend(card); 
         });
 
-        // Sempre que carregar novas, reinicia a máquina 3D
         initCarousel();
     }
     
-    // Inicia tudo
     loadReviews();
 
-    // Quando o usuário envia uma nova avaliação
     if (reviewForm) {
         reviewForm.addEventListener('submit', (e) => {
             e.preventDefault(); 
@@ -307,7 +296,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             showToast('Sua avaliação foi publicada no mural!', 'success');
             
-            // Recarrega os itens no DOM e foca na primeira carta (a que acabou de ser criada)
             loadReviews(); 
             currentReviewIndex = 0; 
             updateCarousel();
