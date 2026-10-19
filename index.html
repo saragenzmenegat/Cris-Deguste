@@ -5,12 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cris Deguste - Confeitaria Tradicional e Inclusiva</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header class="header">
-        <div class="logo">Cris Deguste</div>
+        <!-- NOVO: Grupo agrupando Logo e Botão de Tema à esquerda -->
+        <div class="header-logo-group">
+            <div class="logo">Cris Deguste</div>
+            <button class="btn-tema" id="btn-tema" aria-label="Alternar modo escuro">🌙</button>
+        </div>
+        
         <nav class="navbar">
             <ul class="nav-links">
                 <li><a href="#inicio">Início</a></li>
@@ -22,14 +27,12 @@
                 <li><a href="#fale-conosco">Contato</a></li>
             </ul>
         </nav>
+        
         <div class="header-acoes">
-            <button class="btn-tema" id="btn-tema" aria-label="Alternar modo escuro">🌙</button>
-            
-            <!-- NOVO LOCAL DO CARRINHO (CABEÇALHO) -->
+            <!-- Carrinho agora é o item principal à direita com o menu -->
             <button class="btn-header-cart" id="btn-header-cart" aria-label="Abrir carrinho">
                 🛒 <span class="cart-badge" id="cart-badge">0</span>
             </button>
-
             <div class="menu-icon" id="menu-icon">&#9776;</div>
         </div>
     </header>
@@ -308,7 +311,6 @@
         </svg>
     </div>
 
-    <!-- CARROSSEL 3D DE AVALIAÇÕES -->
     <section class="avaliacoes section-cream" id="avaliacoes">
         <div class="text-center">
             <p class="subtitle">Depoimentos</p>
@@ -455,7 +457,6 @@
 
     <button class="btn-topo" id="btn-topo" aria-label="Voltar ao topo">&#8593;</button>
 
-    <!-- SIDEBAR DO CARRINHO (O Botão de acionar agora fica no Header) -->
     <div class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
             <h3>Seu Pedido</h3>

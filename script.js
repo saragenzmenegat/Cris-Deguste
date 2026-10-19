@@ -85,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- LÓGICA DO CARRINHO DE COMPRAS E INTEGRAÇÃO WHATSAPP ---
-    // ATUALIZADO: Agora busca pelo ID do botão no Header
     const btnHeaderCart = document.getElementById('btn-header-cart');
     const cartSidebar = document.getElementById('cart-sidebar');
     const closeCartBtn = document.getElementById('close-cart');
@@ -96,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnFinalizarPedido = document.getElementById('btn-finalizar-pedido');
     let cart = [];
 
-    // ATUALIZADO: Variável btnHeaderCart no lugar da antiga
     if(btnHeaderCart && cartSidebar && closeCartBtn) {
         btnHeaderCart.addEventListener('click', () => cartSidebar.classList.add('open'));
         closeCartBtn.addEventListener('click', () => cartSidebar.classList.remove('open'));
@@ -327,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             showToast('Enviando mensagem, aguarde...', 'warning');
 
-            const web3formsAccessKey = "95490c2d-df73-4547-afd1-dc0bb6117d22"; 
+            const web3formsAccessKey = "c7a8b00c-5f70-475c-bacd-7decf2ed036d"; 
 
             const corpoDoEmail = `
 Mensagem:
