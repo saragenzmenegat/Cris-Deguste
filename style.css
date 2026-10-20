@@ -368,8 +368,6 @@ button,
     width: 280px;
 }
 
-/* NOTA PEDAGÓGICA: margin: 0 neutraliza o margin da box-model-target.
-   O cálculo garante perfeitamente 4 itens na linha descontando os gaps */
 .valor-card {
     margin: 0;
     width: calc(25% - 15px);
@@ -440,16 +438,39 @@ button,
 
 .menu-item {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     width: calc(50% - 10px);
     margin: 0;
     background: #fff;
     text-align: left;
+    gap: 15px;
+    flex-wrap: nowrap;
+}
+
+.menu-item-img {
+    flex: 0 0 80px;
+    height: 80px;
+}
+
+.menu-item-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    background-color: #eee;
+}
+
+.menu-item-info {
+    flex: 1;
+    min-width: 0;
 }
 
 .menu-item-info h4 {
     font-size: 1.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .menu-item-info p {
@@ -458,11 +479,11 @@ button,
 }
 
 .menu-item-action {
-    text-align: right;
-    min-width: 120px;
+    flex: 0 0 auto;
+    text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
 }
 
@@ -507,7 +528,6 @@ button,
     flex-wrap: wrap;
 }
 
-/* NOTA PEDAGÓGICA: O flex: 0 0 auto impede que a caixa estique e fique maior que a imagem. */
 .img-container {
     flex: 0 0 auto;
     min-width: 300px;
@@ -1179,7 +1199,6 @@ body.modo-escuro {
     color: var(--color-brown-dark);
 }
 
-/* Modo escuro para Carrinho e Carrossel */
 .modo-escuro .cart-sidebar {
     background: #1e1410;
 }
@@ -1218,7 +1237,6 @@ body.modo-escuro {
    MEDIA QUERIES (DESIGN RESPONSIVO)
    ========================================================================== */
 
-/* Tablet: Força exatamente 2 itens de Valores por linha (2 em cima e 2 embaixo) */
 @media (max-width: 1024px) {
     .valor-card {
         margin: 0;
@@ -1277,16 +1295,26 @@ body.modo-escuro {
     .menu-item {
         width: 100%;
         margin: 0;
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        align-items: center;
         gap: 15px;
-        text-align: center;
+        text-align: left;
+    }
+    
+    .menu-item-img {
+        display: block;
+    }
+    
+    .menu-item-info {
+        flex: 1;
+        min-width: 0;
     }
     
     .menu-item-action {
         text-align: center;
-        width: 100%;
+        width: auto;
         align-items: center;
+        flex: 0 0 auto;
     }
     
     .wave {
@@ -1310,10 +1338,22 @@ body.modo-escuro {
     }
 }
 
-/* Mobile: Força exatamente 1 item de Valores por linha (um embaixo do outro) */
 @media (max-width: 600px) {
     .valor-card {
         margin: 0;
         width: 100%;
+    }
+    
+    .menu-item-img {
+        flex: 0 0 60px;
+        height: 60px;
+    }
+    
+    .menu-item-info h4 {
+        font-size: 1rem;
+    }
+    
+    .menu-item-info p {
+        font-size: 0.8rem;
     }
 }
