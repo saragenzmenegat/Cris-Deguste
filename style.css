@@ -108,6 +108,7 @@ h2 {
     max-width: 600px;
     margin: 0 auto 30px;
     font-weight: 500;
+    text-align: justify;
 }
 
 /* ==========================================================================
@@ -316,6 +317,7 @@ button,
     margin-bottom: 25px;
     font-size: 1.1rem;
     font-weight: 500;
+    text-align: justify;
 }
 
 .buttons {
@@ -368,6 +370,10 @@ button,
     width: 280px;
 }
 
+.cat-card p {
+    text-align: justify;
+}
+
 .valor-card {
     margin: 0;
     width: calc(25% - 15px);
@@ -375,6 +381,10 @@ button,
     box-shadow: none;
     border: none;
     padding: 10px;
+}
+
+.valor-card p {
+    text-align: justify;
 }
 
 .valor-icon {
@@ -486,6 +496,7 @@ button,
 .menu-item-info p {
     font-size: 0.9rem;
     color: var(--color-brown-dark);
+    text-align: justify;
 }
 
 .menu-item-action {
@@ -613,6 +624,7 @@ button,
 .faq-answer p {
     padding: 0 20px 20px;
     color: var(--color-brown-dark);
+    text-align: justify;
 }
 
 /* ==========================================================================
@@ -666,6 +678,7 @@ button,
     font-style: italic;
     margin-bottom: 15px;
     font-size: 0.95rem;
+    text-align: justify;
 }
 
 .review-author {
@@ -828,6 +841,7 @@ button,
 .cart-item-info p {
     font-size: 0.85rem;
     color: var(--color-brown-dark);
+    text-align: justify;
 }
 
 .cart-item-actions {
@@ -1019,6 +1033,7 @@ button,
 .col p {
     color: var(--color-cream);
     margin-bottom: 10px;
+    text-align: justify;
 }
 
 .col ul li {
@@ -1038,16 +1053,48 @@ button,
     text-align: right;
 }
 
-.col a.social-link {
+.social-list {
+    display: inline-block;
+    text-align: left;
+}
+
+.social-item {
+    margin-bottom: 15px;
+}
+
+.social-label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--color-cream);
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     color: var(--color-cream);
     font-size: 1.4rem;
-    display: block;
     font-weight: 600;
     transition: color 0.3s;
 }
 
-.col a.social-link:hover {
+.social-link:hover {
     color: var(--color-pink);
+}
+
+.icon-whatsapp {
+    width: 32px;
+    height: 32px;
+    color: var(--white);
+    flex-shrink: 0;
+}
+
+.icon-instagram {
+    width: 32px;
+    height: 32px;
+    color: var(--white);
+    background-color: transparent;
+    flex-shrink: 0;
 }
 
 .btn-topo {
@@ -1337,6 +1384,11 @@ body.modo-escuro {
 
     .footer-social {
         text-align: center;
+    }
+    
+    .social-list {
+        display: inline-block;
+        text-align: left;
     }
 
     .carousel-container {
