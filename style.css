@@ -108,7 +108,7 @@ h2 {
     max-width: 600px;
     margin: 0 auto 30px;
     font-weight: 500;
-    text-align: center;
+    text-align: justify;
 }
 
 /* ==========================================================================
@@ -191,10 +191,14 @@ button,
 }
 
 .logo {
-    font-family: var(--font-script);
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--color-cream);
+    display: flex;
+    align-items: center;
+}
+
+.header-logo-img {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
 }
 
 .navbar {
@@ -1078,6 +1082,27 @@ button,
     color: var(--color-pink);
 }
 
+.footer-info-col {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-logo {
+    flex-shrink: 0;
+}
+
+.footer-logo img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    background-color: transparent;
+}
+
+.footer-text {
+    flex: 1;
+}
+
 .footer-social {
     text-align: right;
 }
@@ -1408,6 +1433,16 @@ body.modo-escuro {
     }
 
     .footer-grid .col {
+        text-align: center;
+    }
+    
+    .footer-info-col {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .footer-text p {
         text-align: center;
     }
 
