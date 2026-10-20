@@ -17,8 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const toast = document.createElement('div');
         toast.classList.add('toast', `toast-${type}`); 
         
-        // NOTA PEDAGÓGICA: Emojis removidos para garantir um visual mais profissional e clean.
-        // A diferenciação de sucesso/erro agora é feita puramente pela cor da borda via CSS.
         toast.innerHTML = `<p>${message}</p>`;
         
         toastContainer.appendChild(toast);
@@ -87,6 +85,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- LÓGICA DOS LINKS DA SEÇÃO DESCUBRA ---
+    const catLinks = document.querySelectorAll('.cat-link');
+    if (catLinks.length > 0) {
+        catLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                const targetFilter = link.getAttribute('data-target-filter');
+                const targetButton = document.querySelector(`.filter-btn[data-filter="${targetFilter}"]`);
+                if (targetButton) {
+                    targetButton.click();
+                }
+            });
+        });
+    }
+
     // ==========================================================================
     // CARRINHO DE COMPRAS INTELIGENTE (COM PERSISTÊNCIA E QUANTIDADES)
     // ==========================================================================
@@ -99,14 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnAddCartList = document.querySelectorAll('.btn-add-cart');
     const btnFinalizarPedido = document.getElementById('btn-finalizar-pedido');
     
-    // Recupera o carrinho salvo no navegador ou inicializa vazio
     let cart = JSON.parse(localStorage.getItem('cris_cart')) || [];
 
     if(btnHeaderCart && cartSidebar && closeCartBtn) {
         btnHeaderCart.addEventListener('click', () => {
             cartSidebar.classList.add('open');
-            // Remove instantaneamente todos os pop-ups (toasts) que estiverem na tela
-            // Isso evita que o aviso sobreponha a visão do carrinho aberto
             if(toastContainer) {
                 toastContainer.innerHTML = '';
             }
@@ -114,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
         closeCartBtn.addEventListener('click', () => cartSidebar.classList.remove('open'));
     }
 
-    // Função central para salvar o estado no localStorage e atualizar a interface
     function saveAndRenderCart() {
         localStorage.setItem('cris_cart', JSON.stringify(cart));
         updateCartUI();
@@ -151,7 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if(cartTotalSpan) cartTotalSpan.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
         if(cartBadge) cartBadge.textContent = totalCount;
 
-        // Listener para o botão de diminuir quantidade (-)
         document.querySelectorAll('.btn-decrease').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const index = e.target.getAttribute('data-index');
@@ -164,7 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Listener para o botão de aumentar quantidade (+)
         document.querySelectorAll('.btn-increase').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const index = e.target.getAttribute('data-index');
@@ -173,7 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Listener para o botão de remover item completo (&times;)
         document.querySelectorAll('.btn-remove-item').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const indexToRemove = e.target.getAttribute('data-index');
@@ -183,7 +188,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Inicializa a UI do carrinho na carga da página
     updateCartUI();
 
     if(btnAddCartList.length > 0) {
@@ -192,7 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const name = e.target.getAttribute('data-name');
                 const price = parseFloat(e.target.getAttribute('data-price'));
                 
-                // Verifica se o item já existe no carrinho para incrementar a quantidade
                 const existingItemIndex = cart.findIndex(item => item.name === name);
                 if (existingItemIndex > -1) {
                     cart[existingItemIndex].quantity += 1;
@@ -202,13 +205,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 saveAndRenderCart();
                 
-                // Dispara o Toast apenas se o carrinho lateral NÃO estiver aberto.
                 if (!cartSidebar.classList.contains('open')) {
                     showToast(`${name} adicionado ao carrinho!`, 'success');
                 }
                 
-                // NOTA PEDAGÓGICA: Mantemos apenas a alteração de cor como feedback interativo,
-                // sem a substituição por emoji, preservando o aspecto elegante da UI.
                 e.target.style.background = '#2ecc71'; 
                 e.target.style.borderColor = '#2ecc71'; 
                 e.target.style.color = '#fff';
