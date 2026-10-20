@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- SISTEMA GLOBAL DE NOTIFICAÇÕES (TOAST) ---
+    // Mantido apenas para avisos críticos do carrinho (vazio ou redirecionamento)
     const toastContainer = document.getElementById('toast-container');
     window.showToast = function(message, type = 'success') {
         if(!toastContainer) return; 
@@ -208,10 +209,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 saveAndRenderCart();
                 
-                if (!cartSidebar.classList.contains('open')) {
-                    showToast(`${name} adicionado ao carrinho!`, 'success');
-                }
-                
                 e.target.style.background = '#2ecc71'; 
                 e.target.style.borderColor = '#2ecc71'; 
                 e.target.style.color = '#fff';
@@ -339,12 +336,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Inicializa os cards estáticos do HTML
     initCarousel();
 
     if (reviewForm) {
         reviewForm.addEventListener('submit', (e) => {
             e.preventDefault(); 
+            const submitBtn = reviewForm.querySelector('button[type="submit"]');
+            const originalBtnText = "Enviar Avaliação";
+            
             const nameElement = document.getElementById('rev-name');
             const textElement = document.getElementById('rev-text');
             
@@ -353,10 +352,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const estrelas = ratingHidden ? parseInt(ratingHidden.value) : 5;
 
             if (!mensagem) {
-                return showToast('Por favor, escreva sua avaliação antes de enviar.', 'warning');
+                submitBtn.textContent = 'Escreva uma mensagem';
+                submitBtn.style.background = '#e74c3c';
+                submitBtn.style.borderColor = '#e74c3c';
+                setTimeout(() => { 
+                    submitBtn.textContent = originalBtnText; 
+                    submitBtn.style.background = ''; 
+                    submitBtn.style.borderColor = ''; 
+                }, 2000);
+                return;
             }
 
-            showToast('Enviando seu depoimento, aguarde...', 'warning');
+            // Estado de carregamento (escuro)
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando...';
+            submitBtn.style.background = 'var(--color-brown-dark)';
+            submitBtn.style.borderColor = 'var(--color-brown-dark)';
+            submitBtn.style.opacity = '0.8';
+            submitBtn.style.cursor = 'not-allowed';
 
             const corpoDoDepoimento = `
 Estrelas: ${estrelas} de 5
@@ -388,11 +401,38 @@ Avaliação de: ${nome}
                 if (ratingHidden) ratingHidden.value = 5;
                 if (starInput) starInput.querySelectorAll('span').forEach(s => s.style.color = '#f4b63f');
                 
-                showToast('Seu depoimento foi enviado com sucesso!', 'success');
+                // Estado de sucesso (verde)
+                submitBtn.textContent = 'Enviado com sucesso!';
+                submitBtn.style.background = '#2ecc71';
+                submitBtn.style.borderColor = '#2ecc71';
+                submitBtn.style.color = '#fff';
+                submitBtn.style.opacity = '1';
+                
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.style.background = '';
+                    submitBtn.style.borderColor = '';
+                    submitBtn.style.color = '';
+                    submitBtn.style.cursor = 'pointer';
+                }, 3000);
             })
             .catch(error => {
                 console.error("Erro no envio do depoimento:", error);
-                showToast('Houve um erro no envio. Tente novamente mais tarde.', 'error');
+                
+                // Estado de erro (vermelho)
+                submitBtn.textContent = 'Erro ao enviar';
+                submitBtn.style.background = '#e74c3c';
+                submitBtn.style.borderColor = '#e74c3c';
+                submitBtn.style.opacity = '1';
+                
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.style.background = '';
+                    submitBtn.style.borderColor = '';
+                    submitBtn.style.cursor = 'pointer';
+                }, 3000);
             });
         });
     }
@@ -405,6 +445,8 @@ Avaliação de: ${nome}
     if(contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault(); 
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalBtnText = "Enviar Mensagem";
             
             const nome = document.getElementById('contato-nome').value.trim();
             const email = document.getElementById('contato-email').value.trim();
@@ -413,14 +455,36 @@ Avaliação de: ${nome}
             const mensagem = document.getElementById('contato-mensagem').value.trim();
 
             if(!nome || !email || !assuntoElement.value || !mensagem) {
-                return showToast('Preencha todos os campos obrigatórios.', 'warning');
+                submitBtn.textContent = 'Preencha os campos obrigatórios';
+                submitBtn.style.background = '#e74c3c';
+                submitBtn.style.borderColor = '#e74c3c';
+                setTimeout(() => { 
+                    submitBtn.textContent = originalBtnText; 
+                    submitBtn.style.background = ''; 
+                    submitBtn.style.borderColor = ''; 
+                }, 2000);
+                return;
             }
             
             if(!email.includes('@') || !email.includes('.')) {
-                return showToast('O e-mail informado não parece ser válido.', 'error');
+                submitBtn.textContent = 'E-mail inválido';
+                submitBtn.style.background = '#e74c3c';
+                submitBtn.style.borderColor = '#e74c3c';
+                setTimeout(() => { 
+                    submitBtn.textContent = originalBtnText; 
+                    submitBtn.style.background = ''; 
+                    submitBtn.style.borderColor = ''; 
+                }, 2000);
+                return;
             }
 
-            showToast('Enviando mensagem, aguarde...', 'warning');
+            // Estado de carregamento (escuro)
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando...';
+            submitBtn.style.background = 'var(--color-brown-dark)';
+            submitBtn.style.borderColor = 'var(--color-brown-dark)';
+            submitBtn.style.opacity = '0.8';
+            submitBtn.style.cursor = 'not-allowed';
 
             const corpoDoEmail = `
 Mensagem:
@@ -449,11 +513,39 @@ E-mail de Contato: ${email}
             .then(response => response.json())
             .then(data => {
                 contactForm.reset(); 
-                showToast(`Obrigado ${nome}! Sua mensagem foi enviada com sucesso.`, 'success');
+                
+                // Estado de sucesso (verde)
+                submitBtn.textContent = 'Mensagem enviada com sucesso!';
+                submitBtn.style.background = '#2ecc71';
+                submitBtn.style.borderColor = '#2ecc71';
+                submitBtn.style.color = '#fff';
+                submitBtn.style.opacity = '1';
+                
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.style.background = '';
+                    submitBtn.style.borderColor = '';
+                    submitBtn.style.color = '';
+                    submitBtn.style.cursor = 'pointer';
+                }, 3000);
             })
             .catch(error => {
                 console.error("Erro no envio:", error);
-                showToast('Houve um erro na comunicação com o servidor. Tente novamente mais tarde.', 'error');
+                
+                // Estado de erro (vermelho)
+                submitBtn.textContent = 'Erro ao enviar';
+                submitBtn.style.background = '#e74c3c';
+                submitBtn.style.borderColor = '#e74c3c';
+                submitBtn.style.opacity = '1';
+                
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.style.background = '';
+                    submitBtn.style.borderColor = '';
+                    submitBtn.style.cursor = 'pointer';
+                }, 3000);
             });
         });
     }
