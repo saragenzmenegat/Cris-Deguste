@@ -196,7 +196,7 @@ button,
 }
 
 .header-logo-img {
-    height: 45px;
+    height: 60px;
     width: auto;
     object-fit: contain;
 }
@@ -1093,8 +1093,8 @@ button,
 }
 
 .footer-logo img {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     object-fit: contain;
     background-color: transparent;
 }
