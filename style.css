@@ -371,6 +371,16 @@ button,
 .valor-card {
     margin: 0;
     width: calc(25% - 15px);
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    padding: 10px;
+}
+
+.valor-icon {
+    font-size: 3rem;
+    color: var(--color-brown);
+    margin-bottom: 10px;
 }
 
 .cat-card.cream {
