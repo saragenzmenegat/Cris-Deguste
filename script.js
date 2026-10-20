@@ -265,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 totalPedido += subtotalItem; 
             });
             
-            textoPedido += `\n*Total estimado: R$ ${totalPedido.toFixed(2).replace('.', ',')}*\n\nComo podemos prosseguir com o pagamento e a entrega?`;
+            textoPedido += `\n*Total estimado: R$ ${totalPedido.toFixed(2).replace('.', ',')}*`;
             window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(textoPedido)}`, '_blank');
             
             const btnOriginalText = btnFinalizarPedido.textContent;

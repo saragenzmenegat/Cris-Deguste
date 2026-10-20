@@ -403,7 +403,7 @@ button,
 .valor-icon {
     height: 80px;
     width: 80px;
-    background-color: #fff;
+    background-color: var(--color-pink);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -415,7 +415,7 @@ button,
 .valor-icon img {
     width: 45px;
     height: 45px;
-    object-fit: contain;
+    object-fit: contain;   
 }
 
 .cat-card.cream {
