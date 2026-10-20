@@ -16,8 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if(!toastContainer) return; 
         const toast = document.createElement('div');
         toast.classList.add('toast', `toast-${type}`); 
-        const icone = type === 'success' ? '✅' : (type === 'warning' ? '⚠️' : '❌');
-        toast.innerHTML = `<span>${icone}</span><p>${message}</p>`;
+        
+        // NOTA PEDAGÓGICA: Emojis removidos para garantir um visual mais profissional e clean.
+        // A diferenciação de sucesso/erro agora é feita puramente pela cor da borda via CSS.
+        toast.innerHTML = `<p>${message}</p>`;
+        
         toastContainer.appendChild(toast);
         setTimeout(() => toast.classList.add('show'), 100);
         setTimeout(() => {
@@ -100,7 +103,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let cart = JSON.parse(localStorage.getItem('cris_cart')) || [];
 
     if(btnHeaderCart && cartSidebar && closeCartBtn) {
-        btnHeaderCart.addEventListener('click', () => cartSidebar.classList.add('open'));
+        btnHeaderCart.addEventListener('click', () => {
+            cartSidebar.classList.add('open');
+            // Remove instantaneamente todos os pop-ups (toasts) que estiverem na tela
+            // Isso evita que o aviso sobreponha a visão do carrinho aberto
+            if(toastContainer) {
+                toastContainer.innerHTML = '';
+            }
+        });
         closeCartBtn.addEventListener('click', () => cartSidebar.classList.remove('open'));
     }
 
@@ -148,9 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (cart[index].quantity > 1) {
                     cart[index].quantity -= 1;
                 } else {
-                    cart.splice(index, 1);
+                    cart.splice(index, 1); 
                 }
-                saveAndRenderCart();
+                saveAndRenderCart(); 
             });
         });
 
@@ -159,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('click', (e) => {
                 const index = e.target.getAttribute('data-index');
                 cart[index].quantity += 1;
-                saveAndRenderCart();
+                saveAndRenderCart(); 
             });
         });
 
@@ -167,10 +177,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.btn-remove-item').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const indexToRemove = e.target.getAttribute('data-index');
-                const itemName = cart[indexToRemove].name;
                 cart.splice(indexToRemove, 1); 
-                saveAndRenderCart();
-                showToast(`${itemName} removido do carrinho.`, 'warning');
+                saveAndRenderCart(); 
             });
         });
     }
@@ -193,15 +201,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 saveAndRenderCart();
-                showToast(`${name} adicionado ao carrinho!`);
                 
-                const originalText = e.target.textContent;
-                e.target.textContent = '✔'; 
+                // Dispara o Toast apenas se o carrinho lateral NÃO estiver aberto.
+                if (!cartSidebar.classList.contains('open')) {
+                    showToast(`${name} adicionado ao carrinho!`, 'success');
+                }
+                
+                // NOTA PEDAGÓGICA: Mantemos apenas a alteração de cor como feedback interativo,
+                // sem a substituição por emoji, preservando o aspecto elegante da UI.
                 e.target.style.background = '#2ecc71'; 
                 e.target.style.borderColor = '#2ecc71'; 
                 e.target.style.color = '#fff';
+                
                 setTimeout(() => { 
-                    e.target.textContent = originalText; 
                     e.target.style.background = ''; 
                     e.target.style.borderColor = ''; 
                     e.target.style.color = ''; 
@@ -213,6 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnFinalizarPedido) {
         btnFinalizarPedido.addEventListener('click', () => {
             if (cart.length === 0) return showToast('Seu carrinho está vazio!', 'error');
+            
             const numeroWhatsApp = "5511970924433"; 
             let textoPedido = "Olá Cris Deguste! Gostaria de fazer o seguinte pedido:\n\n";
             let totalPedido = 0;
@@ -225,6 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             textoPedido += `\n*Total estimado: R$ ${totalPedido.toFixed(2).replace('.', ',')}*\n\nComo podemos prosseguir com o pagamento e a entrega?`;
             window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(textoPedido)}`, '_blank');
+            
             showToast('Redirecionando para o WhatsApp...', 'success');
             
             cart = []; 
