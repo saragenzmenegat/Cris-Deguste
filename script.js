@@ -1,3 +1,4 @@
+// script.js
 document.addEventListener('DOMContentLoaded', () => {
     
     // --- CHAVE GLOBAL WEB3FORMS ---
@@ -14,14 +15,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- SISTEMA GLOBAL DE NOTIFICAÇÕES (TOAST) ---
+    // [REFATORAÇÃO - UX LIMPA] Uso de SVGs injetados via string ao invés de emojis
     const toastContainer = document.getElementById('toast-container');
+    
+    const getToastIcon = (type) => {
+        if (type === 'success') {
+            return `<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+        }
+        if (type === 'warning') {
+            return `<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`;
+        }
+        return `<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>`;
+    };
+
     window.showToast = function(message, type = 'success') {
         if(!toastContainer) return; 
         const toast = document.createElement('div');
         toast.classList.add('toast', `toast-${type}`); 
-        const icone = type === 'success' ? '✅' : (type === 'warning' ? '⚠️' : '❌');
-        toast.innerHTML = `<span>${icone}</span><p>${message}</p>`;
+        toast.innerHTML = `<span style="display: flex; align-items: center;">${getToastIcon(type)}</span><p>${message}</p>`;
         toastContainer.appendChild(toast);
+        
         setTimeout(() => toast.classList.add('show'), 100);
         setTimeout(() => {
             toast.classList.remove('show');
@@ -58,10 +71,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- LÓGICA DO MODO ESCURO ---
     const btnTema = document.getElementById('btn-tema');
+    
+    // [REFATORAÇÃO - UX LIMPA] SVG Icons no lugar dos emojis "☀️" e "🌙"
+    const iconSun = `<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+    const iconMoon = `<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+
     if (btnTema) {
         const aplicarTema = (escuro) => {
             document.body.classList.toggle('modo-escuro', escuro);
-            btnTema.textContent = escuro ? '☀️' : '🌙';
+            btnTema.innerHTML = escuro ? iconSun : iconMoon;
             localStorage.setItem('cris-tema', escuro ? 'escuro' : 'claro');
         };
         aplicarTema(localStorage.getItem('cris-tema') === 'escuro');
@@ -119,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnHeaderCart.addEventListener('click', () => {
             cartSidebar.classList.add('open');
             if(toastContainer) {
-                toastContainer.innerHTML = '';
+                toastContainer.innerHTML = ''; // Limpa toasts se o carrinho é aberto
             }
         });
         closeCartBtn.addEventListener('click', () => cartSidebar.classList.remove('open'));
@@ -216,6 +234,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     e.target.style.borderColor = ''; 
                     e.target.style.color = ''; 
                 }, 1000);
+
+                // [REFATORAÇÃO] Restringindo toast apenas a adição com carrinho fechado
+                if (!cartSidebar.classList.contains('open')) {
+                    showToast(`${name} adicionado ao carrinho`, 'success');
+                }
             });
         });
     }
@@ -237,11 +260,21 @@ document.addEventListener('DOMContentLoaded', () => {
             textoPedido += `\n*Total estimado: R$ ${totalPedido.toFixed(2).replace('.', ',')}*\n\nComo podemos prosseguir com o pagamento e a entrega?`;
             window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(textoPedido)}`, '_blank');
             
-            showToast('Redirecionando para o WhatsApp...', 'success');
+            // [REFATORAÇÃO] Removido uso indevido do Toast. Feedback alocado ao estado do botão.
+            const btnOriginalText = btnFinalizarPedido.textContent;
+            btnFinalizarPedido.textContent = 'Redirecionando...';
+            btnFinalizarPedido.style.opacity = '0.7';
+            btnFinalizarPedido.style.cursor = 'wait';
             
-            cart = []; 
-            saveAndRenderCart(); 
-            setTimeout(() => cartSidebar.classList.remove('open'), 1500);
+            setTimeout(() => {
+                cart = []; 
+                saveAndRenderCart(); 
+                cartSidebar.classList.remove('open');
+                
+                btnFinalizarPedido.textContent = btnOriginalText;
+                btnFinalizarPedido.style.opacity = '1';
+                btnFinalizarPedido.style.cursor = 'pointer';
+            }, 1500);
         });
     }
 

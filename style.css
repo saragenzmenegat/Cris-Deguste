@@ -1,3 +1,4 @@
+/* style.css */
 /* ==========================================================================
    CONFIGURAÇÕES GERAIS E VARIÁVEIS
    ========================================================================== */
@@ -13,7 +14,7 @@
 }
 
 /* ==========================================================================
-   RESET DE CSS
+   RESET DE CSS E AJUSTES DE SVGS NATIVOS DA UI
    ========================================================================== */
 * {
     margin: 0;
@@ -235,8 +236,6 @@ button,
     border: 2px solid var(--color-cream);
     border-radius: 50%;
     color: var(--color-cream);
-    font-size: 1.1rem;
-    line-height: 1;
 }
 
 .btn-tema:hover {
@@ -246,7 +245,6 @@ button,
 .btn-header-cart {
     background: transparent;
     border: none;
-    font-size: 2.2rem;
     color: var(--color-cream);
     cursor: pointer;
     position: relative;
@@ -1181,7 +1179,7 @@ button,
 }
 
 /* ==========================================================================
-   MODO ESCURO (DARK MODE)
+   MODO ESCURO (DARK MODE) E AJUSTES DE SVGS
    ========================================================================== */
 body.modo-escuro {
     background-color: #1e1410;
@@ -1347,7 +1345,6 @@ body.modo-escuro {
 /* ==========================================================================
    MEDIA QUERIES (DESIGN RESPONSIVO)
    ========================================================================== */
-
 @media (max-width: 1024px) {
     .valor-card {
         margin: 0;
