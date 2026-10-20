@@ -13,7 +13,7 @@
 }
 
 /* ==========================================================================
-   RESET DE CSS (Corrigido o seletor universal)
+   RESET DE CSS
    ========================================================================== */
 * {
     margin: 0;
@@ -357,11 +357,22 @@ button,
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 280px;
     text-align: center;
     gap: 15px;
     background: #fff;
     box-shadow: 0 4px 10px rgba(92, 53, 34, 0.15);
+}
+
+.cat-card,
+.membro-card {
+    width: 280px;
+}
+
+/* NOTA PEDAGÓGICA: margin: 0 neutraliza o margin da box-model-target.
+   O cálculo garante perfeitamente 4 itens na linha descontando os gaps */
+.valor-card {
+    margin: 0;
+    width: calc(25% - 15px);
 }
 
 .cat-card.cream {
@@ -496,10 +507,22 @@ button,
     flex-wrap: wrap;
 }
 
-.img-container,
+/* NOTA PEDAGÓGICA: O flex: 0 0 auto impede que a caixa estique e fique maior que a imagem. */
+.img-container {
+    flex: 0 0 auto;
+    min-width: 300px;
+}
+
 .text-container {
     flex: 1;
     min-width: 300px;
+}
+
+.img-container img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
 }
 
 .text-container ul li {
@@ -777,7 +800,6 @@ button,
     color: var(--color-brown-dark);
 }
 
-/* Controles de quantidade e exclusão na linha do carrinho */
 .cart-item-actions {
     display: flex;
     align-items: center;
@@ -1195,6 +1217,15 @@ body.modo-escuro {
 /* ==========================================================================
    MEDIA QUERIES (DESIGN RESPONSIVO)
    ========================================================================== */
+
+/* Tablet: Força exatamente 2 itens de Valores por linha (2 em cima e 2 embaixo) */
+@media (max-width: 1024px) {
+    .valor-card {
+        margin: 0;
+        width: calc(50% - 10px);
+    }
+}
+
 @media (max-width: 900px) {
     .menu-icon {
         display: block;
@@ -1276,5 +1307,13 @@ body.modo-escuro {
     
     .review-card {
         width: 260px;
+    }
+}
+
+/* Mobile: Força exatamente 1 item de Valores por linha (um embaixo do outro) */
+@media (max-width: 600px) {
+    .valor-card {
+        margin: 0;
+        width: 100%;
     }
 }
