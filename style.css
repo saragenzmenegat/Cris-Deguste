@@ -1114,14 +1114,14 @@ button,
 .icon-whatsapp {
     width: 32px;
     height: 32px;
-    color: var(--color-pink);
+    color: var(white);
     flex-shrink: 0;
 }
 
 .icon-instagram {
     width: 32px;
     height: 32px;
-    color: #ffffff;
+    color: var(white);
     background-color: transparent;
     flex-shrink: 0;
 }

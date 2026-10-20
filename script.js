@@ -14,15 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- SISTEMA GLOBAL DE NOTIFICAÇÕES (TOAST) ---
-    // Mantido apenas para avisos críticos do carrinho (vazio ou redirecionamento)
     const toastContainer = document.getElementById('toast-container');
     window.showToast = function(message, type = 'success') {
         if(!toastContainer) return; 
         const toast = document.createElement('div');
         toast.classList.add('toast', `toast-${type}`); 
-        
-        toast.innerHTML = `<p>${message}</p>`;
-        
+        const icone = type === 'success' ? '✅' : (type === 'warning' ? '⚠️' : '❌');
+        toast.innerHTML = `<span>${icone}</span><p>${message}</p>`;
         toastContainer.appendChild(toast);
         setTimeout(() => toast.classList.add('show'), 100);
         setTimeout(() => {
@@ -248,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // SISTEMA DE AVALIAÇÕES (MURAL COM CARROSSEL 3D) E ENVIO POR E-MAIL
+    // SISTEMA DE AVALIAÇÕES (MURAL COM CARROSSEL 3D)
     // ==========================================================================
     const reviewForm = document.getElementById('review-form');
     const starInput = document.getElementById('star-rating-input');
@@ -335,8 +333,30 @@ document.addEventListener('DOMContentLoaded', () => {
             startAutoPlay();
         });
     }
+
+    function loadReviews() {
+        if(!reviewsList) return;
+        document.querySelectorAll('.dynamic-review').forEach(el => el.remove());
+        let avaliacoes = JSON.parse(localStorage.getItem('avaliacoes_salvas')) || [];
+        
+        avaliacoes.forEach(av => {
+            let starsHTML = '';
+            for(let i=1; i<=5; i++) starsHTML += i <= av.estrelas ? '★' : '☆';
+
+            const card = document.createElement('div');
+            card.classList.add('review-card', 'dynamic-review');
+            card.innerHTML = `
+                <div class="review-stars">${starsHTML}</div>
+                <p class="review-text">"${av.texto}"</p>
+                <p class="review-author">- ${av.nome}</p>
+            `;
+            reviewsList.prepend(card); 
+        });
+
+        initCarousel();
+    }
     
-    initCarousel();
+    loadReviews();
 
     if (reviewForm) {
         reviewForm.addEventListener('submit', (e) => {
@@ -363,7 +383,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Estado de carregamento (escuro)
             submitBtn.disabled = true;
             submitBtn.textContent = 'Enviando...';
             submitBtn.style.background = 'var(--color-brown-dark)';
@@ -388,7 +407,7 @@ Avaliação de: ${nome}
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    access_key: "95490c2d-df73-4547-afd1-dc0bb6117d22",
+                    access_key: WEB3FORMS_KEY,
                     subject: "Novo Depoimento - Cris Deguste",
                     from_name: nome,
                     message: corpoDoDepoimento
@@ -396,12 +415,20 @@ Avaliação de: ${nome}
             })
             .then(response => response.json())
             .then(data => {
+                let avaliacoes = JSON.parse(localStorage.getItem('avaliacoes_salvas')) || [];
+                avaliacoes.push({
+                    id: Date.now(),
+                    nome: nome,
+                    texto: mensagem,
+                    estrelas: estrelas
+                });
+                localStorage.setItem('avaliacoes_salvas', JSON.stringify(avaliacoes));
+
                 reviewForm.reset();
                 currentRating = 5;
                 if (ratingHidden) ratingHidden.value = 5;
                 if (starInput) starInput.querySelectorAll('span').forEach(s => s.style.color = '#f4b63f');
                 
-                // Estado de sucesso (verde)
                 submitBtn.textContent = 'Enviado com sucesso!';
                 submitBtn.style.background = '#2ecc71';
                 submitBtn.style.borderColor = '#2ecc71';
@@ -415,12 +442,15 @@ Avaliação de: ${nome}
                     submitBtn.style.borderColor = '';
                     submitBtn.style.color = '';
                     submitBtn.style.cursor = 'pointer';
+                    
+                    loadReviews(); 
+                    currentReviewIndex = 0; 
+                    updateCarousel();
                 }, 3000);
             })
             .catch(error => {
                 console.error("Erro no envio do depoimento:", error);
                 
-                // Estado de erro (vermelho)
                 submitBtn.textContent = 'Erro ao enviar';
                 submitBtn.style.background = '#e74c3c';
                 submitBtn.style.borderColor = '#e74c3c';
@@ -478,7 +508,6 @@ Avaliação de: ${nome}
                 return;
             }
 
-            // Estado de carregamento (escuro)
             submitBtn.disabled = true;
             submitBtn.textContent = 'Enviando...';
             submitBtn.style.background = 'var(--color-brown-dark)';
@@ -503,7 +532,7 @@ E-mail de Contato: ${email}
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    access_key: "95490c2d-df73-4547-afd1-dc0bb6117d22",
+                    access_key: WEB3FORMS_KEY,
                     subject: `Cris Deguste: ${assunto}`,
                     from_name: nome,
                     replyto: email, 
@@ -514,7 +543,6 @@ E-mail de Contato: ${email}
             .then(data => {
                 contactForm.reset(); 
                 
-                // Estado de sucesso (verde)
                 submitBtn.textContent = 'Mensagem enviada com sucesso!';
                 submitBtn.style.background = '#2ecc71';
                 submitBtn.style.borderColor = '#2ecc71';
@@ -533,7 +561,6 @@ E-mail de Contato: ${email}
             .catch(error => {
                 console.error("Erro no envio:", error);
                 
-                // Estado de erro (vermelho)
                 submitBtn.textContent = 'Erro ao enviar';
                 submitBtn.style.background = '#e74c3c';
                 submitBtn.style.borderColor = '#e74c3c';
