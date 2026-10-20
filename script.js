@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+    // --- CHAVE GLOBAL WEB3FORMS ---
+    const WEB3FORMS_KEY = "95490c2d-df73-4547-afd1-dc0bb6117d22";
+
     // --- LÓGICA DO MENU MOBILE ---
     const menuIcon = document.getElementById('menu-icon');
     const navbar = document.querySelector('.navbar');
@@ -248,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // SISTEMA DE AVALIAÇÕES (MURAL COM CARROSSEL 3D)
+    // SISTEMA DE AVALIAÇÕES (MURAL COM CARROSSEL 3D) E ENVIO POR E-MAIL
     // ==========================================================================
     const reviewForm = document.getElementById('review-form');
     const starInput = document.getElementById('star-rating-input');
@@ -335,30 +338,9 @@ document.addEventListener('DOMContentLoaded', () => {
             startAutoPlay();
         });
     }
-
-    function loadReviews() {
-        if(!reviewsList) return;
-        document.querySelectorAll('.dynamic-review').forEach(el => el.remove());
-        let avaliacoes = JSON.parse(localStorage.getItem('avaliacoes_salvas')) || [];
-        
-        avaliacoes.forEach(av => {
-            let starsHTML = '';
-            for(let i=1; i<=5; i++) starsHTML += i <= av.estrelas ? '★' : '☆';
-
-            const card = document.createElement('div');
-            card.classList.add('review-card', 'dynamic-review');
-            card.innerHTML = `
-                <div class="review-stars">${starsHTML}</div>
-                <p class="review-text">"${av.texto}"</p>
-                <p class="review-author">- ${av.nome}</p>
-            `;
-            reviewsList.prepend(card); 
-        });
-
-        initCarousel();
-    }
     
-    loadReviews();
+    // Inicializa os cards estáticos do HTML
+    initCarousel();
 
     if (reviewForm) {
         reviewForm.addEventListener('submit', (e) => {
@@ -366,27 +348,52 @@ document.addEventListener('DOMContentLoaded', () => {
             const nameElement = document.getElementById('rev-name');
             const textElement = document.getElementById('rev-text');
             
-            const novaAvaliacao = {
-                id: Date.now(),
-                nome: nameElement ? nameElement.value.trim() : 'Anônimo',
-                texto: textElement ? textElement.value.trim() : '',
-                estrelas: ratingHidden ? parseInt(ratingHidden.value) : 5,
-            };
+            const nome = nameElement && nameElement.value.trim() !== '' ? nameElement.value.trim() : 'Anônimo';
+            const mensagem = textElement ? textElement.value.trim() : '';
+            const estrelas = ratingHidden ? parseInt(ratingHidden.value) : 5;
 
-            let avaliacoes = JSON.parse(localStorage.getItem('avaliacoes_salvas')) || [];
-            avaliacoes.push(novaAvaliacao);
-            localStorage.setItem('avaliacoes_salvas', JSON.stringify(avaliacoes));
+            if (!mensagem) {
+                return showToast('Por favor, escreva sua avaliação antes de enviar.', 'warning');
+            }
 
-            reviewForm.reset();
-            currentRating = 5;
-            if (ratingHidden) ratingHidden.value = 5;
-            if (starInput) starInput.querySelectorAll('span').forEach(s => s.style.color = '#f4b63f');
-            
-            showToast('Sua avaliação foi publicada no mural!', 'success');
-            
-            loadReviews(); 
-            currentReviewIndex = 0; 
-            updateCarousel();
+            showToast('Enviando seu depoimento, aguarde...', 'warning');
+
+            const corpoDoDepoimento = `
+Estrelas: ${estrelas} de 5
+
+Mensagem:
+${mensagem}
+
+----------------------------------------
+Avaliação de: ${nome}
+            `;
+
+            fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    access_key: "95490c2d-df73-4547-afd1-dc0bb6117d22",
+                    subject: "Novo Depoimento - Cris Deguste",
+                    from_name: nome,
+                    message: corpoDoDepoimento
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                reviewForm.reset();
+                currentRating = 5;
+                if (ratingHidden) ratingHidden.value = 5;
+                if (starInput) starInput.querySelectorAll('span').forEach(s => s.style.color = '#f4b63f');
+                
+                showToast('Seu depoimento foi enviado com sucesso!', 'success');
+            })
+            .catch(error => {
+                console.error("Erro no envio do depoimento:", error);
+                showToast('Houve um erro no envio. Tente novamente mais tarde.', 'error');
+            });
         });
     }
 
@@ -415,8 +422,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             showToast('Enviando mensagem, aguarde...', 'warning');
 
-            const web3formsAccessKey = "c7a8b00c-5f70-475c-bacd-7decf2ed036d"; 
-
             const corpoDoEmail = `
 Mensagem:
 ${mensagem}
@@ -434,7 +439,7 @@ E-mail de Contato: ${email}
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    access_key: web3formsAccessKey,
+                    access_key: "95490c2d-df73-4547-afd1-dc0bb6117d22",
                     subject: `Cris Deguste: ${assunto}`,
                     from_name: nome,
                     replyto: email, 
