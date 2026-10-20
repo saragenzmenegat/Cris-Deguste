@@ -482,6 +482,8 @@ button,
 }
 
 .menu-item {
+    position: relative;
+    overflow: hidden;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -491,6 +493,33 @@ button,
     text-align: left;
     gap: 15px;
     flex-wrap: nowrap;
+}
+
+/* [REFATORAÇÃO] Ajuste de offset (-1px) para sobrepor a borda do pai e seguir o raio de curvatura, removendo a linha bege */
+.diet-badge {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 65px;
+    height: 65px;
+    background-color: #6ab04c;
+    color: #fff;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    z-index: 5;
+    border-top-left-radius: 14px;
+}
+
+.diet-badge span {
+    transform: rotate(-45deg);
+    transform-origin: 0 0;
+    margin-top: 27px;
+    margin-left: 5px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 .menu-item-img {
@@ -576,7 +605,7 @@ button,
 
 .img-container {
     flex: 0 0 auto;
-    min-width: 300px;
+    width: 350px;
 }
 
 .text-container {

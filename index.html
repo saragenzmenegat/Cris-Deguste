@@ -14,7 +14,6 @@
             <a href="#inicio" class="logo">
                 <img src="Imagens/Logo_nome.png" alt="Cris Deguste" class="header-logo-img">
             </a>
-            <!-- [REFATORAÇÃO] Ícone será injetado dinamicamente via JS (removido emoji nativo) -->
             <button class="btn-tema" id="btn-tema" aria-label="Alternar modo escuro"></button>
         </div>
         
@@ -32,7 +31,6 @@
         
         <div class="header-acoes">
             <button class="btn-header-cart" id="btn-header-cart" aria-label="Abrir carrinho">
-                <!-- [REFATORAÇÃO] Substituição do emoji 🛒 por um SVG semântico -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="9" cy="21" r="1"></circle>
                     <circle cx="20" cy="21" r="1"></circle>
@@ -79,7 +77,7 @@
                 <h3>Inclusivos</h3>
                 <p>Doces adaptados para restrições alimentares sem perder o sabor.</p>
                 <a href="#cardapio-detalhado" class="btn-outline-light btn-small cat-link" data-target-filter="inclusivo">Ver Opções</a>
-                <img src="" alt="Doces Zero">
+                <img src="Imagens/Caseirinho_Fuba.jpeg" alt="Doces Zero">
             </div>
             <div class="cat-card box-model-target">
                 <h3>Favoritos</h3>
@@ -101,14 +99,15 @@
         <p class="desc">Confira nossas opções e adicione ao seu carrinho!</p>
         
         <div class="filter-controls">
-            <button class="filter-btn active" data-filter="all">Todos</button>
-            <button class="filter-btn" data-filter="favorito">Favoritos</button>
+            <button class="filter-btn active" data-filter="favorito">Favoritos</button>
             <button class="filter-btn" data-filter="tradicional">Tradicionais</button>
             <button class="filter-btn" data-filter="inclusivo">Inclusivos</button>
         </div>
 
         <div class="menu-grid">
-            <div class="menu-item box-model-target" data-category="favorito">
+            <!-- [REFATORAÇÃO] Múltiplas categorias adicionadas separadas por espaço -->
+            <!-- ITEM 1: TRADICIONAL / FAVORITO -->
+            <div class="menu-item box-model-target" data-category="tradicional favorito">
                 <div class="menu-item-img">
                     <img src="Imagens/Fatia_Bolo.jpeg" alt="Fatia de Bolo Recheada">
                 </div>
@@ -123,6 +122,24 @@
                 </div>
             </div>
 
+            <!-- ITEM 1: DIET / FAVORITO -->
+            <div class="menu-item box-model-target" data-category="inclusivo favorito">
+                <div class="diet-badge"><span>DIET</span></div>
+                <div class="menu-item-img">
+                    <img src="Imagens/Fatia_Bolo.jpeg" alt="Fatia de Bolo Recheada (Diet)">
+                </div>
+                <div class="menu-item-info">
+                    <h4>Fatia de Bolo Recheada (Diet)</h4>
+                    <p>Fatia deliciosa de bolo com recheio farto (aprox. 120g). Zero Açúcar.</p>
+                </div>
+                <div class="menu-item-action">
+                    <span class="menu-item-price">R$ 18,50</span>
+                    <span class="cart-label">Comprar</span>
+                    <button class="btn-primary btn-add-cart btn-plus" data-name="Fatia de Bolo Recheada (Diet)" data-price="18.50">+</button>
+                </div>
+            </div>
+
+            <!-- ITEM 2: TRADICIONAL -->
             <div class="menu-item box-model-target" data-category="tradicional">
                 <div class="menu-item-img">
                     <img src="Imagens/Caseirinho_Fuba.jpeg" alt="Caseirinho de Fubá com Coco">
@@ -138,7 +155,25 @@
                 </div>
             </div>
 
-            <div class="menu-item box-model-target" data-category="favorito">
+            <!-- ITEM 2: DIET -->
+            <div class="menu-item box-model-target" data-category="inclusivo">
+                <div class="diet-badge"><span>DIET</span></div>
+                <div class="menu-item-img">
+                    <img src="Imagens/Caseirinho_Fuba.jpeg" alt="Caseirinho de Fubá com Coco (Diet)">
+                </div>
+                <div class="menu-item-info">
+                    <h4>Caseirinho Fubá c/ Coco (Diet)</h4>
+                    <p>O clássico com gostinho de infância. Serve até 18 fatias. Zero Açúcar.</p>
+                </div>
+                <div class="menu-item-action">
+                    <span class="menu-item-price">R$ 40,00</span>
+                    <span class="cart-label">Comprar</span>
+                    <button class="btn-primary btn-add-cart btn-plus" data-name="Caseirinho Fubá c/ Coco (Diet)" data-price="40.00">+</button>
+                </div>
+            </div>
+
+            <!-- ITEM 3: TRADICIONAL / FAVORITO -->
+            <div class="menu-item box-model-target" data-category="tradicional favorito">
                 <div class="menu-item-img">
                     <img src="Imagens/Caseirinho_Duo_Chocolate.jpeg" alt="Caseirinho Duo Chocolate e Coco">
                 </div>
@@ -153,6 +188,24 @@
                 </div>
             </div>
 
+            <!-- ITEM 3: DIET / FAVORITO -->
+            <div class="menu-item box-model-target" data-category="inclusivo favorito">
+                <div class="diet-badge"><span>DIET</span></div>
+                <div class="menu-item-img">
+                    <img src="Imagens/Caseirinho_Duo_Chocolate.jpeg" alt="Caseirinho Duo Chocolate e Coco (Diet)">
+                </div>
+                <div class="menu-item-info">
+                    <h4>Caseirinho Duo Choco e Coco (Diet)</h4>
+                    <p>A combinação perfeita de sabores. Serve até 18 fatias. Zero Açúcar.</p>
+                </div>
+                <div class="menu-item-action">
+                    <span class="menu-item-price">R$ 55,00</span>
+                    <span class="cart-label">Comprar</span>
+                    <button class="btn-primary btn-add-cart btn-plus" data-name="Caseirinho Duo Choco e Coco (Diet)" data-price="55.00">+</button>
+                </div>
+            </div>
+
+            <!-- ITEM 4: TRADICIONAL -->
             <div class="menu-item box-model-target" data-category="tradicional">
                 <div class="menu-item-img">
                     <img src="Imagens/Caseirinho_Brigadeiro.jpeg" alt="Caseirinho de Brigadeiro">
@@ -168,6 +221,24 @@
                 </div>
             </div>
 
+            <!-- ITEM 4: DIET -->
+            <div class="menu-item box-model-target" data-category="inclusivo">
+                <div class="diet-badge"><span>DIET</span></div>
+                <div class="menu-item-img">
+                    <img src="Imagens/Caseirinho_Brigadeiro.jpeg" alt="Caseirinho de Brigadeiro (Diet)">
+                </div>
+                <div class="menu-item-info">
+                    <h4>Caseirinho de Brigadeiro (Diet)</h4>
+                    <p>Massa macia com cobertura de brigadeiro. Serve até 18 fatias. Zero Açúcar.</p>
+                </div>
+                <div class="menu-item-action">
+                    <span class="menu-item-price">R$ 49,50</span>
+                    <span class="cart-label">Comprar</span>
+                    <button class="btn-primary btn-add-cart btn-plus" data-name="Caseirinho de Brigadeiro (Diet)" data-price="49.50">+</button>
+                </div>
+            </div>
+
+            <!-- ITEM 5: TRADICIONAL -->
             <div class="menu-item box-model-target" data-category="tradicional">
                 <div class="menu-item-img">
                     <img src="Imagens/Fatias_Bolo_Recheado.jpeg" alt="Caseirinho Tradicional (Sem Cobertura)">
@@ -183,6 +254,24 @@
                 </div>
             </div>
 
+            <!-- ITEM 5: DIET -->
+            <div class="menu-item box-model-target" data-category="inclusivo">
+                <div class="diet-badge"><span>DIET</span></div>
+                <div class="menu-item-img">
+                    <img src="Imagens/Fatias_Bolo_Recheado.jpeg" alt="Caseirinho Tradicional (Sem Cobertura) (Diet)">
+                </div>
+                <div class="menu-item-info">
+                    <h4>Caseirinho Sem Cobertura (Diet)</h4>
+                    <p>Massa simples e fofinha para acompanhar o café. Serve até 18 fatias. Zero Açúcar.</p>
+                </div>
+                <div class="menu-item-action">
+                    <span class="menu-item-price">R$ 40,00</span>
+                    <span class="cart-label">Comprar</span>
+                    <button class="btn-primary btn-add-cart btn-plus" data-name="Caseirinho Sem Cobertura (Diet)" data-price="40.00">+</button>
+                </div>
+            </div>
+
+            <!-- ITEM 6: TRADICIONAL -->
             <div class="menu-item box-model-target" data-category="tradicional">
                 <div class="menu-item-img">
                     <img src="Imagens/Bolo_Recheado.jpeg" alt="Caseirinho Tradicional (Com Cobertura)">
@@ -198,7 +287,25 @@
                 </div>
             </div>
 
-            <div class="menu-item box-model-target" data-category="favorito">
+            <!-- ITEM 6: DIET -->
+            <div class="menu-item box-model-target" data-category="inclusivo">
+                <div class="diet-badge"><span>DIET</span></div>
+                <div class="menu-item-img">
+                    <img src="Imagens/Bolo_Recheado.jpeg" alt="Caseirinho Tradicional (Com Cobertura) (Diet)">
+                </div>
+                <div class="menu-item-info">
+                    <h4>Caseirinho Com Cobertura (Diet)</h4>
+                    <p>O tradicional caseirinho fofinho com a cobertura da sua escolha. Serve até 18 fatias. Zero Açúcar.</p>
+                </div>
+                <div class="menu-item-action">
+                    <span class="menu-item-price">R$ 49,50</span>
+                    <span class="cart-label">Comprar</span>
+                    <button class="btn-primary btn-add-cart btn-plus" data-name="Caseirinho Com Cobertura (Diet)" data-price="49.50">+</button>
+                </div>
+            </div>
+
+            <!-- ITEM 7: TRADICIONAL / FAVORITO -->
+            <div class="menu-item box-model-target" data-category="tradicional favorito">
                 <div class="menu-item-img">
                     <img src="Imagens/Mini_Pudim.jpeg" alt="Mini Pudim com Doce de Leite">
                 </div>
@@ -212,6 +319,23 @@
                     <button class="btn-primary btn-add-cart btn-plus" data-name="Mini Pudim Doce de Leite" data-price="15.50">+</button>
                 </div>
             </div>
+
+            <!-- ITEM 7: DIET / FAVORITO -->
+            <div class="menu-item box-model-target" data-category="inclusivo favorito">
+                <div class="diet-badge"><span>DIET</span></div>
+                <div class="menu-item-img">
+                    <img src="Imagens/Mini_Pudim.jpeg" alt="Mini Pudim com Doce de Leite (Diet)">
+                </div>
+                <div class="menu-item-info">
+                    <h4>Mini Pudim Doce de Leite (Diet)</h4>
+                    <p>A textura cremosa do pudim com um toque especial de doce de leite. Zero Açúcar.</p>
+                </div>
+                <div class="menu-item-action">
+                    <span class="menu-item-price">R$ 15,50</span>
+                    <span class="cart-label">Comprar</span>
+                    <button class="btn-primary btn-add-cart btn-plus" data-name="Mini Pudim Doce de Leite (Diet)" data-price="15.50">+</button>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -223,7 +347,7 @@
 
     <section class="organic feature-split section-cream" id="sobre">
         <div class="img-container box-model-target">
-            <img src="" alt="Mãos preparando massa de bolo">
+            <img src="Imagens/Cris_Bolos.jpeg" alt="Cris segurando dois bolos decorados">
         </div>
         <div class="text-container">
             <p class="subtitle">Tradição</p>

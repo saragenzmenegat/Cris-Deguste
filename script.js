@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- SISTEMA GLOBAL DE NOTIFICAÇÕES (TOAST) ---
-    // [REFATORAÇÃO - UX LIMPA] Uso de SVGs injetados via string ao invés de emojis
     const toastContainer = document.getElementById('toast-container');
     
     const getToastIcon = (type) => {
@@ -72,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- LÓGICA DO MODO ESCURO ---
     const btnTema = document.getElementById('btn-tema');
     
-    // [REFATORAÇÃO - UX LIMPA] SVG Icons no lugar dos emojis "☀️" e "🌙"
     const iconSun = `<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
     const iconMoon = `<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
 
@@ -96,13 +94,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 filterButtons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
                 const targetCategory = button.getAttribute('data-filter');
+                
+                // [REFATORAÇÃO] Utilizamos o método split(' ') para verificar itens que possuem múltiplas categorias, assim itens com data-category="tradicional favorito" exibem em ambos os filtros
                 menuItems.forEach(item => {
-                    const itemCategory = item.getAttribute('data-category') || 'none';
-                    if(targetCategory === 'all' || itemCategory === targetCategory) item.style.display = 'flex';
-                    else item.style.display = 'none';
+                    const itemCategories = (item.getAttribute('data-category') || 'none').split(' ');
+                    
+                    if(targetCategory === 'all' || itemCategories.includes(targetCategory)) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
                 });
             });
         });
+
+        const activeButton = document.querySelector('.filter-btn.active');
+        if (activeButton) {
+            activeButton.click(); 
+        }
     }
 
     // --- LÓGICA DOS LINKS DA SEÇÃO DESCUBRA ---
@@ -137,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnHeaderCart.addEventListener('click', () => {
             cartSidebar.classList.add('open');
             if(toastContainer) {
-                toastContainer.innerHTML = ''; // Limpa toasts se o carrinho é aberto
+                toastContainer.innerHTML = ''; 
             }
         });
         closeCartBtn.addEventListener('click', () => cartSidebar.classList.remove('open'));
@@ -235,7 +244,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     e.target.style.color = ''; 
                 }, 1000);
 
-                // [REFATORAÇÃO] Restringindo toast apenas a adição com carrinho fechado
                 if (!cartSidebar.classList.contains('open')) {
                     showToast(`${name} adicionado ao carrinho`, 'success');
                 }
@@ -260,7 +268,6 @@ document.addEventListener('DOMContentLoaded', () => {
             textoPedido += `\n*Total estimado: R$ ${totalPedido.toFixed(2).replace('.', ',')}*\n\nComo podemos prosseguir com o pagamento e a entrega?`;
             window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(textoPedido)}`, '_blank');
             
-            // [REFATORAÇÃO] Removido uso indevido do Toast. Feedback alocado ao estado do botão.
             const btnOriginalText = btnFinalizarPedido.textContent;
             btnFinalizarPedido.textContent = 'Redirecionando...';
             btnFinalizarPedido.style.opacity = '0.7';
