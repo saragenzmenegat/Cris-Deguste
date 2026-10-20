@@ -105,8 +105,6 @@
         </div>
 
         <div class="menu-grid">
-            <!-- [REFATORAÇÃO] Múltiplas categorias adicionadas separadas por espaço -->
-            <!-- ITEM 1: TRADICIONAL / FAVORITO -->
             <div class="menu-item box-model-target" data-category="tradicional favorito">
                 <div class="menu-item-img">
                     <img src="Imagens/Fatia_Bolo.jpeg" alt="Fatia de Bolo Recheada">
@@ -122,7 +120,6 @@
                 </div>
             </div>
 
-            <!-- ITEM 1: DIET / FAVORITO -->
             <div class="menu-item box-model-target" data-category="inclusivo favorito">
                 <div class="diet-badge"><span>DIET</span></div>
                 <div class="menu-item-img">
@@ -139,7 +136,6 @@
                 </div>
             </div>
 
-            <!-- ITEM 2: TRADICIONAL -->
             <div class="menu-item box-model-target" data-category="tradicional">
                 <div class="menu-item-img">
                     <img src="Imagens/Caseirinho_Fuba.jpeg" alt="Caseirinho de Fubá com Coco">
@@ -155,7 +151,6 @@
                 </div>
             </div>
 
-            <!-- ITEM 2: DIET -->
             <div class="menu-item box-model-target" data-category="inclusivo">
                 <div class="diet-badge"><span>DIET</span></div>
                 <div class="menu-item-img">
@@ -172,7 +167,6 @@
                 </div>
             </div>
 
-            <!-- ITEM 3: TRADICIONAL / FAVORITO -->
             <div class="menu-item box-model-target" data-category="tradicional favorito">
                 <div class="menu-item-img">
                     <img src="Imagens/Caseirinho_Duo_Chocolate.jpeg" alt="Caseirinho Duo Chocolate e Coco">
@@ -188,7 +182,6 @@
                 </div>
             </div>
 
-            <!-- ITEM 3: DIET / FAVORITO -->
             <div class="menu-item box-model-target" data-category="inclusivo favorito">
                 <div class="diet-badge"><span>DIET</span></div>
                 <div class="menu-item-img">
@@ -205,7 +198,6 @@
                 </div>
             </div>
 
-            <!-- ITEM 4: TRADICIONAL -->
             <div class="menu-item box-model-target" data-category="tradicional">
                 <div class="menu-item-img">
                     <img src="Imagens/Caseirinho_Brigadeiro.jpeg" alt="Caseirinho de Brigadeiro">
@@ -221,7 +213,6 @@
                 </div>
             </div>
 
-            <!-- ITEM 4: DIET -->
             <div class="menu-item box-model-target" data-category="inclusivo">
                 <div class="diet-badge"><span>DIET</span></div>
                 <div class="menu-item-img">
@@ -238,7 +229,6 @@
                 </div>
             </div>
 
-            <!-- ITEM 5: TRADICIONAL -->
             <div class="menu-item box-model-target" data-category="tradicional">
                 <div class="menu-item-img">
                     <img src="Imagens/Fatias_Bolo_Recheado.jpeg" alt="Caseirinho Tradicional (Sem Cobertura)">
@@ -254,7 +244,6 @@
                 </div>
             </div>
 
-            <!-- ITEM 5: DIET -->
             <div class="menu-item box-model-target" data-category="inclusivo">
                 <div class="diet-badge"><span>DIET</span></div>
                 <div class="menu-item-img">
@@ -271,7 +260,6 @@
                 </div>
             </div>
 
-            <!-- ITEM 6: TRADICIONAL -->
             <div class="menu-item box-model-target" data-category="tradicional">
                 <div class="menu-item-img">
                     <img src="Imagens/Bolo_Recheado.jpeg" alt="Caseirinho Tradicional (Com Cobertura)">
@@ -287,7 +275,6 @@
                 </div>
             </div>
 
-            <!-- ITEM 6: DIET -->
             <div class="menu-item box-model-target" data-category="inclusivo">
                 <div class="diet-badge"><span>DIET</span></div>
                 <div class="menu-item-img">
@@ -304,7 +291,6 @@
                 </div>
             </div>
 
-            <!-- ITEM 7: TRADICIONAL / FAVORITO -->
             <div class="menu-item box-model-target" data-category="tradicional favorito">
                 <div class="menu-item-img">
                     <img src="Imagens/Mini_Pudim.jpeg" alt="Mini Pudim com Doce de Leite">
@@ -320,7 +306,6 @@
                 </div>
             </div>
 
-            <!-- ITEM 7: DIET / FAVORITO -->
             <div class="menu-item box-model-target" data-category="inclusivo favorito">
                 <div class="diet-badge"><span>DIET</span></div>
                 <div class="menu-item-img">
@@ -488,35 +473,36 @@
             <button class="carousel-btn prev-btn" id="prev-review" aria-label="Avaliação Anterior">&#10094;</button>
             
             <div class="reviews-list" id="reviews-list">
+                <!-- [REFATORAÇÃO] Atualização dos depoimentos e adição de espaços em branco (placeholders) para Sara e Vinícius -->
                 <div class="review-card static-review">
                     <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"Melhor bolo da vida! Encomendei para o aniversário da minha filha e todos amaram. A massa é fofinha e não é enjoativa."</p>
-                    <p class="review-author">- Maria Silva</p>
+                    <p class="review-text">"Cris, teus doces são maravilhosos."</p>
+                    <p class="review-author">- Janaína</p>
                 </div>
                 <div class="review-card static-review">
                     <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"A linha inclusiva salvou minha festa. Minha mãe tem diabetes e pôde comer o bolo inteiro sem culpa. Sabor idêntico ao original!"</p>
-                    <p class="review-author">- Carlos Eduardo</p>
-                </div>
-                <div class="review-card static-review">
-                    <div class="review-stars">★★★★☆</div>
-                    <p class="review-text">"Os docinhos tradicionais são impecáveis. Lembra muito o sabor da minha infância. A entrega atrasou 10 minutinhos, mas valeu a pena."</p>
-                    <p class="review-author">- Fernanda Lima</p>
+                    <p class="review-text">"Nossa Cris, teus doces são maravilhosos."</p>
+                    <p class="review-author">- Jéssica</p>
                 </div>
                 <div class="review-card static-review">
                     <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"A Taça da Felicidade é um espetáculo à parte. Serviu minha família toda no domingo e ainda sobrou. Recomendo a todos!"</p>
-                    <p class="review-author">- Ricardo Gomes</p>
+                    <p class="review-text">"Cris, teus doces me ajudam muito na dieta."</p>
+                    <p class="review-author">- Dani</p>
                 </div>
                 <div class="review-card static-review">
                     <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"Ótimo atendimento desde o orçamento até a entrega. Os bolos decorados são simplesmente lindos, verdadeiras obras de arte."</p>
-                    <p class="review-author">- Juliana Alves</p>
+                    <p class="review-text">"Cris, teus doces mudaram meus parâmetros de doces para melhor."</p>
+                    <p class="review-author">- Camila</p>
                 </div>
                 <div class="review-card static-review">
                     <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"O Red Velvet é divino. Não tem igual na cidade inteira! A cobertura de cream cheese tem o azedinho perfeito."</p>
-                    <p class="review-author">- Amanda Oliveira</p>
+                    <p class="review-text">"..."</p>
+                    <p class="review-author">- Sara</p>
+                </div>
+                <div class="review-card static-review">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"..."</p>
+                    <p class="review-author">- Vinícius</p>
                 </div>
             </div>
 
